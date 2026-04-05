@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>16RAHEEM — The 4th Kind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #07070f; --bg2: #0d0d1a; --bg3: #121224;
+      --accent: #a78bfa; --text: #e2e2f0; --muted: #7878a0;
+      --border: rgba(167,139,250,0.12);
+      --member-color: #c084fc;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Raleway', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    #atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .fragment { position: absolute; left: 0; top: 0; border: 1px solid rgba(167,139,250,0.13); background: rgba(10,10,22,0.22); will-change: transform, opacity; }
+    .fragment.blue { border-color: rgba(96,165,250,0.15); }
+    .fragment.pink { border-color: rgba(244,114,182,0.12); }
+    .fragment.glow { box-shadow: inset 0 0 20px rgba(167,139,250,0.05); }
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s, border-color 0.5s, backdrop-filter 0.5s; }
+    nav.scrolled { background: rgba(7,7,15,0.88); backdrop-filter: blur(14px); border-color: var(--border); }
+    .nav-back { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .nav-back:hover { color: var(--text); }
+    .nav-ig { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--member-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    .nav-ig:hover { border-color: var(--member-color); }
+    .member-hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 5rem; overflow: hidden; }
+    .member-hero .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
+    .member-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,7,15,0.92) 0%, rgba(7,7,15,0.15) 45%, rgba(7,7,15,0.04) 100%); pointer-events: none; z-index: 1; }
+    .member-hero-content { position: relative; z-index: 2; }
+    .member-eyebrow { font-size: 0.7rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--member-color); margin-bottom: 0.75rem; }
+    .member-hero-name { font-family: 'Dancing Script', cursive; font-size: clamp(3.5rem, 11vw, 9rem); letter-spacing: 0.01em; line-height: 0.9; color: var(--text); text-shadow: 0 0 80px rgba(192,132,252,0.25); margin-bottom: 1.25rem; }
+    .member-hero-tags { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .member-tag { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 0.4rem 1rem; }
+    .member-cta { display: inline-block; padding: 0.85rem 2.5rem; border: 1px solid var(--member-color); color: var(--member-color); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
+    .member-cta:hover { background: var(--member-color); color: var(--bg); }
+    .depth-section { position: relative; z-index: 1; min-height: 60vh; display: flex; align-items: center; overflow: hidden; }
+    .depth-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+    .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
+    .section-inner { position: relative; z-index: 2; width: 100%; max-width: 1100px; margin: 0 auto; padding: 5rem 4rem; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal + .reveal { transition-delay: 0.12s; }
+    .reveal-grid > * { opacity: 0; transform: translateY(22px) scale(0.97); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .section-label { font-size: 0.68rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--member-color); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.08em; margin-bottom: 2.5rem; }
+    .bio-block { border-left: 2px solid var(--member-color); padding-left: 2rem; max-width: 720px; }
+    .bio-lead { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.4rem, 3vw, 2rem); letter-spacing: 0.06em; color: var(--text); margin-bottom: 1.25rem; line-height: 1.3; }
+    .bio-block p { font-size: 0.95rem; color: var(--muted); line-height: 1.95; margin-bottom: 1rem; }
+    .bio-block p:last-child { margin-bottom: 0; }
+    .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
+    .track-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem; cursor: pointer; transition: border-color 0.3s; }
+    .track-card:hover { border-color: rgba(192,132,252,0.3); }
+    .track-thumb { width: 100%; aspect-ratio: 1; background: var(--bg3); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.6rem; transition: color 0.3s; }
+    .track-card:hover .track-thumb { color: var(--member-color); }
+    .track-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .track-meta { font-size: 0.73rem; color: var(--muted); }
+    .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
+    .photo-item { aspect-ratio: 1; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; transition: border-color 0.3s; }
+    .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .photo-item:hover { border-color: rgba(192,132,252,0.3); }
+    .photo-item:hover img { transform: scale(1.04); }
+    footer { position: relative; z-index: 1; text-align: center; padding: 3rem 4rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; }
+    footer a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    footer a:hover { color: var(--text); }
+    
+    .vault-entry { position: relative; z-index: 1; padding: 5rem 4rem; display: flex; flex-direction: column; align-items: center; border-top: 1px solid var(--border); }
+    .vault-label { font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .vault-input-row { display: flex; border: 1px solid rgba(192,132,252,0.25); max-width: 420px; width: 100%; }
+    .vault-input { flex: 1; background: transparent; border: none; outline: none; padding: 0.9rem 1.25rem; font-family: 'Share Tech Mono','Courier New',monospace; font-size: 0.85rem; letter-spacing: 0.2em; color: var(--member-color); text-transform: uppercase; }
+    .vault-input::placeholder { color: rgba(192,132,252,0.3); }
+    .vault-submit { background: transparent; border: none; border-left: 1px solid rgba(192,132,252,0.25); padding: 0.9rem 1.25rem; color: var(--member-color); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; font-family: inherit; transition: background 0.3s, color 0.3s; }
+    .vault-submit:hover { background: var(--member-color); color: var(--bg); }
+    .vault-msg { margin-top: 0.85rem; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; min-height: 1.2em; }
+    .vault-msg.denied { color: #f87171; }
+    .vault-msg.granted { color: var(--member-color); }
+
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .member-hero { padding: 0 1.5rem 3.5rem; } .section-inner { padding: 4rem 1.5rem; } footer { padding: 2rem 1.5rem; } }
+  </style>
+</head>
+<body>
+  <div id="atmosphere" aria-hidden="true"></div>
+  <nav id="navbar">
+    <a href="index.html" class="nav-back">&#8592; The 4th Kind</a>
+    <a href="https://instagram.com/16raheemx" target="_blank" class="nav-ig">@16raheemx</a>
+  </nav>
+  <div class="member-hero" style="background-image: url('images/16raheem/16raheem.jpg'); background-size: cover; background-position: center 20%;">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 35% 55%, rgba(80,10,100,0.65) 0%, transparent 65%);"></div>
+    <div class="member-hero-content">
+      <p class="member-eyebrow">Chicago, IL &nbsp;&bull;&nbsp; The 4th Kind</p>
+      <h1 class="member-hero-name">16RAHEEM</h1>
+      <div class="member-hero-tags">
+        <span class="member-tag">Rapper</span>
+        <span class="member-tag">Chicago, IL</span>
+      </div>
+      <a href="https://instagram.com/16raheemx" target="_blank" class="member-cta">@16raheemx</a>
+    </div>
+  </div>
+  <section class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 70% 50%, rgba(60,10,80,0.5) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Biography</p>
+      <h2 class="section-title reveal">About</h2>
+      <div class="bio-block reveal">
+        <p class="bio-lead">Placeholder bio — add 16RAHEEM's story here.</p>
+        <p>Add biography and background information for 16RAHEEM here.</p>
+      </div>
+    </div>
+  </section>
+  <section class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(18,18,80,0.5) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Discography</p>
+      <h2 class="section-title reveal">Music</h2>
+      <div class="music-grid reveal-grid">
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+      </div>
+    </div>
+  </section>
+  <section class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 60% 40%, rgba(40,10,60,0.5) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Gallery</p>
+      <h2 class="section-title reveal">Photos</h2>
+      <div class="photos-grid reveal-grid">
+        <div class="photo-item"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+        <div class="photo-item"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+        <div class="photo-item"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+        <div class="photo-item"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+        <div class="photo-item"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+        <div class="photo-item"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Vault Code Entry -->
+  <div class="vault-entry">
+    <p class="vault-label">// restricted access</p>
+    <div class="vault-input-row">
+      <input class="vault-input" id="vaultCode" type="password" placeholder="ENTER CODE" maxlength="24" autocomplete="off">
+      <button class="vault-submit" onclick="checkCode()">ENTER</button>
+    </div>
+    <div class="vault-msg" id="vaultMsg"></div>
+  </div>
+
+  <footer>
+    <a href="index.html">&#8592; Back to The 4th Kind</a>
+    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+    16RAHEEM &copy; 2025
+  </footer>
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+    const atmos = document.getElementById('atmosphere'), fragData = [];
+    const colorPool = ['', '', '', 'blue', 'pink', 'glow'];
+    for (let i = 0; i < 28; i++) {
+      const el = document.createElement('div'), tall = Math.random() > 0.42, w = 38 + Math.random() * 150;
+      el.className = `fragment ${colorPool[Math.floor(Math.random() * colorPool.length)]}`;
+      el.style.width = w + 'px'; el.style.height = (tall ? w * (1.15 + Math.random() * 0.75) : w * (0.42 + Math.random() * 0.5)) + 'px';
+      atmos.appendChild(el);
+      fragData.push({ el, scrollCenter: Math.max(0, Math.min(1, i / 27 + (Math.random() - 0.5) * 0.06)), xVW: 1.5 + Math.random() * 91, speed: 0.45 + Math.random() * 3.1, rotation: (Math.random() - 0.5) * 38, baseAlpha: 0.055 + Math.random() * 0.21 });
+    }
+    const depthBgs = document.querySelectorAll('.depth-bg'); let rafPending = false;
+    function tick() {
+      const scrollY = window.scrollY, maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight), scrollPct = scrollY / maxScroll, vh = window.innerHeight;
+      fragData.forEach(({ el, scrollCenter, xVW, speed, rotation, baseAlpha }) => {
+        const yVH = 50 + (scrollCenter - scrollPct) * speed * 100, dist = Math.abs(yVH - 50);
+        el.style.transform = `translate(calc(${xVW}vw - 50%), calc(${yVH}vh - 50%)) rotate(${rotation}deg)`;
+        el.style.opacity = Math.max(0, 1 - dist / 58) * baseAlpha * 5.8;
+      });
+      depthBgs.forEach(bg => { const rect = bg.parentElement.getBoundingClientRect(); bg.style.transform = `translateY(${((rect.top + rect.height * 0.5) / vh - 0.5) * 22}%)`; });
+      rafPending = false;
+    }
+    window.addEventListener('scroll', () => { if (!rafPending) { rafPending = true; requestAnimationFrame(tick); } }, { passive: true });
+    tick();
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.classList.contains('reveal-grid')) { Array.from(el.children).forEach((c, i) => setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0) scale(1)'; }, i * 115)); }
+        else { el.classList.add('visible'); }
+        revealObs.unobserve(el);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-grid').forEach(el => revealObs.observe(el));
+    
+    const SECRET_CODE = 'PLACEHOLDER';
+    function checkCode() {
+      const input = document.getElementById('vaultCode');
+      const msg   = document.getElementById('vaultMsg');
+      if (input.value.trim().toUpperCase() === SECRET_CODE) {
+        msg.textContent = '> ACCESS GRANTED — REDIRECTING...';
+        msg.className   = 'vault-msg granted';
+        setTimeout(() => { window.location.href = 'vault.html'; }, 900);
+      } else {
+        msg.textContent = '> ACCESS DENIED';
+        msg.className   = 'vault-msg denied';
+        input.value = '';
+        setTimeout(() => { msg.textContent = ''; msg.className = 'vault-msg'; }, 2000);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const vc = document.getElementById('vaultCode');
+      if (vc) vc.addEventListener('keydown', e => { if (e.key === 'Enter') checkCode(); });
+    });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+# Ignore large audio files — add them manually per device
+audio/vault/*.mp3
+audio/vault/*.wav
+audio/vault/*.flac
+
+# OS files
+.DS_Store
+Thumbs.db

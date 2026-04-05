@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 4th Kind</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #07070f;
+      --bg2:    #0d0d1a;
+      --bg3:    #121224;
+      --accent: #a78bfa;
+      --text:   #e2e2f0;
+      --muted:  #7878a0;
+      --border: rgba(167, 139, 250, 0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Raleway', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    #atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .fragment { position: absolute; left: 0; top: 0; border: 1px solid rgba(167,139,250,0.13); background: rgba(10,10,22,0.22); will-change: transform, opacity; }
+    .fragment.blue { border-color: rgba(96,165,250,0.15); }
+    .fragment.pink { border-color: rgba(244,114,182,0.12); }
+    .fragment.glow { box-shadow: inset 0 0 20px rgba(167,139,250,0.05); }
+
+    nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s, border-color 0.5s, backdrop-filter 0.5s; }
+    nav.scrolled { background: rgba(7,7,15,0.88); backdrop-filter: blur(14px); border-color: var(--border); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: rgba(226,226,240,0.65); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--text); }
+
+    #hero { position: relative; z-index: 1; width: 100%; height: 100vh; overflow: hidden; }
+    .slides { position: absolute; inset: 0; }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; background-size: cover; background-position: center; }
+    .slide.active { opacity: 1; }
+    .slide:nth-child(1) { background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 50%, #0a0a18 100%); }
+    .slide:nth-child(2) { background: linear-gradient(135deg, #0a0a18 0%, #0d1a2e 50%, #0d0d1a 100%); }
+    .slide:nth-child(3) { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a0d 50%, #0a0a18 100%); }
+    .slide:nth-child(4) { background: linear-gradient(135deg, #0a0a18 0%, #1a0d1a 50%, #0f0f1a 100%); }
+    .slide:nth-child(5) { background: linear-gradient(135deg, #0d0d1a 0%, #0d1a1a 50%, #0a0a18 100%); }
+    .slide-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.09); pointer-events: none; }
+    #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,7,15,0.28) 0%, rgba(7,7,15,0.12) 40%, rgba(7,7,15,0.5) 75%, rgba(7,7,15,1) 100%); pointer-events: none; z-index: 1; }
+    .hero-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 15vw, 12rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 0.75rem; text-shadow: 0 0 80px rgba(167,139,250,0.2); position: relative; animation: heroFloat 8s ease-in-out infinite, heroPulse 4s ease-in-out infinite; will-change: transform, text-shadow; }
+    .hero-title::before, .hero-title::after { content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; pointer-events: none; opacity: 0.45; }
+    .hero-title::before { color: #60a5fa; transform: translate(2px,0); mix-blend-mode: screen; animation: glitchA 2.2s infinite steps(1,end); }
+    .hero-title::after { color: #f472b6; transform: translate(-2px,0); mix-blend-mode: screen; animation: glitchB 1.8s infinite steps(1,end); }
+    .hero-sub { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(226,226,240,0.6); margin-bottom: 3rem; }
+    .hero-cta { display: inline-block; padding: 0.85rem 2.5rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
+    .hero-cta:hover { background: var(--accent); color: var(--bg); }
+    .slide-dots { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 0.6rem; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; border: none; padding: 0; transition: background 0.3s, transform 0.3s; }
+    .dot.active { background: var(--accent); transform: scale(1.4); }
+
+    .depth-section { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
+    .depth-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+    .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
+    .section-inner { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
+
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease, transform 0.75s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal + .reveal { transition-delay: 0.12s; }
+    .reveal-grid > * { opacity: 0; transform: translateY(22px) scale(0.97); transition: opacity 0.6s ease, transform 0.6s ease; }
+
+    .section-label { font-size: 0.68rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.08em; margin-bottom: 3rem; }
+
+    /* About */
+    .about-inner { max-width: 800px; }
+    .manifesto { border-left: 2px solid var(--accent); padding-left: 2rem; }
+    .manifesto-lead { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.4rem, 3vw, 2.2rem); letter-spacing: 0.06em; color: var(--text); margin-bottom: 1.25rem; line-height: 1.3; }
+    .manifesto p { font-size: 0.95rem; color: var(--muted); line-height: 1.95; margin-bottom: 1rem; }
+    .manifesto p:last-child { margin-bottom: 0; }
+
+    /* Music */
+    .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
+    .track-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem; cursor: pointer; transition: border-color 0.3s; }
+    .track-card:hover { border-color: rgba(167,139,250,0.3); }
+    .track-thumb { width: 100%; aspect-ratio: 1; background: var(--bg3); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.6rem; transition: color 0.3s; }
+    .track-card:hover .track-thumb { color: var(--accent); }
+    .track-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .track-meta { font-size: 0.73rem; color: var(--muted); }
+
+    /* Members */
+    .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+    .member-card { border: 1px solid var(--border); background: var(--bg2); padding: 2.5rem 2rem; position: relative; overflow: hidden; transition: border-color 0.3s; }
+    .member-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0; transition: opacity 0.3s; }
+    .member-card:hover { border-color: rgba(167,139,250,0.3); }
+    .member-card:hover::before { opacity: 1; }
+    .member-avatar { width: 76px; height: 76px; border-radius: 50%; background: var(--bg3); border: 1px solid var(--border); margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--muted); overflow: hidden; }
+    .member-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .member-name-link { text-decoration: none; color: inherit; display: block; }
+    .member-name-link:hover .member-name { color: var(--accent); }
+    .member-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.06em; margin-bottom: 0.3rem; transition: color 0.3s; }
+    .member-origin { font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.1rem; }
+    .member-bio { font-size: 0.86rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.5rem; }
+    .member-link { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
+    .member-link:hover { border-color: var(--accent); }
+    .member-profile-link { display: inline-block; margin-top: 1rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .member-profile-link:hover { color: var(--text); }
+
+    /* Merch */
+    .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .merch-card { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.3s; }
+    .merch-card:hover { border-color: rgba(167,139,250,0.3); }
+    .merch-img { width: 100%; aspect-ratio: 1; background: var(--bg3); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; }
+    .merch-img img { width: 100%; height: 100%; object-fit: cover; }
+    .merch-info { padding: 1.25rem; }
+    .merch-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .merch-price { font-size: 0.8rem; color: var(--accent); }
+
+    /* Photos */
+    .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
+    .photo-item { aspect-ratio: 1; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; transition: border-color 0.3s; }
+    .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .photo-item:hover { border-color: rgba(167,139,250,0.3); }
+    .photo-item:hover img { transform: scale(1.04); }
+
+    footer { position: relative; z-index: 1; text-align: center; padding: 3rem 4rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; }
+
+    @keyframes heroFloat {
+      0%   { transform: translate(0,0) rotate(0deg); scale: 1; }
+      20%  { transform: translate(-12px,-28px) rotate(-1.2deg); scale: 1.02; }
+      40%  { transform: translate(10px,-18px) rotate(0.8deg); scale: 0.98; }
+      60%  { transform: translate(-8px,-32px) rotate(-0.6deg); scale: 1.01; }
+      80%  { transform: translate(14px,-12px) rotate(1deg); scale: 0.99; }
+      100% { transform: translate(0,0) rotate(0deg); scale: 1; }
+    }
+    @keyframes heroPulse {
+      0%,100% { text-shadow: 0 0 40px rgba(167,139,250,0.2); }
+      50%     { text-shadow: 0 0 120px rgba(167,139,250,0.6), 0 0 40px rgba(96,165,250,0.4), 0 0 8px #fff; }
+    }
+    @keyframes glitchA {
+      0%,75%,100% { clip-path: inset(0 0 0 0); transform: translate(2px,0); }
+      78%  { clip-path: inset(8% 0 72% 0);  transform: translate(10px,-2px); }
+      80%  { clip-path: inset(50% 0 28% 0); transform: translate(-8px,2px); }
+      83%  { clip-path: inset(22% 0 58% 0); transform: translate(6px,-1px); }
+      85%  { clip-path: inset(68% 0 12% 0); transform: translate(-4px,1px); }
+    }
+    @keyframes glitchB {
+      0%,75%,100% { clip-path: inset(0 0 0 0); transform: translate(-2px,0); }
+      77%  { clip-path: inset(60% 0 18% 0); transform: translate(-12px,3px); }
+      79%  { clip-path: inset(15% 0 65% 0); transform: translate(9px,-2px); }
+      82%  { clip-path: inset(38% 0 40% 0); transform: translate(-6px,1px); }
+      84%  { clip-path: inset(80% 0 4%  0); transform: translate(4px,-1px); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      .section-inner { padding: 4rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="atmosphere" aria-hidden="true"></div>
+
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">The 4th Kind</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#music">Music</a></li>
+      <li><a href="#members">Members</a></li>
+      <li><a href="#merch">Merch</a></li>
+      <li><a href="#photos">Photos</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="slides">
+      <div class="slide active"><div class="slide-placeholder">Photo 1</div></div>
+      <div class="slide"><div class="slide-placeholder">Photo 2</div></div>
+      <div class="slide"><div class="slide-placeholder">Photo 3</div></div>
+      <div class="slide"><div class="slide-placeholder">Photo 4</div></div>
+      <div class="slide"><div class="slide-placeholder">Photo 5</div></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Chicago, IL</p>
+      <h1 class="hero-title" data-text="The 4th Kind">The 4th Kind</h1>
+      <p class="hero-sub">16RAHEEM &nbsp;&bull;&nbsp; Wodiene &nbsp;&bull;&nbsp; Jsteezzy &nbsp;&bull;&nbsp; Freewave Ant</p>
+      <a href="#music" class="hero-cta">Explore</a>
+    </div>
+    <div class="slide-dots" id="dots"></div>
+  </section>
+
+  <section id="about" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(40,10,60,0.6) 0%, transparent 65%);"></div>
+    <div class="section-inner about-inner">
+      <p class="section-label reveal">The Message</p>
+      <h2 class="section-title reveal">What We Stand For</h2>
+      <div class="manifesto reveal">
+        <p class="manifesto-lead">Placeholder — 16RAHEEM will provide this message.</p>
+        <p>This section is reserved for the story, mission, and meaning behind The 4th Kind.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="music" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(18,18,80,0.55) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Discography</p>
+      <h2 class="section-title reveal">Music</h2>
+      <div class="music-grid reveal-grid">
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="members" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 72% 40%, rgba(75,18,80,0.5) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">The Group</p>
+      <h2 class="section-title reveal">Members</h2>
+      <div class="members-grid reveal-grid">
+        <div class="member-card">
+          <div class="member-avatar"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+          <a href="16raheem.html" class="member-name-link"><div class="member-name">16RAHEEM</div></a>
+          <div class="member-origin">Chicago, IL</div>
+          <p class="member-bio">Placeholder bio — add a description for 16RAHEEM here.</p>
+          <a href="https://instagram.com/16raheemx" target="_blank" class="member-link">@16raheemx</a>
+          <a href="16raheem.html" class="member-profile-link">View Profile &#8594;</a>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar"><img src="images/wodiene/wodiene.jpg" alt="Wodiene"></div>
+          <a href="wodiene.html" class="member-name-link"><div class="member-name">Wodiene</div></a>
+          <div class="member-origin">Chicago, IL</div>
+          <p class="member-bio">Placeholder bio — add a description for Wodiene here.</p>
+          <a href="https://instagram.com/wodiene" target="_blank" class="member-link">@wodiene</a>
+          <a href="wodiene.html" class="member-profile-link">View Profile &#8594;</a>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar"><img src="images/jsteezzy/jsteezzy.jpg" alt="Jsteezzy"></div>
+          <a href="jsteezzy.html" class="member-name-link"><div class="member-name">Jsteezzy</div></a>
+          <div class="member-origin">Chicago, IL</div>
+          <p class="member-bio">Placeholder bio — add a description for Jsteezzy here.</p>
+          <a href="https://instagram.com/jsteez4k" target="_blank" class="member-link">@jsteez4k</a>
+          <a href="jsteezzy.html" class="member-profile-link">View Profile &#8594;</a>
+        </div>
+        <div class="member-card">
+          <div class="member-avatar"><img src="images/freewaveant/freewaveant.jpg" alt="Freewave Ant"></div>
+          <a href="freewaveant.html" class="member-name-link"><div class="member-name">Freewave Ant</div></a>
+          <div class="member-origin">San Francisco, CA</div>
+          <p class="member-bio">Placeholder bio — add a description for Freewave Ant here.</p>
+          <a href="https://instagram.com/freewavant" target="_blank" class="member-link">@freewavant</a>
+          <a href="freewaveant.html" class="member-profile-link">View Profile &#8594;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="merch" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 70%, rgba(8,48,58,0.55) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Store</p>
+      <h2 class="section-title reveal">Merch</h2>
+      <div class="merch-grid reveal-grid">
+        <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
+        <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
+        <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="photos" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(58,8,28,0.55) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Gallery</p>
+      <h2 class="section-title reveal">Photos</h2>
+      <div class="photos-grid reveal-grid">
+        <div class="photo-item">Photo</div>
+        <div class="photo-item">Photo</div>
+        <div class="photo-item">Photo</div>
+        <div class="photo-item">Photo</div>
+        <div class="photo-item">Photo</div>
+        <div class="photo-item">Photo</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>&copy; 2025 The 4th Kind &mdash; Chicago, IL</footer>
+
+  <script>
+    // Slideshow
+    const slides = document.querySelectorAll('.slide');
+    const dotsEl = document.getElementById('dots');
+    let cur = 0, slideTimer;
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.addEventListener('click', () => { goTo(i); clearInterval(slideTimer); startSlide(); });
+      dotsEl.appendChild(d);
+    });
+    const dots = document.querySelectorAll('.dot');
+    function goTo(i) { slides[cur].classList.remove('active'); dots[cur].classList.remove('active'); cur = (i + slides.length) % slides.length; slides[cur].classList.add('active'); dots[cur].classList.add('active'); }
+    function startSlide() { slideTimer = setInterval(() => goTo(cur + 1), 5000); }
+    startSlide();
+
+    // Nav
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+
+    // Atmosphere
+    const atmos = document.getElementById('atmosphere'), fragData = [];
+    const colorPool = ['', '', '', 'blue', 'pink', 'glow'];
+    for (let i = 0; i < 38; i++) {
+      const el = document.createElement('div'), tall = Math.random() > 0.42, w = 38 + Math.random() * 155;
+      el.className = `fragment ${colorPool[Math.floor(Math.random() * colorPool.length)]}`;
+      el.style.width = w + 'px'; el.style.height = (tall ? w * (1.15 + Math.random() * 0.75) : w * (0.42 + Math.random() * 0.5)) + 'px';
+      atmos.appendChild(el);
+      fragData.push({ el, scrollCenter: Math.max(0, Math.min(1, i / 37 + (Math.random() - 0.5) * 0.055)), xVW: 1.5 + Math.random() * 91, speed: 0.45 + Math.random() * 3.1, rotation: (Math.random() - 0.5) * 38, baseAlpha: 0.055 + Math.random() * 0.21 });
+    }
+    const depthBgs = document.querySelectorAll('.depth-bg'); let rafPending = false;
+    function tick() {
+      const scrollY = window.scrollY, maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight), scrollPct = scrollY / maxScroll, vh = window.innerHeight;
+      fragData.forEach(({ el, scrollCenter, xVW, speed, rotation, baseAlpha }) => {
+        const yVH = 50 + (scrollCenter - scrollPct) * speed * 100, dist = Math.abs(yVH - 50);
+        el.style.transform = `translate(calc(${xVW}vw - 50%), calc(${yVH}vh - 50%)) rotate(${rotation}deg)`;
+        el.style.opacity = Math.max(0, 1 - dist / 58) * baseAlpha * 5.8;
+      });
+      depthBgs.forEach(bg => { const rect = bg.parentElement.getBoundingClientRect(); bg.style.transform = `translateY(${((rect.top + rect.height * 0.5) / vh - 0.5) * 22}%)`; });
+      rafPending = false;
+    }
+    window.addEventListener('scroll', () => { if (!rafPending) { rafPending = true; requestAnimationFrame(tick); } }, { passive: true });
+    tick();
+
+    // Reveal
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        if (el.classList.contains('reveal-grid')) { Array.from(el.children).forEach((c, i) => setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'translateY(0) scale(1)'; }, i * 115)); }
+        else { el.classList.add('visible'); }
+        revealObs.unobserve(el);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal, .reveal-grid').forEach(el => revealObs.observe(el));
+  </script>
+</body>
+</html>

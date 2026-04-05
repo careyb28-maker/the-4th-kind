@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>// VAULT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple:     #b347ff;
+      --purple-dim: #7c2db8;
+      --purple-glow:#d580ff;
+      --bg:         #000000;
+      --bg2:        #08000f;
+      --border:     rgba(179,71,255,0.25);
+      --muted:      rgba(179,71,255,0.45);
+    }
+    html, body { height: 100%; }
+    body { background: var(--bg); color: var(--purple); font-family: 'Share Tech Mono', monospace; overflow-x: hidden; }
+
+    #matrix { position: fixed; inset: 0; z-index: 0; opacity: 0.35; }
+
+    #terminal { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 5rem 2rem 6rem; }
+
+    .boot-line { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; opacity: 0; animation: fadein 0.3s ease forwards; }
+    .boot-line:nth-child(1) { animation-delay: 0.1s; }
+    .boot-line:nth-child(2) { animation-delay: 0.5s; }
+    .boot-line:nth-child(3) { animation-delay: 0.9s; }
+    .boot-line:nth-child(4) { animation-delay: 1.3s; }
+    .boot-line:nth-child(5) { animation-delay: 1.7s; }
+
+    @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+    .access-granted { margin: 2.5rem 0 0.5rem; font-size: clamp(1.8rem, 5vw, 3rem); color: var(--purple-glow); text-shadow: 0 0 30px var(--purple), 0 0 60px var(--purple-dim); letter-spacing: 0.12em; opacity: 0; animation: fadein 0.5s ease 2.2s forwards; }
+    .access-sub { font-size: 0.75rem; letter-spacing: 0.25em; color: var(--muted); margin-bottom: 3rem; opacity: 0; animation: fadein 0.5s ease 2.6s forwards; }
+
+    .vault-section { margin-bottom: 3.5rem; opacity: 0; animation: fadein 0.6s ease forwards; }
+    .vault-section:nth-of-type(1) { animation-delay: 3s; }
+    .vault-section:nth-of-type(2) { animation-delay: 3.4s; }
+
+    .vault-section-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); }
+    .prompt { color: var(--purple-glow); font-size: 1rem; }
+    .vault-section-title { font-size: 0.85rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--purple); text-shadow: 0 0 12px var(--purple-dim); }
+
+    .blink { display: inline-block; width: 8px; height: 1.1em; background: var(--purple); vertical-align: middle; margin-left: 4px; animation: blink 1s step-end infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Merch */
+    .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1px; border: 1px solid var(--border); }
+    .merch-item { padding: 1.25rem; border: 1px solid transparent; transition: border-color 0.3s, background 0.3s; cursor: pointer; }
+    .merch-item:hover { border-color: var(--border); background: rgba(179,71,255,0.05); }
+    .merch-img-slot { width: 100%; aspect-ratio: 1; background: #0a000f; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.85rem; overflow: hidden; }
+    .merch-img-slot img { width: 100%; height: 100%; object-fit: cover; }
+    .merch-name { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--purple-glow); margin-bottom: 0.25rem; }
+    .merch-price { font-size: 0.7rem; color: var(--muted); }
+    .merch-cmd { font-size: 0.65rem; color: var(--purple-dim); margin-top: 0.4rem; }
+
+    /* Player */
+    .player { border: 1px solid var(--border); background: rgba(8,0,15,0.7); margin-bottom: 1.5rem; padding: 1.5rem; }
+    .player-status { font-size: 0.62rem; letter-spacing: 0.3em; color: var(--muted); margin-bottom: 0.5rem; }
+    .player-title { font-size: 1rem; letter-spacing: 0.08em; color: var(--purple-glow); text-shadow: 0 0 12px var(--purple-dim); margin-bottom: 0.2rem; min-height: 1.4em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .player-meta { font-size: 0.65rem; color: var(--muted); margin-bottom: 1.25rem; min-height: 1em; }
+    .player-progress-wrap { position: relative; height: 3px; background: rgba(179,71,255,0.15); margin-bottom: 0.6rem; cursor: pointer; }
+    .player-progress-bar { height: 100%; background: var(--purple); box-shadow: 0 0 8px var(--purple-dim); width: 0%; transition: width 0.1s linear; pointer-events: none; }
+    .player-times { display: flex; justify-content: space-between; font-size: 0.62rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .player-controls { display: flex; align-items: center; gap: 1rem; }
+    .ctrl-btn { background: transparent; border: 1px solid var(--border); color: var(--purple); font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; padding: 0.45rem 0.9rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .ctrl-btn:hover, .ctrl-btn.active { background: var(--purple); color: #000; }
+    .ctrl-vol { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; font-size: 0.62rem; color: var(--muted); }
+    .ctrl-vol input[type=range] { -webkit-appearance: none; appearance: none; width: 80px; height: 2px; background: rgba(179,71,255,0.3); outline: none; cursor: pointer; }
+    .ctrl-vol input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: var(--purple); box-shadow: 0 0 6px var(--purple); }
+
+    /* Track list */
+    .track-list { display: flex; flex-direction: column; }
+    .track-row { display: flex; align-items: center; gap: 1rem; padding: 0.8rem 1rem; border-bottom: 1px solid rgba(179,71,255,0.08); cursor: pointer; transition: background 0.2s; }
+    .track-row:hover { background: rgba(179,71,255,0.06); }
+    .track-row.playing { background: rgba(179,71,255,0.1); }
+    .track-num { font-size: 0.68rem; color: var(--muted); width: 22px; text-align: right; flex-shrink: 0; }
+    .track-row.playing .track-num { color: var(--purple-glow); }
+    .track-info { flex: 1; }
+    .track-title { font-size: 0.8rem; color: var(--purple-glow); letter-spacing: 0.06em; }
+    .track-row.playing .track-title { text-shadow: 0 0 8px var(--purple); }
+    .track-meta { font-size: 0.65rem; color: var(--muted); margin-top: 0.1rem; }
+    .track-duration { font-size: 0.68rem; color: var(--muted); flex-shrink: 0; }
+
+    /* Footer */
+    .vault-footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.68rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; opacity: 0; animation: fadein 0.5s ease 4s forwards; }
+    .vault-footer a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .vault-footer a:hover { color: var(--purple); }
+
+    /* cb */
+    body::after { content: 'carey belcher'; position: fixed; bottom: 1.1rem; right: 1.4rem; font-size: 0.52rem; letter-spacing: 0.18em; color: rgba(179,71,255,0.1); pointer-events: none; z-index: 0; text-transform: lowercase; }
+
+    @media (max-width: 600px) { #terminal { padding: 3rem 1.25rem 4rem; } }
+  </style>
+</head>
+<body>
+  <canvas id="matrix"></canvas>
+
+  <div id="terminal">
+    <div class="boot-line">> INITIALIZING 16RAHEEM VAULT v1.0 ...</div>
+    <div class="boot-line">> DECRYPTING CREDENTIALS .............. OK</div>
+    <div class="boot-line">> VERIFYING ACCESS TOKEN ............... OK</div>
+    <div class="boot-line">> LOADING RESTRICTED CONTENT ........... OK</div>
+    <div class="boot-line">> CONNECTION ESTABLISHED ............... [SECURE]</div>
+
+    <div class="access-granted">&gt; ACCESS GRANTED<span class="blink"></span></div>
+    <div class="access-sub">// 16RAHEEM &mdash; RESTRICTED ARCHIVE &nbsp;&bull;&nbsp; EYES ONLY</div>
+
+    <!-- Merch -->
+    <div class="vault-section">
+      <div class="vault-section-header">
+        <span class="prompt">&gt;</span>
+        <span class="vault-section-title">MERCH // EXCLUSIVE DROP</span>
+      </div>
+      <div class="merch-grid">
+        <div class="merch-item"><div class="merch-img-slot">IMG</div><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div><div class="merch-cmd">> shop_now()</div></div>
+        <div class="merch-item"><div class="merch-img-slot">IMG</div><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div><div class="merch-cmd">> shop_now()</div></div>
+        <div class="merch-item"><div class="merch-img-slot">IMG</div><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div><div class="merch-cmd">> shop_now()</div></div>
+        <div class="merch-item"><div class="merch-img-slot">IMG</div><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div><div class="merch-cmd">> shop_now()</div></div>
+      </div>
+    </div>
+
+    <!-- Music -->
+    <div class="vault-section">
+      <div class="vault-section-header">
+        <span class="prompt">&gt;</span>
+        <span class="vault-section-title">MUSIC // UNRELEASED + DEEP CUTS</span>
+      </div>
+      <div class="player">
+        <div class="player-status">&gt; NOW PLAYING</div>
+        <div class="player-title" id="pTitle">SELECT A TRACK</div>
+        <div class="player-meta" id="pMeta">&mdash;</div>
+        <div class="player-progress-wrap" id="progressWrap">
+          <div class="player-progress-bar" id="progressBar"></div>
+        </div>
+        <div class="player-times"><span id="pCurrent">0:00</span><span id="pDuration">0:00</span></div>
+        <div class="player-controls">
+          <button class="ctrl-btn" id="btnPrev" onclick="prevTrack()">&lt;&lt; PREV</button>
+          <button class="ctrl-btn" id="btnPlay" onclick="togglePlay()">&gt; PLAY</button>
+          <button class="ctrl-btn" id="btnNext" onclick="nextTrack()">NEXT &gt;&gt;</button>
+          <div class="ctrl-vol">VOL<input type="range" id="volSlider" min="0" max="1" step="0.05" value="0.8" oninput="setVolume(this.value)"></div>
+        </div>
+      </div>
+      <div class="track-list" id="trackList"></div>
+    </div>
+
+    <div class="vault-footer">
+      <span>&gt; session_active // do not share this link</span>
+      <a href="16raheem.html">&#8592; exit vault</a>
+    </div>
+  </div>
+
+  <script>
+    // ══════════════════════════════════════════
+    //  TRACK LIST
+    //  Drop audio files into audio/vault/ and
+    //  update entries below.
+    // ══════════════════════════════════════════
+    const TRACKS = [
+      { title: 'Track Title', meta: 'unreleased — 2024', src: 'audio/vault/track1.mp3' },
+      { title: 'Track Title', meta: 'unreleased — 2024', src: 'audio/vault/track2.mp3' },
+      { title: 'Track Title', meta: 'unreleased — 2024', src: 'audio/vault/track3.mp3' },
+      { title: 'Track Title', meta: 'unreleased — 2024', src: 'audio/vault/track4.mp3' },
+    ];
+
+    // Player engine
+    const audio    = new Audio();
+    audio.volume   = 0.8;
+    let currentIdx = -1, isPlaying = false;
+    const pTitle   = document.getElementById('pTitle');
+    const pMeta    = document.getElementById('pMeta');
+    const pCurrent = document.getElementById('pCurrent');
+    const pDuration= document.getElementById('pDuration');
+    const progBar  = document.getElementById('progressBar');
+    const progWrap = document.getElementById('progressWrap');
+    const btnPlay  = document.getElementById('btnPlay');
+    const trackList= document.getElementById('trackList');
+
+    function fmt(s) { if (isNaN(s)) return '0:00'; const m = Math.floor(s/60), sec = Math.floor(s%60).toString().padStart(2,'0'); return `${m}:${sec}`; }
+
+    TRACKS.forEach((t, i) => {
+      const row = document.createElement('div');
+      row.className = 'track-row'; row.id = `track-${i}`;
+      row.innerHTML = `<span class="track-num">${String(i+1).padStart(2,'0')}</span><div class="track-info"><div class="track-title">${t.title}</div><div class="track-meta">${t.meta}</div></div><span class="track-duration" id="dur-${i}">--:--</span>`;
+      row.addEventListener('click', () => loadTrack(i, true));
+      trackList.appendChild(row);
+    });
+
+    function loadTrack(idx, autoplay = false) {
+      if (currentIdx >= 0) document.getElementById(`track-${currentIdx}`)?.classList.remove('playing');
+      currentIdx = idx; const t = TRACKS[idx];
+      audio.src = t.src; audio.load();
+      pTitle.textContent = t.title; pMeta.textContent = t.meta;
+      progBar.style.width = '0%'; pCurrent.textContent = '0:00'; pDuration.textContent = '--:--';
+      document.getElementById(`track-${idx}`)?.classList.add('playing');
+      if (autoplay) { audio.play().then(() => { isPlaying = true; updateBtn(); }).catch(() => {}); }
+      else { isPlaying = false; updateBtn(); }
+    }
+    function togglePlay() { if (currentIdx < 0) { loadTrack(0, true); return; } if (isPlaying) { audio.pause(); isPlaying = false; } else { audio.play().catch(()=>{}); isPlaying = true; } updateBtn(); }
+    function prevTrack() { loadTrack(currentIdx <= 0 ? TRACKS.length - 1 : currentIdx - 1, isPlaying); }
+    function nextTrack() { loadTrack((currentIdx + 1) % TRACKS.length, isPlaying); }
+    function setVolume(v) { audio.volume = parseFloat(v); }
+    function updateBtn() { btnPlay.textContent = isPlaying ? '|| PAUSE' : '> PLAY'; btnPlay.classList.toggle('active', isPlaying); }
+
+    audio.addEventListener('timeupdate', () => { if (!audio.duration) return; progBar.style.width = (audio.currentTime / audio.duration * 100) + '%'; pCurrent.textContent = fmt(audio.currentTime); });
+    audio.addEventListener('loadedmetadata', () => { pDuration.textContent = fmt(audio.duration); if (currentIdx >= 0) document.getElementById(`dur-${currentIdx}`).textContent = fmt(audio.duration); });
+    audio.addEventListener('ended', () => nextTrack());
+    progWrap.addEventListener('click', (e) => { if (!audio.duration) return; const rect = progWrap.getBoundingClientRect(); audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration; });
+
+    // Purple Matrix Rain — PURPLE HEARTS chars only
+    const canvas = document.getElementById('matrix');
+    const ctx    = canvas.getContext('2d');
+    const PURPLE = '#7c2db8', BRIGHT = '#d580ff';
+    const CHARS  = 'PPUURRPPLLEEHHEAARTTS\u2665purplehearts\u2665PURPLEHEARTS147';
+    let cols, drops;
+
+    function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; cols = Math.floor(canvas.width / 18); drops = Array(cols).fill(1); }
+
+    function drawGhostText() {
+      const size = Math.min(canvas.width * 0.32, 260);
+      ctx.save();
+      ctx.font = `bold ${size}px Share Tech Mono, monospace`;
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.shadowColor = '#b347ff'; ctx.shadowBlur = 60;
+      ctx.fillStyle = 'rgba(110,20,170,0.065)';
+      ctx.fillText('2026', canvas.width / 2, canvas.height * 0.5);
+      ctx.restore();
+    }
+
+    function draw() {
+      ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      drawGhostText();
+      ctx.font = '14px Share Tech Mono, monospace';
+      for (let i = 0; i < drops.length; i++) {
+        const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+        ctx.fillStyle = Math.random() > 0.92 ? BRIGHT : PURPLE;
+        ctx.fillText(char, i * 18, drops[i] * 18);
+        if (drops[i] * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    setInterval(draw, 80);
+  </script>
+</body>
+</html>
