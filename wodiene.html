@@ -27,50 +27,65 @@
     .nav-back img {
       width: 44px;
       height: 44px;
-      padding: 7px;
-      border-radius: 50%;
       object-fit: contain;
-      mix-blend-mode: screen;
-      background:
-        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.76) 0 10%, rgba(255,255,255,0.18) 14%, transparent 31%),
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, rgba(96,165,250,0.16) 60%, rgba(255,255,255,0.04) 100%);
-      border: 1px solid rgba(226,226,240,0.22);
-      box-shadow: inset 0 0 12px rgba(255,255,255,0.12), 0 0 14px rgba(96,165,250,0.18);
-      filter: drop-shadow(0 0 14px rgba(96,165,250,0.35));
+      filter: drop-shadow(0 0 12px rgba(0,0,0,0.35));
     }
     .nav-back:hover { color: var(--text); }
-    .nav-ig { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--member-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
-    .nav-ig:hover { border-color: var(--member-color); }
+    .nav-ig {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #f8f7ff;
+      text-decoration: none;
+      background: rgba(7,7,15,0.82);
+      border: 1px solid rgba(255,255,255,0.2);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+      backdrop-filter: blur(10px);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.45);
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .nav-ig:hover { background: rgba(7,7,15,0.92); border-color: var(--member-color); color: #ffffff; }
     .member-hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 4rem 5rem; overflow: hidden; }
     .member-hero .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
     .member-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,7,15,0.92) 0%, rgba(7,7,15,0.15) 45%, rgba(7,7,15,0.04) 100%); pointer-events: none; z-index: 1; }
     .member-hero-content { position: relative; z-index: 2; }
     .member-brand-logo {
       display: block;
-      width: clamp(108px, 16vw, 168px);
-      aspect-ratio: 1;
-      padding: 15%;
-      border-radius: 50%;
+      width: clamp(96px, 14vw, 148px);
+      height: auto;
       object-fit: contain;
       margin-bottom: 1.5rem;
-      mix-blend-mode: screen;
-      background:
-        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.82) 0 9%, rgba(255,255,255,0.2) 13%, transparent 30%),
-        radial-gradient(circle at 68% 74%, rgba(96,165,250,0.2) 0%, transparent 38%),
-        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(96,165,250,0.14) 56%, rgba(255,255,255,0.04) 100%);
-      border: 1px solid rgba(226,226,240,0.24);
-      box-shadow:
-        inset 0 0 22px rgba(255,255,255,0.12),
-        inset 0 -18px 30px rgba(30,58,138,0.24),
-        0 0 28px rgba(96,165,250,0.22);
-      filter: drop-shadow(0 0 28px rgba(96,165,250,0.42));
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.35));
     }
     .member-eyebrow { font-size: 0.7rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--member-color); margin-bottom: 0.75rem; }
     .member-hero-name { font-family: 'Dancing Script', cursive; font-size: clamp(3.5rem, 11vw, 9rem); letter-spacing: 0.01em; line-height: 0.9; color: var(--text); text-shadow: 0 0 80px rgba(96,165,250,0.25); margin-bottom: 1.25rem; }
     .member-hero-tags { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
     .member-tag { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 0.4rem 1rem; }
-    .member-cta { display: inline-block; padding: 0.85rem 2.5rem; border: 1px solid var(--member-color); color: var(--member-color); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
-    .member-cta:hover { background: var(--member-color); color: var(--bg); }
+    .member-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0.95rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: rgba(7,7,15,0.82);
+      color: #f8f7ff;
+      text-decoration: none;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      box-shadow: 0 16px 34px rgba(0,0,0,0.28);
+      backdrop-filter: blur(12px);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.45);
+      transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .member-cta:hover { background: rgba(7,7,15,0.92); border-color: var(--member-color); color: #ffffff; transform: translateY(-2px); }
     .depth-section { position: relative; z-index: 1; min-height: 60vh; display: flex; align-items: center; overflow: hidden; }
     .depth-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
     .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
@@ -169,7 +184,7 @@
     footer a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
     footer a:hover { color: var(--text); }
     
-    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-back span { display: none; } .nav-back img { width: 38px; height: 38px; } .member-hero { padding: 0 1.5rem 3.5rem; } .section-inner { padding: 4rem 1.5rem; } footer { padding: 2rem 1.5rem; } }
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-back span { display: none; } .nav-back img { width: 38px; height: 38px; } .nav-ig { min-height: 40px; padding: 0.72rem 0.95rem; font-size: 0.64rem; letter-spacing: 0.14em; } .member-hero { padding: 0 1.5rem 3.5rem; } .member-cta { width: 100%; max-width: 18rem; } .section-inner { padding: 4rem 1.5rem; } footer { padding: 2rem 1.5rem; } }
   </style>
 </head>
 <body>
