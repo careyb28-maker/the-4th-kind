@@ -51,13 +51,13 @@
       position: absolute;
       left: 50%;
       top: 48%;
-      width: clamp(160px, 28vw, 420px);
+      width: clamp(240px, 42vw, 680px);
       aspect-ratio: 1;
       border-radius: 50%;
       background:
-        radial-gradient(circle, rgba(255,255,255,0.98) 0 2%, rgba(201,180,255,0.85) 4%, rgba(167,139,250,0.42) 17%, rgba(96,165,250,0.18) 34%, transparent 68%);
-      filter: blur(1px);
-      opacity: 0.82;
+        radial-gradient(circle, rgba(255,255,255,0.1) 0 4%, rgba(201,180,255,0.3) 8%, rgba(167,139,250,0.3) 24%, rgba(96,165,250,0.12) 42%, transparent 70%);
+      filter: blur(8px);
+      opacity: 0.9;
       transform: translate3d(-50%, -50%, 0);
       animation: starBreathe 7s ease-in-out infinite;
       will-change: transform, opacity;
@@ -110,7 +110,8 @@
 
     nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s, border-color 0.5s, backdrop-filter 0.5s; }
     nav.scrolled { background: rgba(7,7,15,0.88); backdrop-filter: blur(14px); border-color: var(--border); }
-    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; }
+    .nav-logo { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; text-transform: uppercase; }
+    .nav-logo img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 0 16px rgba(167,139,250,0.35)); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { color: rgba(226,226,240,0.65); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; transition: color 0.3s; }
     .nav-links a:hover { color: var(--text); }
@@ -132,6 +133,10 @@
     .hero-title::before, .hero-title::after { content: attr(data-text); position: absolute; inset: 0; width: 100%; pointer-events: none; mix-blend-mode: screen; }
     .hero-title::before { color: #60a5fa; transform: translate3d(0.025em,0,0); opacity: 0.16; animation: spectralDrift 9s ease-in-out infinite; }
     .hero-title::after { color: #f472b6; transform: translate3d(-0.025em,0,0); opacity: 0.12; animation: spectralDrift 10s ease-in-out infinite reverse; }
+    .logo-title { width: min(72vw, 720px); margin-bottom: 1.5rem; font-size: 0; text-shadow: none; }
+    .logo-title::before, .logo-title::after { display: none; }
+    .hero-logo { display: block; width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 0 38px rgba(167,139,250,0.52)) drop-shadow(0 0 90px rgba(96,165,250,0.18)); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
     .hero-sub { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(226,226,240,0.6); margin-bottom: 3rem; }
     .hero-cta { display: inline-block; padding: 0.85rem 2.5rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
     .hero-cta:hover { background: var(--accent); color: var(--bg); }
@@ -286,6 +291,9 @@
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 0.85rem; flex-wrap: wrap; justify-content: flex-end; }
       .nav-links a { font-size: 0.64rem; letter-spacing: 0.14em; }
+      .nav-logo span { display: none; }
+      .nav-logo img { width: 38px; height: 38px; }
+      .logo-title { width: min(88vw, 520px); }
       .section-inner { padding: 4rem 1.5rem; }
       .video-showcase-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       footer { padding: 2rem 1.5rem; }
@@ -296,7 +304,7 @@
   <div id="atmosphere" aria-hidden="true"></div>
 
   <nav id="navbar">
-    <a href="#hero" class="nav-logo">The 4th Kind</a>
+    <a href="#hero" class="nav-logo"><img src="images/logo/the-4th-kind-logo.jpg" alt="" aria-hidden="true"><span>The 4th Kind</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#music">Music</a></li>
@@ -317,7 +325,10 @@
     </div>
     <div class="hero-content">
       <p class="hero-eyebrow">Chicago, IL</p>
-      <h1 class="hero-title" data-text="The 4th Kind">The 4th Kind</h1>
+      <h1 class="hero-title logo-title" data-text="The 4th Kind">
+        <img class="hero-logo" src="images/logo/the-4th-kind-logo.jpg" alt="The 4th Kind logo">
+        <span class="sr-only">The 4th Kind</span>
+      </h1>
       <p class="hero-sub">16RAHEEM &nbsp;&bull;&nbsp; Wodiene &nbsp;&bull;&nbsp; Jsteezzy &nbsp;&bull;&nbsp; Freewave Ant</p>
       <a href="#music" class="hero-cta">Explore</a>
     </div>

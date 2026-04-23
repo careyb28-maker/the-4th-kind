@@ -23,6 +23,7 @@
     #matrix { position: fixed; inset: 0; z-index: 0; opacity: 0.35; }
 
     #terminal { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 5rem 2rem 6rem; }
+    .vault-logo { width: clamp(90px, 18vw, 150px); height: auto; display: block; margin-bottom: 2rem; filter: drop-shadow(0 0 28px rgba(179,71,255,0.48)); opacity: 0; animation: fadein 0.5s ease forwards; }
 
     .boot-line { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; opacity: 0; animation: fadein 0.3s ease forwards; }
     .boot-line:nth-child(1) { animation-delay: 0.1s; }
@@ -89,6 +90,7 @@
     .vault-footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.68rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; opacity: 0; animation: fadein 0.5s ease 4s forwards; }
     .vault-footer a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
     .vault-footer a:hover { color: var(--purple); }
+    .vault-footer img { width: 34px; height: 34px; object-fit: contain; margin-right: 0.7rem; vertical-align: middle; filter: drop-shadow(0 0 12px rgba(179,71,255,0.35)); }
 
     /* cb */
     body::after { content: 'carey belcher'; position: fixed; bottom: 1.1rem; right: 1.4rem; font-size: 0.52rem; letter-spacing: 0.18em; color: rgba(179,71,255,0.1); pointer-events: none; z-index: 0; text-transform: lowercase; }
@@ -100,6 +102,7 @@
   <canvas id="matrix"></canvas>
 
   <div id="terminal">
+    <img class="vault-logo" src="images/logo/the-4th-kind-logo.jpg" alt="The 4th Kind logo">
     <div class="boot-line">> INITIALIZING 16RAHEEM VAULT v1.0 ...</div>
     <div class="boot-line">> DECRYPTING CREDENTIALS .............. OK</div>
     <div class="boot-line">> VERIFYING ACCESS TOKEN ............... OK</div>
@@ -149,7 +152,7 @@
 
     <div class="vault-footer">
       <span>&gt; session_active // do not share this link</span>
-      <a href="16raheem.html">&#8592; exit vault</a>
+      <a href="16raheem.html"><img src="images/logo/the-4th-kind-logo.jpg" alt="" aria-hidden="true">&#8592; exit vault</a>
     </div>
   </div>
 
