@@ -24,7 +24,20 @@
     nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s, border-color 0.5s, backdrop-filter 0.5s; }
     nav.scrolled { background: rgba(7,7,15,0.88); backdrop-filter: blur(14px); border-color: var(--border); }
     .nav-back { display: inline-flex; align-items: center; gap: 0.7rem; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.3s; }
-    .nav-back img { width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0 0 14px rgba(96,165,250,0.35)); }
+    .nav-back img {
+      width: 44px;
+      height: 44px;
+      padding: 7px;
+      border-radius: 50%;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.76) 0 10%, rgba(255,255,255,0.18) 14%, transparent 31%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, rgba(96,165,250,0.16) 60%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(226,226,240,0.22);
+      box-shadow: inset 0 0 12px rgba(255,255,255,0.12), 0 0 14px rgba(96,165,250,0.18);
+      filter: drop-shadow(0 0 14px rgba(96,165,250,0.35));
+    }
     .nav-back:hover { color: var(--text); }
     .nav-ig { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--member-color); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.3s; }
     .nav-ig:hover { border-color: var(--member-color); }
@@ -32,7 +45,26 @@
     .member-hero .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
     .member-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,7,15,0.92) 0%, rgba(7,7,15,0.15) 45%, rgba(7,7,15,0.04) 100%); pointer-events: none; z-index: 1; }
     .member-hero-content { position: relative; z-index: 2; }
-    .member-brand-logo { display: block; width: clamp(92px, 15vw, 150px); height: auto; margin-bottom: 1.5rem; filter: drop-shadow(0 0 28px rgba(96,165,250,0.42)); }
+    .member-brand-logo {
+      display: block;
+      width: clamp(108px, 16vw, 168px);
+      aspect-ratio: 1;
+      padding: 15%;
+      border-radius: 50%;
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.82) 0 9%, rgba(255,255,255,0.2) 13%, transparent 30%),
+        radial-gradient(circle at 68% 74%, rgba(96,165,250,0.2) 0%, transparent 38%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, rgba(96,165,250,0.14) 56%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(226,226,240,0.24);
+      box-shadow:
+        inset 0 0 22px rgba(255,255,255,0.12),
+        inset 0 -18px 30px rgba(30,58,138,0.24),
+        0 0 28px rgba(96,165,250,0.22);
+      filter: drop-shadow(0 0 28px rgba(96,165,250,0.42));
+    }
     .member-eyebrow { font-size: 0.7rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--member-color); margin-bottom: 0.75rem; }
     .member-hero-name { font-family: 'Dancing Script', cursive; font-size: clamp(3.5rem, 11vw, 9rem); letter-spacing: 0.01em; line-height: 0.9; color: var(--text); text-shadow: 0 0 80px rgba(96,165,250,0.25); margin-bottom: 1.25rem; }
     .member-hero-tags { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
@@ -60,6 +92,74 @@
     .track-card:hover .track-thumb { color: var(--member-color); }
     .track-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
     .track-meta { font-size: 0.73rem; color: var(--muted); }
+    .video-showcase {
+      --spotlight: rgba(96,165,250,0.22);
+      position: relative;
+      border: 1px solid var(--border);
+      background: rgba(13,13,26,0.8);
+      overflow: hidden;
+      box-shadow: 0 28px 90px rgba(0,0,0,0.34);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      isolation: isolate;
+    }
+    .video-showcase::before {
+      content: '';
+      position: absolute;
+      inset: -38% -18% auto;
+      height: 72%;
+      background: radial-gradient(ellipse at 50% 45%, var(--spotlight) 0%, transparent 68%);
+      opacity: 0.82;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .video-showcase:hover {
+      border-color: rgba(96,165,250,0.32);
+      transform: translateY(-4px);
+      box-shadow: 0 34px 110px rgba(0,0,0,0.42);
+    }
+    .video-frame { position: relative; overflow: hidden; background: var(--bg2); aspect-ratio: 16 / 9; }
+    .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .video-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.35rem;
+      padding: 1rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .video-title { color: var(--text); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.16em; }
+    .track-spotlight {
+      margin-top: 1.2rem;
+      padding: 1.1rem 1.2rem;
+      border: 1px solid rgba(96,165,250,0.2);
+      background: rgba(10,10,22,0.42);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .track-spotlight-copy { display: flex; flex-direction: column; gap: 0.2rem; }
+    .track-spotlight-label { font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted); }
+    .track-spotlight-title { font-size: 1rem; letter-spacing: 0.06em; color: var(--text); font-weight: 600; }
+    .listen-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    .listen-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.8rem 1.35rem;
+      border: 1px solid var(--member-color);
+      color: var(--member-color);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s;
+    }
+    .listen-link:hover { background: var(--member-color); color: var(--bg); }
     .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
     .photo-item { aspect-ratio: 1; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; transition: border-color 0.3s; }
     .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
@@ -75,13 +175,13 @@
 <body>
   <div id="atmosphere" aria-hidden="true"></div>
   <nav id="navbar">
-    <a href="index.html" class="nav-back"><img src="images/logo/the-4th-kind-logo.png" alt="" aria-hidden="true"><span>&#8592; The 4th Kind</span></a>
+    <a href="index.html" class="nav-back"><img src="images/logo/the-4th-kind-logo-v2.jpg" alt="" aria-hidden="true"><span>&#8592; The 4th Kind</span></a>
     <a href="https://instagram.com/wodiene" target="_blank" class="nav-ig">@wodiene</a>
   </nav>
   <div class="member-hero" style="background-image: url('images/wodiene/wodiene.jpg'); background-size: cover; background-position: center 15%;">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 35% 55%, rgba(10,30,90,0.65) 0%, transparent 65%);"></div>
     <div class="member-hero-content">
-      <img class="member-brand-logo" src="images/logo/the-4th-kind-logo.png" alt="The 4th Kind logo">
+      <img class="member-brand-logo" src="images/logo/the-4th-kind-logo-v2.jpg" alt="The 4th Kind logo">
       <p class="member-eyebrow">Chicago, IL &nbsp;&bull;&nbsp; The 4th Kind</p>
       <h1 class="member-hero-name">Wodiene</h1>
       <div class="member-hero-tags">
@@ -91,6 +191,39 @@
       <a href="https://instagram.com/wodiene" target="_blank" class="member-cta">@wodiene</a>
     </div>
   </div>
+  <section class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 60% 40%, rgba(10,25,75,0.5) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Visuals</p>
+      <h2 class="section-title reveal">Featured Video</h2>
+      <div class="video-showcase reveal">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/3Q0Y_0XSUMg?rel=0&modestbranding=1"
+            title="Wodiene featured visual"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-meta">
+          <span>Wodiene Visual</span>
+          <span class="video-title">Featured on The 4th Kind</span>
+        </div>
+      </div>
+      <div class="track-spotlight reveal">
+        <div class="track-spotlight-copy">
+          <span class="track-spotlight-label">Handpicked by Spacey</span>
+          <span class="track-spotlight-title">Muddy</span>
+        </div>
+        <div class="listen-links">
+          <a class="listen-link" href="https://music.apple.com/us/album/muddy/1834980295?i=1834980300" target="_blank" rel="noopener noreferrer">Apple Music</a>
+          <a class="listen-link" href="https://open.spotify.com/search/Wodiene%20Muddy" target="_blank" rel="noopener noreferrer">Spotify</a>
+          <a class="listen-link" href="https://www.youtube.com/results?search_query=Wodiene+Muddy" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 70% 50%, rgba(10,20,80,0.5) 0%, transparent 65%);"></div>
     <div class="section-inner">
@@ -135,6 +268,8 @@
     <a href="index.html">&#8592; Back to The 4th Kind</a>
     &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
     Wodiene &copy; 2025
+    &nbsp;&nbsp;&mdash;&nbsp;&nbsp;
+    Site by &copy; Carey Belcher
   </footer>
   <script>
     const navbar = document.getElementById('navbar');

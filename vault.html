@@ -23,7 +23,28 @@
     #matrix { position: fixed; inset: 0; z-index: 0; opacity: 0.35; }
 
     #terminal { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 5rem 2rem 6rem; }
-    .vault-logo { width: clamp(90px, 18vw, 150px); height: auto; display: block; margin-bottom: 2rem; filter: drop-shadow(0 0 28px rgba(179,71,255,0.48)); opacity: 0; animation: fadein 0.5s ease forwards; }
+    .vault-logo {
+      width: clamp(120px, 22vw, 190px);
+      aspect-ratio: 1;
+      padding: 16%;
+      border-radius: 50%;
+      display: block;
+      margin-bottom: 2rem;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.88) 0 9%, rgba(255,255,255,0.2) 13%, transparent 29%),
+        radial-gradient(circle at 68% 74%, rgba(179,71,255,0.24) 0%, transparent 38%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, rgba(179,71,255,0.14) 56%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(213,128,255,0.26);
+      box-shadow:
+        inset 0 0 26px rgba(255,255,255,0.12),
+        inset 0 -20px 36px rgba(124,45,184,0.28),
+        0 0 28px rgba(179,71,255,0.36);
+      filter: drop-shadow(0 0 28px rgba(179,71,255,0.48));
+      opacity: 0;
+      animation: fadein 0.5s ease forwards;
+    }
 
     .boot-line { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; opacity: 0; animation: fadein 0.3s ease forwards; }
     .boot-line:nth-child(1) { animation-delay: 0.1s; }
@@ -90,19 +111,48 @@
     .vault-footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: 0.68rem; color: var(--muted); display: flex; justify-content: space-between; align-items: center; opacity: 0; animation: fadein 0.5s ease 4s forwards; }
     .vault-footer a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
     .vault-footer a:hover { color: var(--purple); }
-    .vault-footer img { width: 34px; height: 34px; object-fit: contain; margin-right: 0.7rem; vertical-align: middle; filter: drop-shadow(0 0 12px rgba(179,71,255,0.35)); }
+    .vault-footer img {
+      width: 38px;
+      height: 38px;
+      padding: 6px;
+      border-radius: 50%;
+      object-fit: contain;
+      margin-right: 0.7rem;
+      vertical-align: middle;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.74) 0 10%, rgba(255,255,255,0.16) 14%, transparent 31%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08) 0%, rgba(179,71,255,0.12) 60%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(213,128,255,0.22);
+      box-shadow: inset 0 0 12px rgba(255,255,255,0.1), 0 0 12px rgba(179,71,255,0.22);
+      filter: drop-shadow(0 0 12px rgba(179,71,255,0.35));
+    }
 
     /* cb */
-    body::after { content: 'carey belcher'; position: fixed; bottom: 1.1rem; right: 1.4rem; font-size: 0.52rem; letter-spacing: 0.18em; color: rgba(179,71,255,0.1); pointer-events: none; z-index: 0; text-transform: lowercase; }
+    .site-credit-badge {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 3;
+      padding: 0.55rem 0.8rem;
+      border: 1px solid rgba(213,128,255,0.22);
+      background: rgba(0,0,0,0.72);
+      color: rgba(213,128,255,0.92);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(179,71,255,0.16);
+    }
 
     @media (max-width: 600px) { #terminal { padding: 3rem 1.25rem 4rem; } }
   </style>
 </head>
 <body>
   <canvas id="matrix"></canvas>
+  <div class="site-credit-badge">&copy; Carey Belcher</div>
 
   <div id="terminal">
-    <img class="vault-logo" src="images/logo/the-4th-kind-logo.png" alt="The 4th Kind logo">
+    <img class="vault-logo" src="images/logo/the-4th-kind-logo-v2.jpg" alt="The 4th Kind logo">
     <div class="boot-line">> INITIALIZING 16RAHEEM VAULT v1.0 ...</div>
     <div class="boot-line">> DECRYPTING CREDENTIALS .............. OK</div>
     <div class="boot-line">> VERIFYING ACCESS TOKEN ............... OK</div>
@@ -152,7 +202,7 @@
 
     <div class="vault-footer">
       <span>&gt; session_active // do not share this link</span>
-      <a href="16raheem.html"><img src="images/logo/the-4th-kind-logo.png" alt="" aria-hidden="true">&#8592; exit vault</a>
+      <a href="16raheem.html"><img src="images/logo/the-4th-kind-logo-v2.jpg" alt="" aria-hidden="true">&#8592; exit vault</a>
     </div>
   </div>
 

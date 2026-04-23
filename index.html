@@ -118,12 +118,44 @@
     nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s, border-color 0.5s, backdrop-filter 0.5s; }
     nav.scrolled { background: rgba(7,7,15,0.88); backdrop-filter: blur(14px); border-color: var(--border); }
     .nav-logo { display: inline-flex; align-items: center; gap: 0.7rem; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em; color: var(--text); text-decoration: none; text-transform: uppercase; }
-    .nav-logo img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 0 16px rgba(167,139,250,0.35)); }
+    .nav-logo img {
+      width: 48px;
+      height: 48px;
+      padding: 8px;
+      border-radius: 50%;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 30% 28%, rgba(255,255,255,0.72) 0 10%, rgba(255,255,255,0.18) 14%, transparent 32%),
+        radial-gradient(circle at 68% 72%, rgba(167,139,250,0.24) 0%, transparent 46%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, rgba(120,119,198,0.12) 58%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(226,226,240,0.28);
+      box-shadow:
+        inset 0 0 18px rgba(255,255,255,0.18),
+        inset 0 -10px 20px rgba(88,28,135,0.28),
+        0 0 22px rgba(167,139,250,0.28);
+      filter: drop-shadow(0 0 16px rgba(167,139,250,0.35));
+    }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; }
     .nav-links a { color: rgba(226,226,240,0.65); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; transition: color 0.3s; }
     .nav-links a:hover { color: var(--text); }
+    .site-credit-badge {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 110;
+      padding: 0.55rem 0.8rem;
+      border: 1px solid rgba(226,226,240,0.2);
+      background: rgba(7,7,15,0.74);
+      color: rgba(226,226,240,0.88);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 24px rgba(0,0,0,0.25);
+    }
 
-    #hero { position: relative; z-index: 1; width: 100%; height: 100vh; overflow: hidden; }
+    #hero { position: relative; z-index: 1; width: 100%; min-height: 100vh; overflow: hidden; padding: 7rem 0 4rem; display: flex; align-items: center; }
     .slides { position: absolute; inset: 0; opacity: 0.68; }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; background-size: cover; background-position: center; }
     .slide.active { opacity: 1; }
@@ -134,39 +166,64 @@
     .slide:nth-child(5) { background: radial-gradient(ellipse at 48% 44%, rgba(124,58,237,0.26) 0%, transparent 56%), linear-gradient(135deg, #0d0d1a 0%, #17102f 50%, #0a0a18 100%); }
     .slide-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.09); pointer-events: none; }
     #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,7,15,0.28) 0%, rgba(7,7,15,0.12) 40%, rgba(7,7,15,0.5) 75%, rgba(7,7,15,1) 100%); pointer-events: none; z-index: 1; }
-    .hero-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem 2rem 5rem; transform: translate3d(0, -8vh, 0); }
-    .hero-eyebrow {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.1rem, 2vw, 1.5rem);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #d8b4fe;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 18px rgba(91, 33, 182, 0.35);
+    .hero-content { position: relative; z-index: 2; width: min(1380px, calc(100% - 8rem)); margin: 0 auto; display: grid; grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.5fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+    .hero-wordmark {
+      position: absolute;
+      right: clamp(-3rem, -2vw, -1rem);
+      top: 50%;
+      width: min(48vw, 780px);
+      opacity: 0.12;
+      transform: translateY(-56%) rotate(-8deg);
+      filter:
+        brightness(0)
+        invert(1)
+        sepia(1)
+        saturate(0.65)
+        hue-rotate(210deg)
+        drop-shadow(0 0 22px rgba(167,139,250,0.22));
+      mix-blend-mode: screen;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
     }
+    .hero-brand { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; text-align: left; }
+    .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 15vw, 12rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 0.75rem; text-shadow: 0 0 62px rgba(167,139,250,0.26); position: relative; animation: heroFloat 12s ease-in-out infinite; will-change: transform; }
     .hero-title::before, .hero-title::after { content: attr(data-text); position: absolute; inset: 0; width: 100%; pointer-events: none; mix-blend-mode: screen; }
     .hero-title::before { color: #60a5fa; transform: translate3d(0.025em,0,0); opacity: 0.16; animation: spectralDrift 9s ease-in-out infinite; }
     .hero-title::after { color: #f472b6; transform: translate3d(-0.025em,0,0); opacity: 0.12; animation: spectralDrift 10s ease-in-out infinite reverse; }
-    .logo-title { width: min(52vw, 500px); margin-bottom: 2rem; font-size: 0; text-shadow: none; }
+    .logo-title { width: min(100%, 440px); margin-bottom: 1.5rem; font-size: 0; text-shadow: none; }
     .logo-title::before, .logo-title::after { display: none; }
-    .hero-logo { display: block; width: 100%; height: auto; object-fit: contain; filter: drop-shadow(0 0 38px rgba(167,139,250,0.52)) drop-shadow(0 0 90px rgba(96,165,250,0.18)); }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-    .hero-sub {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1rem, 2.2vw, 1.45rem);
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: rgba(242, 236, 255, 0.92);
-      margin-bottom: 3rem;
-      text-shadow: 0 0 22px rgba(8, 8, 20, 0.75);
+    .hero-logo {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1;
+      padding: 15%;
+      border-radius: 50%;
+      object-fit: contain;
+      mix-blend-mode: screen;
+      background:
+        radial-gradient(circle at 30% 26%, rgba(255,255,255,0.9) 0 8%, rgba(255,255,255,0.22) 12%, transparent 28%),
+        radial-gradient(circle at 72% 76%, rgba(96,165,250,0.18) 0%, transparent 34%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.14) 0%, rgba(167,139,250,0.16) 52%, rgba(255,255,255,0.04) 100%);
+      border: 1px solid rgba(226,226,240,0.24);
+      box-shadow:
+        inset 0 0 34px rgba(255,255,255,0.16),
+        inset 0 -28px 48px rgba(76,29,149,0.28),
+        0 0 38px rgba(167,139,250,0.34),
+        0 0 90px rgba(96,165,250,0.14);
+      filter: drop-shadow(0 0 38px rgba(167,139,250,0.52)) drop-shadow(0 0 90px rgba(96,165,250,0.18));
     }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    .hero-sub { font-size: 0.78rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(226,226,240,0.6); margin-bottom: 1.25rem; }
+    .hero-copy { max-width: 28rem; font-size: 0.98rem; color: rgba(226,226,240,0.72); line-height: 1.9; margin-bottom: 2.2rem; }
     .hero-cta { display: inline-block; padding: 0.85rem 2.5rem; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; transition: background 0.3s, color 0.3s; }
     .hero-cta:hover { background: var(--accent); color: var(--bg); }
-    .slide-dots { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 0.6rem; }
+    .slide-dots { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 0.6rem; }
     .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; border: none; padding: 0; transition: background 0.3s, transform 0.3s; }
     .dot.active { background: var(--accent); transform: scale(1.4); }
+    .hero-videos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; align-items: start; }
+    .hero-videos .video-showcase:first-child { grid-column: 1 / -1; }
 
     .depth-section { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
     .depth-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
@@ -190,12 +247,30 @@
 
     /* Music */
     .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
-    .track-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem; cursor: pointer; transition: border-color 0.3s; }
+    .track-card { background: var(--bg2); border: 1px solid var(--border); padding: 1.5rem; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; }
     .track-card:hover { border-color: rgba(167,139,250,0.3); }
-    .track-thumb { width: 100%; aspect-ratio: 1; background: var(--bg3); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.6rem; transition: color 0.3s; }
+    .track-card:hover { transform: translateY(-4px); box-shadow: 0 24px 70px rgba(0,0,0,0.28); }
+    .track-thumb { width: 100%; aspect-ratio: 1; background: var(--bg3); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.6rem; transition: color 0.3s; overflow: hidden; }
+    .track-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
     .track-card:hover .track-thumb { color: var(--accent); }
+    .track-card:hover .track-thumb img { transform: scale(1.04); }
     .track-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
     .track-meta { font-size: 0.73rem; color: var(--muted); }
+    .track-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .track-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 0.9rem;
+      border: 1px solid rgba(167,139,250,0.22);
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .track-link:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
     .video-feature { max-width: 1360px; }
     .video-showcase-grid {
       display: grid;
@@ -317,10 +392,14 @@
       .nav-links a { font-size: 0.64rem; letter-spacing: 0.14em; }
       .nav-logo span { display: none; }
       .nav-logo img { width: 38px; height: 38px; }
-      .hero-content { padding: 2rem 1.5rem 4rem; transform: translate3d(0, -4vh, 0); }
-      .logo-title { width: min(70vw, 380px); }
-      .hero-eyebrow { font-size: 1rem; letter-spacing: 0.18em; }
-      .hero-sub { font-size: 0.95rem; letter-spacing: 0.14em; }
+      #hero { min-height: auto; padding: 6.5rem 0 3rem; }
+      .hero-content { width: min(100% - 3rem, 720px); grid-template-columns: 1fr; }
+      .hero-wordmark { width: min(86vw, 540px); right: 50%; top: 1rem; transform: translateX(50%) rotate(-6deg); opacity: 0.1; }
+      .hero-brand { align-items: center; text-align: center; }
+      .logo-title { width: min(88vw, 520px); }
+      .hero-copy { max-width: none; }
+      .hero-videos { grid-template-columns: 1fr; }
+      .hero-videos .video-showcase:first-child { grid-column: auto; }
       .section-inner { padding: 4rem 1.5rem; }
       .video-showcase-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       footer { padding: 2rem 1.5rem; }
@@ -331,16 +410,17 @@
   <div id="atmosphere" aria-hidden="true"></div>
 
   <nav id="navbar">
-    <a href="#hero" class="nav-logo"><img src="images/logo/the-4th-kind-logo.png" alt="" aria-hidden="true"><span>The 4th Kind</span></a>
+    <a href="#hero" class="nav-logo"><img src="images/logo/the-4th-kind-logo-v2.jpg" alt="" aria-hidden="true"><span>The 4th Kind</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#music">Music</a></li>
-      <li><a href="#video">Video</a></li>
+      <li><a href="#hero">Video</a></li>
       <li><a href="#members">Members</a></li>
       <li><a href="#merch">Merch</a></li>
       <li><a href="#photos">Photos</a></li>
     </ul>
   </nav>
+  <div class="site-credit-badge">&copy; Carey Belcher</div>
 
   <section id="hero">
     <div class="slides">
@@ -351,53 +431,18 @@
       <div class="slide"><div class="slide-placeholder">Photo 5</div></div>
     </div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Chicago, IL</p>
-      <h1 class="hero-title logo-title" data-text="The 4th Kind">
-        <img class="hero-logo" src="images/logo/the-4th-kind-logo.png" alt="The 4th Kind logo">
-        <span class="sr-only">The 4th Kind</span>
-      </h1>
-      <p class="hero-sub">16RAHEEM &nbsp;&bull;&nbsp; Wodiene &nbsp;&bull;&nbsp; Jsteezzy &nbsp;&bull;&nbsp; Freewave Ant</p>
-      <a href="#music" class="hero-cta">Explore</a>
-    </div>
-    <div class="slide-dots" id="dots"></div>
-  </section>
-
-  <section id="about" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(40,10,60,0.6) 0%, transparent 65%);"></div>
-    <div class="section-inner about-inner">
-      <p class="section-label reveal">The Message</p>
-      <h2 class="section-title reveal">What We Stand For</h2>
-      <div class="manifesto reveal">
-        <p class="manifesto-lead">An independent Hip-Hop collective distancing themselves from contemporaries &amp; catapulting their sonic realm to an outer space domain.</p>
-        <p>The 4th Kind is an independent Hip-Hop recording collective &amp; label based in Chicago, Illinois. Though the seeds were originally planted in Oak Park, Illinois, the group&#8217;s message, presence and impact reaches to both coasts of the US and transcends the nation as they grow worldwide.</p>
-        <p>Founded by 16RAHEEM in 2016&#8211;17, the group consisted of key members Wodiene &amp; Spacey. Starting out with SoundCloud mixtapes, DIY music videos &amp; cover arts &#8212; the group has always carried a passion to express authenticity with a competitive flame driving them to reach the peak of high quality Hip-Hop music.</p>
-        <p>Inspired heavily by the sound and poetry of their city, 16, Wodiene &amp; Jsteezzy released countless tracks from 2021&#8211;2022. Each track feeling like a hidden gem, carefully crafted by young enthusiastic poets in the basement, with a deep desire to stamp themselves as generational talents in rap.</p>
-        <p>The name &#8216;The 4th Kind&#8217; takes inspiration from the 70s film <em>Close Encounters of The Third Kind</em>, and the rap duo <em>The Third Kind</em> formed by Capital Steez in the early 2010s. With the name &#8216;The 4th Kind&#8217;, the Chicago collective takes another creative step distancing themselves even further from contemporaries &amp; peers, catapulting their sonic realm to an outer space domain. Spacey synths, jazzy samples &amp; psychedelic-otherworldly ambience are the conveyance for this gritty grassroots Hip-Hop movement.</p>
-        <p>With deep reflective themes of love, paranoia, hustle, dreams, pain, sacrifice, faith &amp; betrayal &#8212; the introspection &amp; raw vulnerability is what sets this group apart. The group understands one central idea: art is meaningless if it does not manifest as a form of cathartic alchemy for the artist, or if it does not provoke thought or tug at the heartstrings of the listener. As they spread their movement through music, The 4K hopes to make the world a better place, and to open the eyes and ears of individuals who select their voices as the soundtracks to their lives.</p>
+      <img class="hero-wordmark" src="images/logo/4k-wordmark.png" alt="" aria-hidden="true">
+      <div class="hero-brand">
+        <p class="hero-eyebrow">Chicago, IL</p>
+        <h1 class="hero-title logo-title" data-text="The 4th Kind">
+          <img class="hero-logo" src="images/logo/the-4th-kind-logo-v2.jpg" alt="The 4th Kind logo">
+          <span class="sr-only">The 4th Kind</span>
+        </h1>
+        <p class="hero-sub">16RAHEEM &nbsp;&bull;&nbsp; Wodiene &nbsp;&bull;&nbsp; Jsteezzy &nbsp;&bull;&nbsp; Freewave Ant</p>
+        <p class="hero-copy">Featured visuals now hit first. The newest energy from The 4th Kind lives right at the top, with the logo anchored beside the videos.</p>
+        <a href="#members" class="hero-cta">Explore</a>
       </div>
-    </div>
-  </section>
-
-  <section id="music" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(18,18,80,0.55) 0%, transparent 65%);"></div>
-    <div class="section-inner">
-      <p class="section-label reveal">Discography</p>
-      <h2 class="section-title reveal">Music</h2>
-      <div class="music-grid reveal-grid">
-        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
-        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
-        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
-        <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="video" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 58% 45%, rgba(96,34,92,0.5) 0%, transparent 65%);"></div>
-    <div class="section-inner video-feature">
-      <p class="section-label reveal">Featured Videos</p>
-      <h2 class="section-title reveal">Visuals</h2>
-      <div class="video-showcase-grid reveal-grid">
+      <div class="hero-videos">
         <article class="video-showcase raheem">
           <div class="video-frame">
             <iframe
@@ -443,6 +488,74 @@
             <span>Jsteezzy</span>
           </div>
         </article>
+      </div>
+    </div>
+    <div class="slide-dots" id="dots"></div>
+  </section>
+
+  <section id="about" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(40,10,60,0.6) 0%, transparent 65%);"></div>
+    <div class="section-inner about-inner">
+      <p class="section-label reveal">The Message</p>
+      <h2 class="section-title reveal">What We Stand For</h2>
+      <div class="manifesto reveal">
+        <p class="manifesto-lead">An independent Chicago Hip-Hop collective built on authenticity, brotherhood, and an outer-space vision for rap.</p>
+        <p>The 4th Kind is an independent Hip-Hop recording collective &amp; label based in Chicago, Illinois. Though the seeds were originally planted in Oak Park, Illinois, the group&#8217;s message, presence and impact reaches to both coasts of the US and transcends the nation as they grow worldwide.</p>
+        <p>Founded by 16RAHEEM in 2016&#8211;17, the group consisted of key members Wodiene &amp; Spacey. Starting out with SoundCloud mixtapes, DIY Music Videos &amp; Cover arts, the group has always carried a passion to express authenticity with a competitive flame driving them to reach the peak of high quality Hip-Hop music.</p>
+        <p>Inspired heavily by the sound and poetry of their city, 16, Wodiene &amp; Jsteezzy had released countless tracks from 2021&#8211;2022. Each track feeling like a hidden gem, carefully crafted by young enthusiastic poets in the basement, with a deep desire to stamp themselves as generational talents in rap.</p>
+        <p>Since 2023, the group includes longtime associate Freewave Ant, who has made his own wave while fitting into the frame of The 4th Kind seamlessly. A childhood friend of 16RAHEEM, Wodiene &amp; Spacey, Ant was there long before the name ever existed. As the group began making waves in Chicago, Ant had traveled west, planting himself in San Francisco while pursuing higher education. In 2023, he made it official, joining The 4th Kind not as an outsider, but as a founding member finally stepping forward. Bringing his sound to the same bricks that built The 4th Kind: authentic, hungry, and built on brotherhood.</p>
+        <p>The name &#8216;The 4th Kind&#8217; takes inspiration from the 70&#8217;s film <em>Close Encounters of The Third Kind</em>, and the rap duo <em>The Third Kind</em> formed by Capital Steez in the early 2010s. To 16RAHEEM, Pro Era represented another group of teenage rhymers with the same hunger to express individualism. With the name &#8216;The 4th Kind&#8217;, the Chicago collective takes another creative step distancing themselves even further from contemporaries &amp; peers, and catapulting their sonic realm of endeavors to an outer space domain. Spacey synths, jazzy samples &amp; psychedelic-otherworldly ambience are the conveyance for this gritty grassroots Hip-Hop movement, as they make their own wave through an ever-changing world of music.</p>
+        <p>With deep reflective themes of love, paranoia, hustle, dreams, pain, sacrifice, faith &amp; betrayal, the introspection &amp; raw vulnerability is what sets this group apart from the common themes found in mainstream rap lyrics today. The group understands one central idea: art is meaningless if it does not manifest as a form of cathartic alchemy for the artist, or if it does not provoke the thought or tug at the heart strings of the listener. As they spread their movement through music, The 4K hopes to make the world a better place, and to open the eyes and ears of individuals who select their voices as the soundtracks to their lives.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="music" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(18,18,80,0.55) 0%, transparent 65%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Discography</p>
+      <h2 class="section-title reveal">Music</h2>
+      <div class="music-grid reveal-grid">
+        <div class="track-card">
+          <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d9/02/02/d9020241-cd97-b21d-006b-720cc491f1d0/artwork.jpg/600x600bf-60.jpg" alt="Against the World cover art"></div>
+          <div class="track-title">On My Own</div>
+          <div class="track-meta">16RAHEEM &mdash; Handpicked by Spacey</div>
+          <div class="track-links">
+            <a class="track-link" href="https://music.apple.com/us/album/on-my-own/1688552488?i=1688552498" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="track-link" href="https://open.spotify.com/search/16RAHEEM%20On%20My%20Own" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="track-link" href="https://www.youtube.com/results?search_query=16RAHEEM+On+My+Own" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
+        <div class="track-card">
+          <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/43/8d/dd/438dddc6-8b87-21cf-7c80-c891bd543851/artwork.jpg/600x600bf-60.jpg" alt="Love Is War, Vol. 1 cover art"></div>
+          <div class="track-title">Muddy</div>
+          <div class="track-meta">Wodiene &mdash; Handpicked by Spacey</div>
+          <div class="track-links">
+            <a class="track-link" href="https://music.apple.com/us/album/muddy/1834980295?i=1834980300" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="track-link" href="https://open.spotify.com/search/Wodiene%20Muddy" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="track-link" href="https://www.youtube.com/results?search_query=Wodiene+Muddy" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
+        <div class="track-card">
+          <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/b2/22/18/b2221810-f9b7-fec6-8f10-3e1989df60d1/artwork.jpg/600x600bf-60.jpg" alt="The Senior Mixtape cover art"></div>
+          <div class="track-title">Backroads &amp; Backwoods</div>
+          <div class="track-meta">Jsteezzy &mdash; Handpicked by Spacey</div>
+          <div class="track-links">
+            <a class="track-link" href="https://music.apple.com/us/album/backroads-backwoods/1645222719?i=1645223207" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="track-link" href="https://open.spotify.com/search/Jsteezzy%20Backroads%20%26%20Backwoods" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="track-link" href="https://www.youtube.com/results?search_query=Jsteezzy+Backroads+and+Backwoods" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
+        <div class="track-card">
+          <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/43/f0/2c/43f02c23-ee62-662e-1164-8181d8d4087c/artwork.jpg/600x600bf-60.jpg" alt="WAV cover art"></div>
+          <div class="track-title">Designer</div>
+          <div class="track-meta">Freewave Ant &mdash; Handpicked by Spacey</div>
+          <div class="track-links">
+            <a class="track-link" href="https://music.apple.com/us/album/designer/1876860372?i=1876860390" target="_blank" rel="noopener noreferrer">Apple Music</a>
+            <a class="track-link" href="https://open.spotify.com/search/Freewave%20Ant%20Designer" target="_blank" rel="noopener noreferrer">Spotify</a>
+            <a class="track-link" href="https://www.youtube.com/results?search_query=Freewave+Ant+Designer" target="_blank" rel="noopener noreferrer">YouTube</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -518,7 +631,7 @@
     </div>
   </section>
 
-  <footer>&copy; 2025 The 4th Kind &mdash; Chicago, IL</footer>
+  <footer>&copy; 2025 The 4th Kind &mdash; Chicago, IL &mdash; Site by &copy; Carey Belcher</footer>
 
   <script>
     window.addEventListener('load', () => {

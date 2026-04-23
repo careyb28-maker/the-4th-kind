@@ -6,3 +6,5 @@ audio/vault/*.flac
 # OS files
 .DS_Store
 Thumbs.db
+.vercel
+.env*.local
