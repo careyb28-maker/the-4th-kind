@@ -39,7 +39,7 @@
         radial-gradient(circle at 50% 42%, var(--nebula-core) 0 14%, transparent 34%),
         radial-gradient(ellipse at 18% 20%, var(--nebula-left) 0%, transparent 46%),
         radial-gradient(ellipse at 82% 72%, var(--nebula-right) 0%, transparent 48%),
-        linear-gradient(180deg, var(--space-core) 0%, var(--space-mid) 44%, var(--space-edge) 100%);
+        linear-gradient(180deg, #14091f 0%, #12081c 18%, #100717 34%, #0c0512 52%, #08030d 70%, #040207 86%, #010102 100%);
       color: var(--text);
       font-family: 'Raleway', sans-serif;
       font-weight: 300;
@@ -55,6 +55,16 @@
       background:
         radial-gradient(circle at 50% calc(32% + var(--void-pull) * 12%), rgba(12,6,24,0) 0 16%, rgba(8,4,18,calc(0.18 + var(--void-pull) * 0.26)) 38%, rgba(3,2,8,calc(0.28 + var(--void-pull) * 0.42)) 68%, rgba(0,0,0,calc(0.1 + var(--void-pull) * 0.34)) 100%);
       opacity: 1;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(112,56,170,0.16) 0%, rgba(92,38,146,0.12) 18%, rgba(70,28,118,0.08) 36%, rgba(42,18,76,0.05) 58%, rgba(18,8,36,0.02) 78%, rgba(0,0,0,0) 100%);
+      opacity: calc(0.9 - var(--void-pull) * 0.35);
     }
 
     #atmosphere {
@@ -233,7 +243,7 @@
     .hero-videos .video-showcase:first-child { grid-column: 1 / -1; }
 
     .depth-section { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
-    .depth-bg { position: absolute; inset: -48% -8% -42%; will-change: transform; pointer-events: none; filter: blur(22px); opacity: 0.92; }
+    .depth-bg { position: absolute; inset: -58% -12% -52%; will-change: transform; pointer-events: none; filter: blur(44px); opacity: 0.48; }
     .section-inner { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
 
     .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease, transform 0.75s ease; }
