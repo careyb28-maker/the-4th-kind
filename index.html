@@ -132,7 +132,7 @@
     .video-feature { max-width: 1360px; }
     .video-showcase-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(320px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: clamp(1.5rem, 4vw, 3.5rem);
       align-items: stretch;
     }
@@ -161,7 +161,7 @@
       transform: translateY(-4px);
       box-shadow: 0 34px 110px rgba(0,0,0,0.42);
     }
-    .video-showcase.featured { grid-column: 1 / -1; max-width: 920px; justify-self: center; width: 100%; }
+    .video-showcase.raheem { --spotlight: rgba(167,139,250,0.22); }
     .video-showcase.wodiene { --spotlight: rgba(96,165,250,0.22); }
     .video-showcase.jsteezzy { --spotlight: rgba(244,114,182,0.18); }
     .video-frame {
@@ -246,7 +246,6 @@
       .nav-links a { font-size: 0.64rem; letter-spacing: 0.14em; }
       .section-inner { padding: 4rem 1.5rem; }
       .video-showcase-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .video-showcase.featured { max-width: none; }
       footer { padding: 2rem 1.5rem; }
     }
   </style>
@@ -319,7 +318,7 @@
       <p class="section-label reveal">Featured Videos</p>
       <h2 class="section-title reveal">Visuals</h2>
       <div class="video-showcase-grid reveal-grid">
-        <article class="video-showcase featured">
+        <article class="video-showcase raheem">
           <div class="video-frame">
             <iframe
               src="https://www.youtube-nocookie.com/embed/uOozsMoSK88?mute=1&playsinline=1&rel=0&modestbranding=1"
