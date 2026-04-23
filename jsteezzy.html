@@ -54,14 +54,6 @@
     .member-hero .depth-bg { position: absolute; inset: -35% 0; will-change: transform; pointer-events: none; }
     .member-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(7,7,15,0.92) 0%, rgba(7,7,15,0.18) 45%, rgba(7,7,15,0.04) 100%); pointer-events: none; z-index: 1; }
     .member-hero-content { position: relative; z-index: 2; }
-    .member-brand-logo {
-      display: block;
-      width: clamp(96px, 14vw, 148px);
-      height: auto;
-      object-fit: contain;
-      margin-bottom: 1.5rem;
-      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.35));
-    }
     .member-eyebrow { font-size: 0.7rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--member-color); margin-bottom: 0.75rem; }
     .member-hero-name { font-family: 'Dancing Script', cursive; font-size: clamp(3rem, 9vw, 6.5rem); letter-spacing: 0.01em; line-height: 0.9; color: var(--text); text-shadow: 0 0 80px rgba(45,212,191,0.2); margin-bottom: 1.25rem; }
     .member-hero-tags { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
@@ -204,7 +196,6 @@
   <div class="member-hero" style="background-image: url('images/jsteezzy/jsteezzy.jpg'); background-size: cover; background-position: center 30%;">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 35% 55%, rgba(5,55,55,0.65) 0%, transparent 65%);"></div>
     <div class="member-hero-content">
-      <img class="member-brand-logo" src="images/logo/the-4th-kind-logo-v2.jpg" alt="The 4th Kind logo">
       <p class="member-eyebrow">Chicago, IL &nbsp;&bull;&nbsp; The 4th Kind</p>
       <h1 class="member-hero-name">Jsteezzy</h1>
       <div class="member-hero-tags">
