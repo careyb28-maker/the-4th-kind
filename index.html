@@ -16,29 +16,20 @@
       --text:   #e2e2f0;
       --muted:  #7878a0;
       --border: rgba(167, 139, 250, 0.12);
-      --space-core: #1b0d2c;
-      --space-mid: #0d0618;
-      --space-edge: #020206;
-      --nebula-core: rgba(128, 49, 218, 0.28);
-      --nebula-left: rgba(83, 17, 122, 0.42);
-      --nebula-right: rgba(37, 18, 84, 0.36);
       --starfield-strength: 1;
       --planet-glow: rgba(110, 56, 204, 0.34);
-      --planet-shadow: rgba(8, 4, 20, 0.78);
       --ring-opacity: 0.9;
       --logo-tint-shadow: rgba(110, 56, 204, 0.4);
       --logo-deep-shadow: rgba(18, 8, 44, 0.16);
       --hero-logo-highlight: rgba(255,255,255,0.9);
       --hero-logo-glow: rgba(131, 77, 222, 0.34);
       --hero-logo-void: rgba(46, 18, 89, 0.32);
-      --void-pull: 0;
       --star-opacity: 0.26;
-      --star-brightness: 0.55;
+      --star-brightness: 0.82;
     }
     html { scroll-behavior: smooth; }
     body {
-      background:
-        linear-gradient(180deg, #13091d 0%, #100717 38%, #09040e 68%, #020204 100%);
+      background: linear-gradient(180deg, #13091d 0%, #100717 38%, #09040e 68%, #020204 100%);
       color: var(--text);
       font-family: 'Raleway', sans-serif;
       font-weight: 300;
@@ -51,18 +42,7 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background:
-        radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 38%, rgba(0,0,0,0) 72%);
-      opacity: 1;
-    }
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(88,40,134,0.1) 0%, rgba(56,22,86,0.06) 42%, rgba(10,4,18,0.02) 100%);
+      background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.18) 38%, rgba(0,0,0,0) 72%);
       opacity: 1;
     }
 
@@ -74,8 +54,7 @@
       overflow: hidden;
       contain: paint;
       opacity: 0;
-      transform: scale(1.04);
-      transition: opacity 1.1s ease, transform 1.4s ease;
+      transition: opacity 0.8s ease;
       background:
         radial-gradient(circle at 22% 18%, rgba(233,213,255,calc(0.9 * var(--star-opacity))) 0 1px, transparent 1.5px),
         radial-gradient(circle at 76% 28%, rgba(196,181,253,calc(0.72 * var(--star-opacity))) 0 1px, transparent 1.8px),
@@ -86,7 +65,6 @@
     }
     body.atmosphere-ready #atmosphere {
       opacity: 1;
-      transform: scale(1);
     }
     #atmosphere::before {
       content: '';
@@ -98,7 +76,7 @@
       background:
         radial-gradient(circle, rgba(255,255,255,0.06) 0 8%, var(--planet-glow) 26%, rgba(65,40,125,0.12) 46%, transparent 72%),
         url('images/logo/the-4th-kind-logo.png') center / contain no-repeat;
-      filter: drop-shadow(0 0 34px var(--logo-tint-shadow)) drop-shadow(0 0 90px var(--logo-deep-shadow));
+      filter: drop-shadow(0 0 24px var(--logo-tint-shadow));
       opacity: 0.82;
       transform: translate3d(-50%, -50%, 0);
       animation: starBreathe 7s ease-in-out infinite;
@@ -114,10 +92,8 @@
       border: 1px solid rgba(167,139,250,0.1);
       border-radius: 50%;
       box-shadow:
-        0 0 0 4vw rgba(167,139,250,0.02),
-        0 0 0 8vw rgba(76,29,149,0.022),
-        inset 0 0 90px rgba(93,53,179,0.05),
-        0 0 130px rgba(76,36,147,0.06);
+        0 0 0 4vw rgba(167,139,250,0.018),
+        inset 0 0 48px rgba(93,53,179,0.04);
       opacity: var(--ring-opacity);
       transform: translate3d(-50%, -50%, 0) rotate(-12deg) scaleY(0.42);
       animation: galaxyTilt 34s linear infinite;
@@ -131,11 +107,9 @@
       height: var(--size, 5px);
       border-radius: 50%;
       background: hsl(var(--hue, 260) 92% 76%);
-      box-shadow: 0 0 calc(10px + 16px * var(--star-brightness)) currentColor;
       color: hsl(var(--hue, 260) 92% 76%);
       opacity: 0;
       transform: translate3d(-50%, -50%, 0);
-      filter: brightness(var(--star-brightness));
       will-change: transform, opacity;
     }
     .fragment::after {
@@ -144,8 +118,7 @@
       inset: -5px;
       border-radius: inherit;
       background: radial-gradient(circle, currentColor 0%, transparent 58%);
-      opacity: calc(0.1 + 0.45 * var(--star-opacity));
-      filter: blur(5px);
+      opacity: calc(0.06 + 0.18 * var(--star-opacity));
     }
     .fragment.blue { --hue: 252; }
     .fragment.pink { --hue: 286; }
@@ -243,7 +216,7 @@
     .hero-videos .video-showcase:first-child { grid-column: 1 / -1; }
 
     .depth-section { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; overflow: hidden; }
-    .depth-bg { position: absolute; inset: -58% -12% -52%; will-change: transform; pointer-events: none; filter: blur(56px); opacity: 0.16; }
+    .depth-bg { position: absolute; inset: -58% -12% -52%; pointer-events: none; filter: blur(32px); opacity: 0.1; }
     .section-inner { position: relative; z-index: 2; width: 100%; max-width: 1200px; margin: 0 auto; padding: 7rem 4rem; }
 
     .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.75s ease, transform 0.75s ease; }
@@ -692,52 +665,17 @@
     const depthBgs = document.querySelectorAll('.depth-bg');
     const rootStyle = document.documentElement.style;
 
-    function mixColor(a, b, t) {
-      const ah = a.replace('#', '');
-      const bh = b.replace('#', '');
-      const ar = parseInt(ah.slice(0, 2), 16);
-      const ag = parseInt(ah.slice(2, 4), 16);
-      const ab = parseInt(ah.slice(4, 6), 16);
-      const br = parseInt(bh.slice(0, 2), 16);
-      const bg = parseInt(bh.slice(2, 4), 16);
-      const bb = parseInt(bh.slice(4, 6), 16);
-      const r = Math.round(ar + (br - ar) * t);
-      const g = Math.round(ag + (bg - ag) * t);
-      const b2 = Math.round(ab + (bb - ab) * t);
-      return `rgb(${r}, ${g}, ${b2})`;
-    }
-
     function setVoidPalette(progress) {
-      const eased = Math.min(1, Math.max(0, progress));
-      const lift = Math.pow(eased, 0.78);
-      rootStyle.setProperty('--space-core', mixColor('#13091d', '#0b0512', eased * 0.35));
-      rootStyle.setProperty('--space-mid', mixColor('#100717', '#08040d', eased * 0.35));
-      rootStyle.setProperty('--space-edge', mixColor('#020204', '#010102', eased * 0.2));
-      rootStyle.setProperty('--nebula-core', `rgba(128, 49, 218, ${(0.12 - lift * 0.04).toFixed(3)})`);
-      rootStyle.setProperty('--nebula-left', `rgba(83, 17, 122, ${(0.18 - lift * 0.06).toFixed(3)})`);
-      rootStyle.setProperty('--nebula-right', `rgba(37, 18, 84, ${(0.14 - lift * 0.05).toFixed(3)})`);
+      const lift = Math.min(1, Math.max(0, Math.pow(progress, 0.78)));
       rootStyle.setProperty('--starfield-strength', (0.08 + lift * 0.42).toFixed(3));
       rootStyle.setProperty('--star-opacity', (0.22 + lift * 1.2).toFixed(3));
       rootStyle.setProperty('--star-brightness', (0.5 + lift * 0.9).toFixed(3));
-      rootStyle.setProperty('--planet-glow', `rgba(110, 56, 204, ${(0.18 + lift * 0.18).toFixed(3)})`);
-      rootStyle.setProperty('--logo-tint-shadow', `rgba(110, 56, 204, ${(0.2 + lift * 0.22).toFixed(3)})`);
-      rootStyle.setProperty('--logo-deep-shadow', `rgba(18, 8, 44, ${(0.14 + lift * 0.12).toFixed(3)})`);
-      rootStyle.setProperty('--ring-opacity', (0.38 + lift * 0.34).toFixed(3));
-      rootStyle.setProperty('--hero-logo-highlight', `rgba(255,255,255, ${(0.72 + lift * 0.18).toFixed(3)})`);
-      rootStyle.setProperty('--hero-logo-glow', `rgba(131, 77, 222, ${(0.2 + lift * 0.16).toFixed(3)})`);
-      rootStyle.setProperty('--hero-logo-void', `rgba(46, 18, 89, ${(0.28 + lift * 0.08).toFixed(3)})`);
-      rootStyle.setProperty('--void-pull', (0.18 + lift * 0.22).toFixed(3));
     }
 
     function updateScrollDepth() {
       const maxScroll = Math.max(1, document.body.scrollHeight - window.innerHeight);
       scrollPct = window.scrollY / maxScroll;
       setVoidPalette(Math.pow(scrollPct, 0.82));
-      depthBgs.forEach(bg => {
-        const rect = bg.parentElement.getBoundingClientRect();
-        const drift = ((rect.top + rect.height * 0.5) / window.innerHeight - 0.5) * 18;
-        bg.style.transform = `translate3d(0, ${drift}%, 0)`;
-      });
       depthRafPending = false;
     }
 
@@ -748,10 +686,10 @@
     }
 
     if (!reducedMotion) {
-      for (let i = 0; i < 132; i++) {
+      for (let i = 0; i < 72; i++) {
         const el = document.createElement('div');
         const size = 1.4 + Math.random() * 4.8;
-        const orbitBand = i / 132;
+        const orbitBand = i / 72;
         el.className = `fragment ${colorPool[Math.floor(Math.random() * colorPool.length)]}`;
         el.style.setProperty('--size', `${size}px`);
         atmos.appendChild(el);
