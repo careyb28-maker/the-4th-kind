@@ -70,8 +70,8 @@
       background:
         radial-gradient(circle at 22% 18%, rgba(233,213,255,0.9) 0 1px, transparent 1.5px),
         radial-gradient(circle at 76% 28%, rgba(196,181,253,0.72) 0 1px, transparent 1.8px),
-        radial-gradient(circle at 38% 72%, rgba(244,114,182,0.54) 0 1px, transparent 1.7px),
-        radial-gradient(circle at 64% 86%, rgba(147,197,253,0.52) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 38% 72%, rgba(196,114,244,0.48) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 64% 86%, rgba(162,118,236,0.44) 0 1px, transparent 1.6px),
         radial-gradient(ellipse at 50% 48%, rgba(126,34,206,calc(0.32 * var(--starfield-strength))) 0%, rgba(91,33,182,calc(0.14 * var(--starfield-strength))) 28%, transparent 64%);
       background-size: 180px 180px, 240px 240px, 210px 210px, 290px 290px, 100% 100%;
     }
@@ -137,8 +137,8 @@
       opacity: 0.45;
       filter: blur(5px);
     }
-    .fragment.blue { --hue: 212; }
-    .fragment.pink { --hue: 322; }
+    .fragment.blue { --hue: 252; }
+    .fragment.pink { --hue: 286; }
     .fragment.glow { --hue: 270; }
 
     nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1.2rem 4rem; display: flex; justify-content: space-between; align-items: center; background: transparent; border-bottom: 1px solid transparent; transition: background 0.5s, border-color 0.5s, backdrop-filter 0.5s; }
@@ -197,8 +197,8 @@
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 15vw, 12rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 0.75rem; text-shadow: 0 0 62px rgba(167,139,250,0.26); position: relative; animation: heroFloat 12s ease-in-out infinite; will-change: transform; }
     .hero-title::before, .hero-title::after { content: attr(data-text); position: absolute; inset: 0; width: 100%; pointer-events: none; mix-blend-mode: screen; }
-    .hero-title::before { color: #60a5fa; transform: translate3d(0.025em,0,0); opacity: 0.16; animation: spectralDrift 9s ease-in-out infinite; }
-    .hero-title::after { color: #f472b6; transform: translate3d(-0.025em,0,0); opacity: 0.12; animation: spectralDrift 10s ease-in-out infinite reverse; }
+    .hero-title::before { color: #8b5cf6; transform: translate3d(0.025em,0,0); opacity: 0.16; animation: spectralDrift 9s ease-in-out infinite; }
+    .hero-title::after { color: #d8b4fe; transform: translate3d(-0.025em,0,0); opacity: 0.12; animation: spectralDrift 10s ease-in-out infinite reverse; }
     .logo-title { width: min(100%, 440px); margin-bottom: 1.5rem; font-size: 0; text-shadow: none; }
     .logo-title::before, .logo-title::after { display: none; }
     .hero-logo {
@@ -319,8 +319,8 @@
       box-shadow: 0 34px 110px rgba(0,0,0,0.42);
     }
     .video-showcase.raheem { --spotlight: rgba(167,139,250,0.22); }
-    .video-showcase.wodiene { --spotlight: rgba(96,165,250,0.22); }
-    .video-showcase.jsteezzy { --spotlight: rgba(244,114,182,0.18); }
+    .video-showcase.wodiene { --spotlight: rgba(147,111,255,0.2); }
+    .video-showcase.jsteezzy { --spotlight: rgba(187,128,255,0.18); }
     .video-frame {
       position: relative;
       overflow: hidden;
@@ -507,7 +507,7 @@
   </section>
 
   <section id="about" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(40,10,60,0.6) 0%, transparent 65%);"></div>
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(68,24,108,0.52) 0%, rgba(22,8,36,0.1) 52%, transparent 72%);"></div>
     <div class="section-inner about-inner">
       <p class="section-label reveal">The Message</p>
       <h2 class="section-title reveal">What We Stand For</h2>
@@ -524,7 +524,7 @@
   </section>
 
   <section id="music" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(18,18,80,0.55) 0%, transparent 65%);"></div>
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(54,20,92,0.44) 0%, rgba(18,8,30,0.1) 54%, transparent 72%);"></div>
     <div class="section-inner">
       <p class="section-label reveal">Discography</p>
       <h2 class="section-title reveal">Music</h2>
@@ -574,7 +574,7 @@
   </section>
 
   <section id="members" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 72% 40%, rgba(75,18,80,0.5) 0%, transparent 65%);"></div>
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 72% 40%, rgba(42,16,76,0.34) 0%, rgba(14,6,24,0.08) 56%, transparent 72%);"></div>
     <div class="section-inner">
       <p class="section-label reveal">The Group</p>
       <h2 class="section-title reveal">Members</h2>
@@ -616,7 +616,7 @@
   </section>
 
   <section id="merch" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 70%, rgba(8,48,58,0.55) 0%, transparent 65%);"></div>
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 70%, rgba(28,10,54,0.24) 0%, rgba(10,4,18,0.06) 58%, transparent 72%);"></div>
     <div class="section-inner">
       <p class="section-label reveal">Store</p>
       <h2 class="section-title reveal">Merch</h2>
@@ -629,7 +629,7 @@
   </section>
 
   <section id="photos" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(58,8,28,0.55) 0%, transparent 65%);"></div>
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(18,8,36,0.16) 0%, rgba(6,3,12,0.04) 60%, transparent 74%);"></div>
     <div class="section-inner">
       <p class="section-label reveal">Gallery</p>
       <h2 class="section-title reveal">Photos</h2>
