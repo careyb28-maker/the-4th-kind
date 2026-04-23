@@ -129,6 +129,41 @@
     .track-card:hover .track-thumb { color: var(--accent); }
     .track-title { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.25rem; }
     .track-meta { font-size: 0.73rem; color: var(--muted); }
+    .video-feature { max-width: 1180px; }
+    .video-showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .video-showcase {
+      border: 1px solid var(--border);
+      background: rgba(13,13,26,0.78);
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .video-showcase:hover {
+      border-color: rgba(167,139,250,0.3);
+      transform: translateY(-4px);
+    }
+    .video-frame {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg2);
+      aspect-ratio: 16 / 9;
+    }
+    .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .video-meta {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.35rem;
+      padding: 1rem;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .video-title { color: var(--text); font-size: 0.86rem; font-weight: 600; letter-spacing: 0.16em; }
 
     /* Members */
     .members-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
@@ -188,8 +223,10 @@
 
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; }
+      .nav-links { gap: 0.85rem; flex-wrap: wrap; justify-content: flex-end; }
+      .nav-links a { font-size: 0.64rem; letter-spacing: 0.14em; }
       .section-inner { padding: 4rem 1.5rem; }
+      .video-showcase-grid { grid-template-columns: 1fr; }
       footer { padding: 2rem 1.5rem; }
     }
   </style>
@@ -202,6 +239,7 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#music">Music</a></li>
+      <li><a href="#video">Video</a></li>
       <li><a href="#members">Members</a></li>
       <li><a href="#merch">Merch</a></li>
       <li><a href="#photos">Photos</a></li>
@@ -251,6 +289,61 @@
         <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
         <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
         <div class="track-card"><div class="track-thumb">&#9654;</div><div class="track-title">Track Title</div><div class="track-meta">Single &mdash; 2024</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="video" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 58% 45%, rgba(96,34,92,0.5) 0%, transparent 65%);"></div>
+    <div class="section-inner video-feature">
+      <p class="section-label reveal">Featured Videos</p>
+      <h2 class="section-title reveal">Visuals</h2>
+      <div class="video-showcase-grid reveal-grid">
+        <article class="video-showcase">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/uOozsMoSK88?mute=1&playsinline=1&rel=0&modestbranding=1"
+              title="16RAHEEM - Losin Me music video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-meta">
+            <span class="video-title">Losin Me</span>
+            <span>16RAHEEM</span>
+          </div>
+        </article>
+        <article class="video-showcase">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/3Q0Y_0XSUMg?mute=1&playsinline=1&rel=0&modestbranding=1"
+              title="Wodiene - age is pain music video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-meta">
+            <span class="video-title">Age Is Pain</span>
+            <span>Wodiene</span>
+          </div>
+        </article>
+        <article class="video-showcase">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/Bb1gmTO3094?mute=1&playsinline=1&rel=0&modestbranding=1"
+              title="Jsteezzy - Screen Doors music video"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div class="video-meta">
+            <span class="video-title">Screen Doors</span>
+            <span>Jsteezzy</span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
