@@ -28,11 +28,12 @@
       --ring-opacity: 0.9;
       --logo-tint-shadow: rgba(110, 56, 204, 0.4);
       --logo-deep-shadow: rgba(18, 8, 44, 0.16);
-      --wordmark-opacity: 0.14;
+      --wordmark-opacity: 0.2;
       --wordmark-shadow: rgba(132, 77, 223, 0.22);
       --hero-logo-highlight: rgba(255,255,255,0.9);
       --hero-logo-glow: rgba(131, 77, 222, 0.34);
       --hero-logo-void: rgba(46, 18, 89, 0.32);
+      --void-pull: 0;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -46,6 +47,16 @@
       font-weight: 300;
       line-height: 1.7;
       overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 50% calc(32% + var(--void-pull) * 12%), rgba(12,6,24,0) 0 16%, rgba(8,4,18,calc(0.18 + var(--void-pull) * 0.26)) 38%, rgba(3,2,8,calc(0.28 + var(--void-pull) * 0.42)) 68%, rgba(0,0,0,calc(0.1 + var(--void-pull) * 0.34)) 100%);
+      opacity: 1;
     }
 
     #atmosphere {
@@ -186,22 +197,22 @@
     .hero-content { position: relative; z-index: 2; width: min(1380px, calc(100% - 8rem)); margin: 0 auto; display: grid; grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.5fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
     .hero-wordmark {
       position: absolute;
-      right: clamp(-3rem, -2vw, -1rem);
-      top: 50%;
-      width: min(48vw, 780px);
+      right: clamp(1.5rem, 4vw, 4rem);
+      bottom: clamp(4.5rem, 9vh, 7rem);
+      width: min(24vw, 320px);
       opacity: var(--wordmark-opacity);
-      transform: translateY(-56%) rotate(-8deg);
+      transform: rotate(-8deg);
       filter:
         brightness(0)
         invert(1)
         sepia(1)
-        saturate(0.55)
+        saturate(0.72)
         hue-rotate(222deg)
-        drop-shadow(0 0 22px var(--wordmark-shadow));
+        drop-shadow(0 0 18px var(--wordmark-shadow));
       mix-blend-mode: screen;
       pointer-events: none;
       user-select: none;
-      z-index: 0;
+      z-index: 2;
     }
     .hero-brand { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; text-align: left; }
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
@@ -419,7 +430,7 @@
       .nav-logo img { width: 38px; height: 38px; }
       #hero { min-height: auto; padding: 6.5rem 0 3rem; }
       .hero-content { width: min(100% - 3rem, 720px); grid-template-columns: 1fr; }
-      .hero-wordmark { width: min(86vw, 540px); right: 50%; top: 1rem; transform: translateX(50%) rotate(-6deg); opacity: 0.1; }
+      .hero-wordmark { width: min(54vw, 240px); right: 1rem; bottom: 4.2rem; transform: rotate(-6deg); opacity: 0.16; }
       .hero-brand { align-items: center; text-align: center; }
       .logo-title { width: min(88vw, 520px); }
       .hero-copy { max-width: none; }
@@ -712,22 +723,24 @@
 
     function setVoidPalette(progress) {
       const eased = Math.min(1, Math.max(0, progress));
+      const drift = Math.pow(eased, 0.58);
       rootStyle.setProperty('--space-core', mixColor('#1b0d2c', '#060309', eased));
       rootStyle.setProperty('--space-mid', mixColor('#0d0618', '#040208', eased));
       rootStyle.setProperty('--space-edge', mixColor('#020206', '#010103', eased));
-      rootStyle.setProperty('--nebula-core', `rgba(128, 49, 218, ${(0.28 - eased * 0.18).toFixed(3)})`);
-      rootStyle.setProperty('--nebula-left', `rgba(83, 17, 122, ${(0.42 - eased * 0.24).toFixed(3)})`);
-      rootStyle.setProperty('--nebula-right', `rgba(37, 18, 84, ${(0.36 - eased * 0.22).toFixed(3)})`);
-      rootStyle.setProperty('--starfield-strength', (1 - eased * 0.55).toFixed(3));
-      rootStyle.setProperty('--planet-glow', `rgba(110, 56, 204, ${(0.34 - eased * 0.2).toFixed(3)})`);
-      rootStyle.setProperty('--logo-tint-shadow', `rgba(110, 56, 204, ${(0.4 - eased * 0.24).toFixed(3)})`);
-      rootStyle.setProperty('--logo-deep-shadow', `rgba(18, 8, 44, ${(0.16 + eased * 0.12).toFixed(3)})`);
-      rootStyle.setProperty('--ring-opacity', (0.9 - eased * 0.45).toFixed(3));
-      rootStyle.setProperty('--wordmark-opacity', (0.14 - eased * 0.08).toFixed(3));
-      rootStyle.setProperty('--wordmark-shadow', `rgba(132, 77, 223, ${(0.22 - eased * 0.14).toFixed(3)})`);
-      rootStyle.setProperty('--hero-logo-highlight', `rgba(255,255,255, ${(0.9 - eased * 0.24).toFixed(3)})`);
-      rootStyle.setProperty('--hero-logo-glow', `rgba(131, 77, 222, ${(0.34 - eased * 0.18).toFixed(3)})`);
-      rootStyle.setProperty('--hero-logo-void', `rgba(46, 18, 89, ${(0.32 + eased * 0.18).toFixed(3)})`);
+      rootStyle.setProperty('--nebula-core', `rgba(128, 49, 218, ${(0.28 - drift * 0.22).toFixed(3)})`);
+      rootStyle.setProperty('--nebula-left', `rgba(83, 17, 122, ${(0.42 - drift * 0.3).toFixed(3)})`);
+      rootStyle.setProperty('--nebula-right', `rgba(37, 18, 84, ${(0.36 - drift * 0.28).toFixed(3)})`);
+      rootStyle.setProperty('--starfield-strength', (1 - drift * 0.72).toFixed(3));
+      rootStyle.setProperty('--planet-glow', `rgba(110, 56, 204, ${(0.34 - drift * 0.26).toFixed(3)})`);
+      rootStyle.setProperty('--logo-tint-shadow', `rgba(110, 56, 204, ${(0.4 - drift * 0.3).toFixed(3)})`);
+      rootStyle.setProperty('--logo-deep-shadow', `rgba(18, 8, 44, ${(0.16 + drift * 0.22).toFixed(3)})`);
+      rootStyle.setProperty('--ring-opacity', (0.9 - drift * 0.62).toFixed(3));
+      rootStyle.setProperty('--wordmark-opacity', (0.2 - drift * 0.11).toFixed(3));
+      rootStyle.setProperty('--wordmark-shadow', `rgba(132, 77, 223, ${(0.22 - drift * 0.12).toFixed(3)})`);
+      rootStyle.setProperty('--hero-logo-highlight', `rgba(255,255,255, ${(0.9 - drift * 0.32).toFixed(3)})`);
+      rootStyle.setProperty('--hero-logo-glow', `rgba(131, 77, 222, ${(0.34 - drift * 0.22).toFixed(3)})`);
+      rootStyle.setProperty('--hero-logo-void', `rgba(46, 18, 89, ${(0.32 + drift * 0.26).toFixed(3)})`);
+      rootStyle.setProperty('--void-pull', drift.toFixed(3));
     }
 
     function updateScrollDepth() {
