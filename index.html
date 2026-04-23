@@ -18,9 +18,34 @@
       --border: rgba(167, 139, 250, 0.12);
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Raleway', sans-serif; font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+    body {
+      background:
+        radial-gradient(circle at 50% 42%, rgba(124,58,237,0.22) 0 14%, transparent 34%),
+        radial-gradient(ellipse at 18% 20%, rgba(88,28,135,0.38) 0%, transparent 46%),
+        radial-gradient(ellipse at 82% 72%, rgba(49,46,129,0.34) 0%, transparent 48%),
+        linear-gradient(180deg, #080711 0%, #130821 44%, #07070f 100%);
+      color: var(--text);
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-    #atmosphere { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; contain: paint; }
+    #atmosphere {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+      contain: paint;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(233,213,255,0.9) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 76% 28%, rgba(196,181,253,0.72) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 38% 72%, rgba(244,114,182,0.54) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 64% 86%, rgba(147,197,253,0.52) 0 1px, transparent 1.6px),
+        radial-gradient(ellipse at 50% 48%, rgba(126,34,206,0.32) 0%, rgba(91,33,182,0.14) 28%, transparent 64%);
+      background-size: 180px 180px, 240px 240px, 210px 210px, 290px 290px, 100% 100%;
+    }
     #atmosphere::before {
       content: '';
       position: absolute;
@@ -47,10 +72,14 @@
       border: 1px solid rgba(167,139,250,0.1);
       border-radius: 50%;
       box-shadow:
-        0 0 0 18vw rgba(96,165,250,0.015),
-        inset 0 0 90px rgba(167,139,250,0.035);
-      opacity: 0.7;
+        0 0 0 12vw rgba(167,139,250,0.018),
+        0 0 0 22vw rgba(76,29,149,0.022),
+        inset 0 0 90px rgba(167,139,250,0.05),
+        0 0 130px rgba(168,85,247,0.08);
+      opacity: 0.9;
       transform: translate3d(-50%, -50%, 0) rotate(-12deg) scaleY(0.42);
+      animation: galaxyTilt 34s linear infinite;
+      will-change: transform;
     }
     .fragment {
       position: absolute;
@@ -66,6 +95,15 @@
       transform: translate3d(-50%, -50%, 0);
       will-change: transform, opacity;
     }
+    .fragment::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: inherit;
+      background: radial-gradient(circle, currentColor 0%, transparent 58%);
+      opacity: 0.45;
+      filter: blur(5px);
+    }
     .fragment.blue { --hue: 212; }
     .fragment.pink { --hue: 322; }
     .fragment.glow { --hue: 270; }
@@ -78,14 +116,14 @@
     .nav-links a:hover { color: var(--text); }
 
     #hero { position: relative; z-index: 1; width: 100%; height: 100vh; overflow: hidden; }
-    .slides { position: absolute; inset: 0; }
+    .slides { position: absolute; inset: 0; opacity: 0.68; }
     .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; background-size: cover; background-position: center; }
     .slide.active { opacity: 1; }
-    .slide:nth-child(1) { background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 50%, #0a0a18 100%); }
-    .slide:nth-child(2) { background: linear-gradient(135deg, #0a0a18 0%, #0d1a2e 50%, #0d0d1a 100%); }
-    .slide:nth-child(3) { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a0d 50%, #0a0a18 100%); }
-    .slide:nth-child(4) { background: linear-gradient(135deg, #0a0a18 0%, #1a0d1a 50%, #0f0f1a 100%); }
-    .slide:nth-child(5) { background: linear-gradient(135deg, #0d0d1a 0%, #0d1a1a 50%, #0a0a18 100%); }
+    .slide:nth-child(1) { background: radial-gradient(ellipse at 50% 45%, rgba(139,92,246,0.34) 0%, transparent 56%), linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 50%, #0a0a18 100%); }
+    .slide:nth-child(2) { background: radial-gradient(ellipse at 55% 48%, rgba(168,85,247,0.28) 0%, transparent 58%), linear-gradient(135deg, #0a0a18 0%, #151034 50%, #0d0d1a 100%); }
+    .slide:nth-child(3) { background: radial-gradient(ellipse at 47% 44%, rgba(216,180,254,0.2) 0%, transparent 54%), linear-gradient(135deg, #0f0f1a 0%, #231038 50%, #0a0a18 100%); }
+    .slide:nth-child(4) { background: radial-gradient(ellipse at 50% 52%, rgba(244,114,182,0.2) 0%, transparent 56%), linear-gradient(135deg, #0a0a18 0%, #211034 50%, #0f0f1a 100%); }
+    .slide:nth-child(5) { background: radial-gradient(ellipse at 48% 44%, rgba(124,58,237,0.26) 0%, transparent 56%), linear-gradient(135deg, #0d0d1a 0%, #17102f 50%, #0a0a18 100%); }
     .slide-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.09); pointer-events: none; }
     #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,7,15,0.28) 0%, rgba(7,7,15,0.12) 40%, rgba(7,7,15,0.5) 75%, rgba(7,7,15,1) 100%); pointer-events: none; z-index: 1; }
     .hero-content { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2rem; }
@@ -233,10 +271,14 @@
       0%, 100% { opacity: 0.72; transform: translate3d(-50%, -50%, 0) scale(0.96); }
       50%      { opacity: 0.94; transform: translate3d(-50%, -50%, 0) scale(1.04); }
     }
+    @keyframes galaxyTilt {
+      0%   { transform: translate3d(-50%, -50%, 0) rotate(-16deg) scaleY(0.42); }
+      100% { transform: translate3d(-50%, -50%, 0) rotate(344deg) scaleY(0.42); }
+    }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .hero-title, .hero-title::before, .hero-title::after, #atmosphere::before { animation: none; }
+      .hero-title, .hero-title::before, .hero-title::after, #atmosphere::before, #atmosphere::after { animation: none; }
       .fragment { display: none; }
     }
 
@@ -490,21 +532,23 @@
     }
 
     if (!reducedMotion) {
-      for (let i = 0; i < 44; i++) {
+      for (let i = 0; i < 132; i++) {
         const el = document.createElement('div');
-        const size = 2 + Math.random() * 5.5;
-        const orbitBand = i / 44;
+        const size = 1.4 + Math.random() * 4.8;
+        const orbitBand = i / 132;
         el.className = `fragment ${colorPool[Math.floor(Math.random() * colorPool.length)]}`;
         el.style.setProperty('--size', `${size}px`);
         atmos.appendChild(el);
         orbiters.push({
           el,
           phase: Math.random() * Math.PI * 2,
-          radiusX: 90 + orbitBand * Math.min(viewportW, 1100) * 0.44 + Math.random() * 70,
-          radiusY: 28 + orbitBand * Math.min(viewportH, 760) * 0.18 + Math.random() * 30,
-          speed: (0.035 + Math.random() * 0.085) * (Math.random() > 0.45 ? 1 : -1),
-          alpha: 0.24 + Math.random() * 0.48,
-          depth: 0.82 + Math.random() * 0.34
+          band: Math.pow(orbitBand, 0.72),
+          radiusJitter: Math.random() * 92,
+          verticalJitter: Math.random() * 34,
+          speed: (0.018 + Math.random() * 0.072) * (Math.random() > 0.42 ? 1 : -1),
+          alpha: 0.18 + Math.random() * 0.5,
+          depth: 0.74 + Math.random() * 0.46,
+          drift: (Math.random() - 0.5) * 18
         });
       }
 
@@ -512,15 +556,19 @@
         const time = now * 0.001;
         const centerX = viewportW * 0.5;
         const centerY = viewportH * (0.48 - scrollPct * 0.05);
+        const galaxyWidth = Math.min(viewportW * 0.56, 760);
+        const galaxyHeight = Math.min(viewportH * 0.2, 190);
         orbiters.forEach(orb => {
           const angle = orb.phase + time * orb.speed;
-          const tilt = Math.sin(angle + orb.phase) * 7;
-          const x = centerX + Math.cos(angle) * orb.radiusX * orb.depth;
-          const y = centerY + Math.sin(angle) * orb.radiusY + tilt;
+          const tilt = Math.sin(angle + orb.phase) * 10;
+          const radiusX = 68 + orb.band * galaxyWidth + orb.radiusJitter;
+          const radiusY = 20 + orb.band * galaxyHeight + orb.verticalJitter;
+          const x = centerX + Math.cos(angle) * radiusX * orb.depth;
+          const y = centerY + Math.sin(angle) * radiusY + tilt + orb.drift;
           const lightSide = (Math.sin(angle) + 1) * 0.5;
           const opacity = orb.alpha * (0.42 + lightSide * 0.58);
           const scale = 0.75 + lightSide * 0.75;
-          orb.el.style.opacity = opacity.toFixed(3);
+          orb.el.style.opacity = Math.min(0.9, opacity).toFixed(3);
           orb.el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale.toFixed(3)})`;
         });
         requestAnimationFrame(animateOrbit);
