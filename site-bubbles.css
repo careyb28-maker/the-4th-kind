@@ -1,0 +1,307 @@
+:root {
+  --bubble-bg: rgba(13, 13, 24, 0.26);
+  --bubble-bg-strong: rgba(13, 13, 24, 0.4);
+  --bubble-bg-soft: rgba(255, 255, 255, 0.055);
+  --bubble-shadow: rgba(0, 0, 0, 0.28);
+}
+
+body {
+  --surface-glow: color-mix(in srgb, var(--accent, var(--member-color, #a78bfa)) 18%, transparent);
+  --bubble-text: rgba(248, 247, 255, 0.92);
+  --bubble-muted: rgba(226, 226, 240, 0.74);
+  --bubble-faint: rgba(226, 226, 240, 0.58);
+}
+
+body[class*="profile-"] {
+  --bubble-bg: var(--profile-glass);
+  --bubble-bg-strong: var(--profile-glass-strong);
+  --bubble-bg-soft: var(--profile-glass-soft);
+}
+
+nav,
+nav.scrolled,
+.site-credit-badge,
+.manifesto,
+.track-card,
+.track-link,
+.video-showcase,
+.member-card,
+.member-link,
+.member-profile-link,
+.merch-card,
+.photo-item,
+footer,
+.nav-ig,
+.member-cta,
+.member-tag,
+.track-spotlight,
+.listen-link,
+.bio-block,
+.vault-input-row,
+.vault-submit,
+#terminal,
+.vault-section-header,
+.merch-grid,
+.merch-item,
+.merch-img-slot,
+.player,
+.ctrl-btn,
+.track-row,
+.vault-footer {
+  border: 0 !important;
+}
+
+nav,
+nav.scrolled,
+.site-credit-badge,
+.manifesto,
+.track-card,
+.video-showcase,
+.member-card,
+.merch-card,
+.photo-item,
+.nav-ig,
+.member-cta,
+.track-spotlight,
+.bio-block,
+.vault-input-row,
+#terminal,
+.player,
+.merch-grid {
+  background:
+    linear-gradient(135deg, var(--bubble-bg-soft), rgba(255,255,255,0.018)),
+    var(--bubble-bg) !important;
+  border-radius: 18px;
+  box-shadow:
+    0 18px 54px var(--bubble-shadow),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+}
+
+nav.scrolled {
+  background:
+    linear-gradient(135deg, var(--bubble-bg-soft), rgba(255,255,255,0.018)),
+    var(--bubble-bg) !important;
+}
+
+nav,
+nav.scrolled {
+  margin: 0.7rem auto 0;
+  left: 50%;
+  width: min(1120px, calc(100% - 2rem));
+  transform: translateX(-50%);
+  padding: 0.75rem 1rem;
+  border-radius: 999px;
+}
+
+.nav-logo img,
+.vault-footer img {
+  border: 0 !important;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.09), rgba(255,255,255,0.02)),
+    rgba(10,10,20,0.28) !important;
+  box-shadow:
+    0 14px 36px rgba(0,0,0,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.12) !important;
+}
+
+.track-link,
+.member-link,
+.member-profile-link,
+.member-tag,
+.listen-link,
+.vault-submit,
+.ctrl-btn,
+.track-row,
+.merch-item {
+  background: rgba(255,255,255,0.055) !important;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+}
+
+.nav-links a,
+.nav-back,
+.hero-sub,
+.hero-copy,
+.video-meta,
+.track-meta,
+.member-origin,
+.member-bio,
+.member-profile-link,
+.photo-item,
+footer,
+.vault-footer,
+.access-sub,
+.boot-line,
+.track-duration,
+.track-num,
+.player-meta,
+.player-status,
+.merch-price,
+.merch-cmd {
+  color: var(--bubble-muted) !important;
+}
+
+.hero-eyebrow,
+.member-eyebrow,
+.section-label,
+.vault-section-title,
+.prompt,
+.merch-price,
+.track-row.playing .track-num {
+  color: color-mix(in srgb, var(--accent, var(--member-color, #a78bfa)) 72%, #fff 28%) !important;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.58);
+}
+
+.hero-title,
+.member-hero-name,
+.section-title,
+.video-title,
+.track-title,
+.member-name,
+.merch-name,
+.bio-lead,
+.access-granted,
+.player-title,
+.track-row.playing .track-title {
+  color: var(--bubble-text) !important;
+  text-shadow:
+    0 2px 18px rgba(0,0,0,0.62),
+    0 0 28px color-mix(in srgb, var(--accent, var(--member-color, #a78bfa)) 24%, transparent);
+}
+
+.hero-copy,
+.manifesto p,
+.bio-block p {
+  color: rgba(248,247,255,0.84) !important;
+}
+
+.member-bio,
+.track-meta,
+.video-meta,
+.player-meta {
+  text-shadow: 0 1px 12px rgba(0,0,0,0.42);
+}
+
+.nav-links a:hover,
+.nav-back:hover,
+.member-profile-link:hover,
+.vault-footer a:hover {
+  color: #fff !important;
+}
+
+.member-profile-link,
+.member-link {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.56rem 0.82rem;
+  border-bottom: 0 !important;
+}
+
+.track-link:hover,
+.member-link:hover,
+.member-profile-link:hover,
+.listen-link:hover,
+.member-cta:hover,
+.nav-ig:hover,
+.vault-submit:hover,
+.ctrl-btn:hover,
+.ctrl-btn.active,
+.track-row:hover,
+.track-row.playing,
+.merch-item:hover {
+  background: color-mix(in srgb, var(--accent, var(--member-color, #a78bfa)) 22%, rgba(255,255,255,0.06)) !important;
+  color: #fff !important;
+}
+
+.track-link,
+.member-link,
+.member-profile-link,
+.member-tag,
+.listen-link,
+.vault-submit,
+.ctrl-btn {
+  color: color-mix(in srgb, var(--accent, var(--member-color, #a78bfa)) 62%, #fff 38%) !important;
+}
+
+.manifesto,
+.bio-block {
+  border-left: 0 !important;
+}
+
+.video-frame,
+.track-thumb,
+.member-avatar,
+.merch-img,
+.merch-img-slot,
+.photo-item img {
+  border: 0 !important;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.video-showcase,
+.track-card,
+.member-card,
+.merch-card,
+.photo-item {
+  overflow: hidden;
+}
+
+.video-showcase::before,
+.member-card::before {
+  opacity: 0 !important;
+}
+
+.track-thumb,
+.merch-img,
+.merch-img-slot {
+  background: rgba(255,255,255,0.045) !important;
+}
+
+.photo-item {
+  color: rgba(226,226,240,0.64);
+}
+
+footer,
+.vault-footer {
+  width: min(1120px, calc(100% - 2rem));
+  margin: 0 auto 1.5rem;
+  padding: 1.1rem 1.25rem !important;
+}
+
+.vault-section-header {
+  padding: 0.9rem 1rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(14px);
+}
+
+.merch-grid {
+  gap: 0.75rem !important;
+  padding: 0.75rem;
+}
+
+.merch-item {
+  cursor: pointer;
+  padding: 1rem !important;
+}
+
+.player-progress-wrap {
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  nav.scrolled {
+    width: calc(100% - 1rem);
+    padding: 0.65rem 0.75rem;
+  }
+
+  footer,
+  .vault-footer {
+    width: calc(100% - 1rem);
+  }
+}

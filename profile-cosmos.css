@@ -10,6 +10,7 @@ body {
 }
 
 body.profile-raheem {
+  --accent: var(--member-color);
   --member-color: #7c4fc9;
   --profile-star-hue: 267;
   --profile-glass: rgba(42, 24, 62, 0.34);
@@ -18,6 +19,7 @@ body.profile-raheem {
 }
 
 body.profile-wodiene {
+  --accent: var(--member-color);
   --member-color: #d0892f;
   --profile-star-hue: 34;
   --profile-glass: rgba(42, 31, 22, 0.38);
@@ -26,6 +28,7 @@ body.profile-wodiene {
 }
 
 body.profile-jsteezzy {
+  --accent: var(--member-color);
   --member-color: #9ca34a;
   --profile-star-hue: 76;
   --profile-glass: rgba(31, 41, 30, 0.36);
@@ -34,6 +37,7 @@ body.profile-jsteezzy {
 }
 
 body.profile-freewaveant {
+  --accent: var(--member-color);
   --member-color: #9db6ff;
   --profile-star-hue: 224;
   --profile-glass: rgba(19, 27, 48, 0.36);
