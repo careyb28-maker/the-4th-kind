@@ -65,14 +65,14 @@
     function animateOrbit(now) {
       const time = now * 0.001;
       const centerX = viewportW * 0.5;
-      const centerY = viewportH * (0.48 - scrollPct * 0.05);
-      const galaxyWidth = Math.min(viewportW * 0.56, 760);
-      const galaxyHeight = Math.min(viewportH * 0.2, 190);
+      const centerY = viewportH * (0.56 - scrollPct * 0.04);
+      const galaxyWidth = Math.min(viewportW * 0.42, 560);
+      const galaxyHeight = Math.min(viewportH * 0.16, 150);
       orbiters.forEach(orb => {
         const angle = orb.phase + time * orb.speed;
         const tilt = Math.sin(angle + orb.phase) * 10;
-        const radiusX = 68 + orb.band * galaxyWidth + orb.radiusJitter;
-        const radiusY = 20 + orb.band * galaxyHeight + orb.verticalJitter;
+        const radiusX = 44 + orb.band * galaxyWidth + orb.radiusJitter * 0.72;
+        const radiusY = 16 + orb.band * galaxyHeight + orb.verticalJitter * 0.64;
         const x = centerX + Math.cos(angle) * radiusX * orb.depth;
         const y = centerY + Math.sin(angle) * radiusY + tilt + orb.drift;
         const lightSide = (Math.sin(angle) + 1) * 0.5;
