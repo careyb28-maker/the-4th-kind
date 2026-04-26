@@ -62,7 +62,7 @@ body::before {
     radial-gradient(circle at 22% 18%, rgba(233,213,255,calc(0.72 * var(--profile-star-opacity))) 0 1px, transparent 1.5px),
     radial-gradient(circle at 76% 28%, hsla(var(--profile-star-hue), 80%, 76%, calc(0.62 * var(--profile-star-opacity))) 0 1px, transparent 1.8px),
     radial-gradient(circle at 38% 72%, hsla(var(--profile-star-hue), 78%, 62%, calc(0.42 * var(--profile-star-opacity))) 0 1px, transparent 1.7px),
-    radial-gradient(circle at 64% 86%, rgba(162,118,236,calc(0.28 * var(--profile-star-opacity))) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 64% 86%, hsla(var(--profile-star-hue), 70%, 70%, calc(0.28 * var(--profile-star-opacity))) 0 1px, transparent 1.6px),
     radial-gradient(ellipse at 50% 48%, hsla(var(--profile-star-hue), 72%, 42%, calc(0.22 * var(--profile-starfield-strength))) 0%, hsla(var(--profile-star-hue), 64%, 24%, calc(0.12 * var(--profile-starfield-strength))) 30%, transparent 66%);
   background-size: 180px 180px, 240px 240px, 210px 210px, 290px 290px, 100% 100%;
 }
@@ -95,6 +95,26 @@ body.atmosphere-ready #atmosphere {
 .fragment.blue { --hue: calc(var(--profile-star-hue) + 16); }
 .fragment.pink { --hue: calc(var(--profile-star-hue) - 18); }
 .fragment.glow { --hue: var(--profile-star-hue); }
+
+body[class*="profile-"] .nav-back img {
+  mix-blend-mode: screen;
+}
+
+body.profile-raheem .nav-back img {
+  filter: sepia(0.16) saturate(1.2) hue-rotate(232deg) brightness(0.96) drop-shadow(0 0 12px rgba(124,79,201,0.28));
+}
+
+body.profile-wodiene .nav-back img {
+  filter: sepia(1) saturate(1.55) hue-rotate(346deg) brightness(0.92) contrast(1.05) drop-shadow(0 0 12px rgba(208,137,47,0.28));
+}
+
+body.profile-jsteezzy .nav-back img {
+  filter: sepia(0.92) saturate(1.1) hue-rotate(38deg) brightness(0.9) contrast(1.04) drop-shadow(0 0 12px rgba(156,163,74,0.24));
+}
+
+body.profile-freewaveant .nav-back img {
+  filter: sepia(0.34) saturate(1.8) hue-rotate(182deg) brightness(1.02) contrast(1.04) drop-shadow(0 0 12px rgba(157,182,255,0.28));
+}
 
 .member-hero::after {
   background:
