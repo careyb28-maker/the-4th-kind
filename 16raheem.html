@@ -127,6 +127,22 @@
       pointer-events: none;
       z-index: -1;
     }
+    .iphone-video-label { font-size: 0.72rem; letter-spacing: 0.38em; text-transform: uppercase; color: rgba(192,132,252,0.9); margin-bottom: 0.9rem; }
+    .iphone-video-card { margin-top: 1.4rem; padding: 1.2rem; border: 1px solid rgba(192,132,252,0.18); background: rgba(12,11,24,0.82); box-shadow: 0 24px 90px rgba(0,0,0,0.28); }
+    .iphone-device { position: relative; border-radius: 46px; background: linear-gradient(180deg, rgba(8,8,16,0.96), rgba(15,13,28,0.96)); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 24px 60px rgba(0,0,0,0.26), inset 0 1px 0 rgba(255,255,255,0.05); padding: 16px 16px 18px; }
+    .iphone-device::before,
+    .iphone-device::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+    }
+    .iphone-device::before { top: 12px; width: 56px; height: 6px; }
+    .iphone-device::after { bottom: 14px; width: 74px; height: 6px; background: rgba(255,255,255,0.08); }
+    .iphone-display { aspect-ratio: 9 / 19.5; border-radius: 32px; overflow: hidden; background: #000; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
+    .iphone-display video { width: 100%; height: 100%; object-fit: cover; display: block; background: #000; }
     .video-showcase:hover {
       border-color: rgba(192,132,252,0.32);
       transform: translateY(-4px);
@@ -233,6 +249,21 @@
         <div class="video-meta">
           <span>Featured Video</span>
           <span class="video-title">Courtesy of The 4th Kind</span>
+        </div>
+      </div>
+      <div class="iphone-video-card reveal">
+        <p class="iphone-video-label">PURPLE HEART</p>
+        <div class="iphone-device">
+          <div class="iphone-display">
+            <video controls muted playsinline preload="metadata" poster="images/logo/the-4th-kind-logo-v2.jpg" aria-label="Purple Heart video">
+              <source src="images/group/copy_0619B8C7-8336-401B-914B-876BB7520B25.mov" type="video/quicktime">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        <div class="video-meta">
+          <span class="video-title">Purple Heart</span>
+          <span>16RAHEEM</span>
         </div>
       </div>
       <div class="track-spotlight reveal">
