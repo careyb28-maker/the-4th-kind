@@ -165,14 +165,28 @@
     }
 
     #hero { position: relative; z-index: 1; width: 100%; min-height: 100vh; overflow: hidden; padding: 7rem 0 4rem; display: flex; align-items: center; }
-    .slides { position: absolute; inset: 0; opacity: 0.68; }
-    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; background-size: cover; background-position: center; }
+    .slides { position: absolute; inset: 0; opacity: 0.5; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      background-color: #040309;
+      background-size: cover, contain;
+      background-position: center, center;
+      background-repeat: no-repeat;
+    }
     .slide.active { opacity: 1; }
     .slide:nth-child(1) { background: radial-gradient(ellipse at 50% 45%, rgba(72,34,126,0.12) 0%, transparent 56%), linear-gradient(135deg, #040309 0%, #090510 50%, #020206 100%); }
     .slide:nth-child(2) { background: radial-gradient(ellipse at 55% 48%, rgba(86,40,154,0.16) 0%, transparent 58%), linear-gradient(135deg, #05040b 0%, #0d0716 50%, #030308 100%); }
     .slide:nth-child(3) { background: radial-gradient(ellipse at 47% 44%, rgba(101,50,181,0.2) 0%, transparent 54%), linear-gradient(135deg, #07050e 0%, #12091f 50%, #04040a 100%); }
     .slide:nth-child(4) { background: radial-gradient(ellipse at 50% 52%, rgba(118,63,205,0.24) 0%, transparent 56%), linear-gradient(135deg, #090711 0%, #180b27 50%, #06060d 100%); }
     .slide:nth-child(5) { background: radial-gradient(ellipse at 48% 44%, rgba(145,90,232,0.32) 0%, transparent 56%), linear-gradient(135deg, #0d0917 0%, #231038 50%, #0a0913 100%); }
+    .slide[style] {
+      background-size: cover, contain;
+      background-position: center, center;
+      background-repeat: no-repeat;
+    }
     .slide-placeholder { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.09); pointer-events: none; }
     #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,7,15,0.28) 0%, rgba(7,7,15,0.12) 40%, rgba(7,7,15,0.5) 75%, rgba(7,7,15,1) 100%); pointer-events: none; z-index: 1; }
     .hero-content { position: relative; z-index: 2; width: min(1240px, calc(100% - 8rem)); margin: 0 auto; display: grid; grid-template-columns: minmax(320px, 1fr) minmax(280px, 0.86fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
@@ -577,6 +591,22 @@
     <div class="slide-dots" id="dots"></div>
   </section>
 
+  <section id="photos" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(18,8,36,0.16) 0%, rgba(6,3,12,0.04) 60%, transparent 74%);"></div>
+    <div class="section-inner">
+      <p class="section-label reveal">Gallery</p>
+      <h2 class="section-title reveal">Photos</h2>
+      <div class="photos-grid reveal-grid">
+        <div class="photo-item"><img src="images/group/8CA355DF-26C7-471D-84DF-999500726A37.jpeg" alt="The 4th Kind group at night"></div>
+        <div class="photo-item"><img src="images/group/IMG_2096.jpeg" alt="The 4th Kind group portrait"></div>
+        <div class="photo-item"><img src="images/group/KJN05669.jpeg" alt="The 4th Kind studio portrait"></div>
+        <div class="photo-item"><img src="images/group/KJN05742.jpeg" alt="The 4th Kind trio portrait"></div>
+        <div class="photo-item"><img src="images/group/GEDC0182.JPG" alt="The 4th Kind seated portrait"></div>
+        <div class="photo-item"><img src="images/group/DSC_4905.jpeg" alt="The 4th Kind duo portrait"></div>
+      </div>
+    </div>
+  </section>
+
   <section id="about" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(68,24,108,0.52) 0%, rgba(22,8,36,0.1) 52%, transparent 72%);"></div>
     <div class="section-inner about-inner">
@@ -694,22 +724,6 @@
         <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
         <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
         <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="photos" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(18,8,36,0.16) 0%, rgba(6,3,12,0.04) 60%, transparent 74%);"></div>
-    <div class="section-inner">
-      <p class="section-label reveal">Gallery</p>
-      <h2 class="section-title reveal">Photos</h2>
-      <div class="photos-grid reveal-grid">
-        <div class="photo-item"><img src="images/group/8CA355DF-26C7-471D-84DF-999500726A37.jpeg" alt="The 4th Kind group at night"></div>
-        <div class="photo-item"><img src="images/group/IMG_2096.jpeg" alt="The 4th Kind group portrait"></div>
-        <div class="photo-item"><img src="images/group/KJN05669.jpeg" alt="The 4th Kind studio portrait"></div>
-        <div class="photo-item"><img src="images/group/KJN05742.jpeg" alt="The 4th Kind trio portrait"></div>
-        <div class="photo-item"><img src="images/group/GEDC0182.JPG" alt="The 4th Kind seated portrait"></div>
-        <div class="photo-item"><img src="images/group/DSC_4905.jpeg" alt="The 4th Kind duo portrait"></div>
       </div>
     </div>
   </section>
