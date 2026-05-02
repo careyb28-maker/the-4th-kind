@@ -175,6 +175,7 @@
       background-size: cover, contain;
       background-position: center, center;
       background-repeat: no-repeat;
+      filter: grayscale(1) contrast(0.92) brightness(0.72);
     }
     .slide.active { opacity: 1; }
     .slide:nth-child(1) { background: radial-gradient(ellipse at 50% 45%, rgba(72,34,126,0.12) 0%, transparent 56%), linear-gradient(135deg, #040309 0%, #090510 50%, #020206 100%); }
@@ -448,9 +449,9 @@
     /* Photos */
     .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
     .photo-item { aspect-ratio: 1; background: var(--bg3); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; transition: border-color 0.3s; }
-    .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1) contrast(0.95) brightness(0.82); opacity: 0.78; transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease; }
     .photo-item:hover { border-color: rgba(167,139,250,0.3); }
-    .photo-item:hover img { transform: scale(1.04); }
+    .photo-item:hover img { filter: grayscale(1) contrast(1.06) brightness(0.96); opacity: 0.94; transform: scale(1.04); }
 
     footer { position: relative; z-index: 1; text-align: center; padding: 3rem 4rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; }
 
