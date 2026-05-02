@@ -1,0 +1,3 @@
+images/group/*
+!images/group/web/
+!images/group/web/**
