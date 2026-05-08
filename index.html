@@ -411,7 +411,7 @@
 
     /* Merch */
     .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
-    .merch-card { background: var(--bg2); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.3s; }
+    .merch-card { display: block; background: var(--bg2); border: 1px solid var(--border); overflow: hidden; color: inherit; text-decoration: none; transition: border-color 0.3s; }
     .merch-card:hover { border-color: rgba(167,139,250,0.3); }
     .merch-img { width: 100%; aspect-ratio: 1; background: var(--bg3); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; }
     .merch-img img { width: 100%; height: 100%; object-fit: cover; }
@@ -687,9 +687,9 @@
       <p class="section-label reveal">Store</p>
       <h2 class="section-title reveal">Merch</h2>
       <div class="merch-grid reveal-grid">
-        <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
-        <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
-        <div class="merch-card"><div class="merch-img">Photo</div><div class="merch-info"><div class="merch-name">Item Name</div><div class="merch-price">$00.00</div></div></div>
+        <a class="merch-card" href="https://the4thkind.bandcamp.com/merch" target="_blank" rel="noopener noreferrer"><div class="merch-img">Bandcamp</div><div class="merch-info"><div class="merch-name">The 4th Kind Merch</div><div class="merch-price">Shop on Bandcamp</div></div></a>
+        <a class="merch-card" href="https://the4thkind.bandcamp.com/merch" target="_blank" rel="noopener noreferrer"><div class="merch-img">Bandcamp</div><div class="merch-info"><div class="merch-name">Purple Heart Drop</div><div class="merch-price">Shop on Bandcamp</div></div></a>
+        <a class="merch-card" href="https://the4thkind.bandcamp.com/merch" target="_blank" rel="noopener noreferrer"><div class="merch-img">Bandcamp</div><div class="merch-info"><div class="merch-name">Limited Merch</div><div class="merch-price">Shop on Bandcamp</div></div></a>
       </div>
     </div>
   </section>
