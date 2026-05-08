@@ -1,4 +1,4 @@
-images/group/*
-!images/group/
-!images/group/web/
-!images/group/web/**
+images/group/*.HEIC
+images/group/*.JPG
+images/group/*.jpeg
+images/group/*.jpg
