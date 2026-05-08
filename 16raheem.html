@@ -365,11 +365,12 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal, .reveal-grid').forEach(el => revealObs.observe(el));
     
-    const SECRET_CODE = 'PLACEHOLDER';
+    const SECRET_CODE = 'VISIONS';
+    const normalizeCode = value => value.trim().toUpperCase().split('').sort().join('');
     function checkCode() {
       const input = document.getElementById('vaultCode');
       const msg   = document.getElementById('vaultMsg');
-      if (input.value.trim().toUpperCase() === SECRET_CODE) {
+      if (normalizeCode(input.value) === normalizeCode(SECRET_CODE)) {
         msg.textContent = '> ACCESS GRANTED — REDIRECTING...';
         msg.className   = 'vault-msg granted';
         setTimeout(() => { window.location.href = 'vault.html'; }, 900);
