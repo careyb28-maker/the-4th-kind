@@ -160,6 +160,16 @@
     .track-spotlight-copy { display: flex; flex-direction: column; gap: 0.2rem; }
     .track-spotlight-label { font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--muted); }
     .track-spotlight-title { font-size: 1rem; letter-spacing: 0.06em; color: var(--text); font-weight: 600; }
+    .bandcamp-drop { margin-top: 1.2rem; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.4rem; align-items: stretch; border: 1px solid rgba(192,132,252,0.22); background: linear-gradient(135deg, rgba(126,34,206,0.2), rgba(12,11,24,0.92) 48%, rgba(23,18,42,0.86)), var(--bg2); color: inherit; text-decoration: none; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .bandcamp-drop:hover { border-color: rgba(192,132,252,0.48); transform: translateY(-3px); }
+    .bandcamp-copy { padding: clamp(1.2rem, 4vw, 2rem); }
+    .bandcamp-kicker { display: block; color: var(--member-color); font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase; margin-bottom: 0.8rem; }
+    .bandcamp-title { font-size: clamp(1.8rem, 5vw, 3.2rem); line-height: 0.95; letter-spacing: 0.06em; color: var(--text); font-weight: 700; margin-bottom: 0.9rem; }
+    .bandcamp-text { color: var(--muted); max-width: 36rem; line-height: 1.8; }
+    .bandcamp-action { display: inline-flex; margin-top: 1.2rem; border: 1px solid var(--member-color); color: var(--member-color); padding: 0.8rem 1.15rem; font-size: 0.66rem; letter-spacing: 0.24em; text-transform: uppercase; }
+    .bandcamp-badge { min-width: min(32vw, 220px); padding: 1.35rem; background: #1da0c3; color: #05030a; display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; font-weight: 700; }
+    .bandcamp-brand { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; }
+    .bandcamp-album { font-size: clamp(1.6rem, 4vw, 2.8rem); line-height: 0.92; letter-spacing: 0.04em; }
     .listen-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .listen-link {
       display: inline-flex;
@@ -194,7 +204,7 @@
     .vault-msg { margin-top: 0.85rem; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; min-height: 1.2em; }
     .vault-msg.denied { color: #f87171; }
     .vault-msg.granted { color: var(--member-color); }
-    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-back span { display: none; } .nav-back img { width: 38px; height: 38px; } .nav-ig { min-height: 40px; padding: 0.72rem 0.95rem; font-size: 0.64rem; letter-spacing: 0.14em; } .member-hero { padding: 0 1.5rem 3.5rem; } .member-cta { width: 100%; max-width: 18rem; } .section-inner { padding: 4rem 1.5rem; } footer { padding: 2rem 1.5rem; } }
+    @media (max-width: 768px) { nav { padding: 1rem 1.5rem; } .nav-back span { display: none; } .nav-back img { width: 38px; height: 38px; } .nav-ig { min-height: 40px; padding: 0.72rem 0.95rem; font-size: 0.64rem; letter-spacing: 0.14em; } .member-hero { padding: 0 1.5rem 3.5rem; } .member-cta { width: 100%; max-width: 18rem; } .section-inner { padding: 4rem 1.5rem; } .bandcamp-drop { grid-template-columns: 1fr; gap: 0; } .bandcamp-badge { min-width: 0; min-height: 130px; } footer { padding: 2rem 1.5rem; } }
   </style>
   <link rel="stylesheet" href="profile-cosmos.css">
   <link rel="stylesheet" href="site-bubbles.css">
@@ -246,6 +256,18 @@
           <a class="listen-link" href="https://www.youtube.com/results?search_query=16RAHEEM+On+My+Own" target="_blank" rel="noopener noreferrer">YouTube</a>
         </div>
       </div>
+      <a class="bandcamp-drop reveal" href="https://16raheem.bandcamp.com/album/purple-vision-s-deluxe-edition" target="_blank" rel="noopener noreferrer">
+        <div class="bandcamp-copy">
+          <span class="bandcamp-kicker">Album + merch</span>
+          <div class="bandcamp-title">Purple Vision's Deluxe Edition</div>
+          <p class="bandcamp-text">Buy 16RAHEEM's album and current merch directly through his Bandcamp.</p>
+          <span class="bandcamp-action">Open Bandcamp</span>
+        </div>
+        <div class="bandcamp-badge">
+          <span class="bandcamp-brand">Bandcamp</span>
+          <span class="bandcamp-album">16RAHEEM</span>
+        </div>
+      </a>
     </div>
   </section>
   <section class="depth-section">

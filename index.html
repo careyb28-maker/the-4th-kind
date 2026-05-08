@@ -410,14 +410,16 @@
     .member-profile-link:hover { color: var(--text); }
 
     /* Merch */
-    .merch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
-    .merch-card { display: block; background: var(--bg2); border: 1px solid var(--border); overflow: hidden; color: inherit; text-decoration: none; transition: border-color 0.3s; }
-    .merch-card:hover { border-color: rgba(167,139,250,0.3); }
-    .merch-img { width: 100%; aspect-ratio: 1; background: var(--bg3); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; overflow: hidden; }
-    .merch-img img { width: 100%; height: 100%; object-fit: cover; }
-    .merch-info { padding: 1.25rem; }
-    .merch-name { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .merch-price { font-size: 0.8rem; color: var(--accent); }
+    .bandcamp-drop { display: grid; grid-template-columns: minmax(0, 1.1fr) auto; gap: 2rem; align-items: stretch; border: 1px solid rgba(167,139,250,0.2); background: linear-gradient(135deg, rgba(98,45,148,0.18), rgba(8,8,18,0.9) 48%, rgba(18,12,36,0.84)), var(--bg2); color: inherit; text-decoration: none; overflow: hidden; transition: border-color 0.3s, transform 0.3s; }
+    .bandcamp-drop:hover { border-color: rgba(167,139,250,0.45); transform: translateY(-3px); }
+    .bandcamp-copy { padding: clamp(1.4rem, 4vw, 2.4rem); }
+    .bandcamp-kicker { display: block; color: var(--accent); font-size: 0.68rem; letter-spacing: 0.34em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .bandcamp-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 7vw, 5.8rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 1rem; }
+    .bandcamp-text { color: var(--muted); max-width: 44rem; font-size: 0.95rem; line-height: 1.9; }
+    .bandcamp-action { display: inline-flex; align-items: center; margin-top: 1.5rem; border: 1px solid var(--accent); color: var(--accent); padding: 0.85rem 1.2rem; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; }
+    .bandcamp-badge { min-width: min(34vw, 280px); padding: 1.6rem; background: #1da0c3; color: #020204; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; font-weight: 600; }
+    .bandcamp-brand { font-size: 0.74rem; letter-spacing: 0.3em; text-transform: uppercase; }
+    .bandcamp-album { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 5vw, 3.8rem); line-height: 0.9; letter-spacing: 0.04em; }
 
     /* Photos */
     .photos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0.75rem; }
@@ -466,6 +468,8 @@
       .hero-videos { grid-template-columns: 1fr; }
       .hero-videos .video-showcase:first-child { grid-column: auto; }
       .section-inner { padding: 4rem 1.5rem; }
+      .bandcamp-drop { grid-template-columns: 1fr; gap: 0; }
+      .bandcamp-badge { min-width: 0; min-height: 150px; }
       .video-showcase-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       footer { padding: 2rem 1.5rem; }
     }
@@ -481,6 +485,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#music">Music</a></li>
       <li><a href="#members">Members</a></li>
+      <li><a href="#merch">Merch</a></li>
     </ul>
   </nav>
   <div class="site-credit-badge">&copy; Carey Belcher</div>
@@ -687,12 +692,19 @@
     <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 70%, rgba(28,10,54,0.24) 0%, rgba(10,4,18,0.06) 58%, transparent 72%);"></div>
     <div class="section-inner">
       <p class="section-label reveal">Store</p>
-      <h2 class="section-title reveal">Merch</h2>
-      <div class="merch-grid reveal-grid">
-        <a class="merch-card" href="https://the4thkind.bandcamp.com/merch" target="_blank" rel="noopener noreferrer"><div class="merch-img">Bandcamp</div><div class="merch-info"><div class="merch-name">The 4th Kind Merch</div><div class="merch-price">Shop on Bandcamp</div></div></a>
-        <a class="merch-card" href="https://the4thkind.bandcamp.com/merch" target="_blank" rel="noopener noreferrer"><div class="merch-img">Bandcamp</div><div class="merch-info"><div class="merch-name">Purple Heart Drop</div><div class="merch-price">Shop on Bandcamp</div></div></a>
-        <a class="merch-card" href="https://the4thkind.bandcamp.com/merch" target="_blank" rel="noopener noreferrer"><div class="merch-img">Bandcamp</div><div class="merch-info"><div class="merch-name">Limited Merch</div><div class="merch-price">Shop on Bandcamp</div></div></a>
-      </div>
+      <h2 class="section-title reveal">16RAHEEM Merch</h2>
+      <a class="bandcamp-drop reveal" href="https://16raheem.bandcamp.com/album/purple-vision-s-deluxe-edition" target="_blank" rel="noopener noreferrer">
+        <div class="bandcamp-copy">
+          <span class="bandcamp-kicker">Album + merch available now</span>
+          <div class="bandcamp-title">Purple Vision's Deluxe Edition</div>
+          <p class="bandcamp-text">16RAHEEM is the first 4K artist with released merch. Buy the album and current merch directly through his Bandcamp.</p>
+          <span class="bandcamp-action">Open Bandcamp</span>
+        </div>
+        <div class="bandcamp-badge">
+          <span class="bandcamp-brand">Bandcamp</span>
+          <span class="bandcamp-album">16RAHEEM</span>
+        </div>
+      </a>
     </div>
   </section>
 
