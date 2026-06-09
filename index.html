@@ -166,7 +166,7 @@
 
     #hero { position: relative; z-index: 1; width: 100%; min-height: 100vh; overflow: hidden; padding: 7rem 0 4rem; display: flex; align-items: center; }
     #hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(7,7,15,0.28) 0%, rgba(7,7,15,0.12) 40%, rgba(7,7,15,0.5) 75%, rgba(7,7,15,1) 100%); pointer-events: none; z-index: 1; }
-    .hero-content { position: relative; z-index: 2; width: min(1240px, calc(100% - 8rem)); margin: 0 auto; display: grid; grid-template-columns: minmax(320px, 1fr) minmax(280px, 0.86fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
+    .hero-content { position: relative; z-index: 2; width: min(1240px, calc(100% - 8rem)); margin: 0 auto; display: grid; grid-template-columns: minmax(280px, 0.78fr) minmax(540px, 1.22fr); gap: clamp(2rem, 4vw, 3.5rem); align-items: center; }
     .hero-brand { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
     .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.45em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 15vw, 12rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 0.75rem; text-shadow: 0 0 62px rgba(167,139,250,0.26); position: relative; animation: heroFloat 12s ease-in-out infinite; will-change: transform; }
@@ -200,6 +200,47 @@
     .hero-copy { max-width: 28rem; font-size: 0.98rem; color: rgba(226,226,240,0.72); line-height: 1.9; margin-bottom: 2.2rem; }
     .hero-videos { width: min(100%, 660px); justify-self: end; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; align-items: start; }
     .hero-videos .video-showcase:first-child { grid-column: 1 / -1; }
+    .hero-artists {
+      width: 100%;
+      justify-self: end;
+    }
+    .hero-artists-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.1rem;
+    }
+    .hero-artists-header .section-label,
+    .hero-artists-header .section-title {
+      margin-bottom: 0;
+    }
+    .hero-artists-header .section-title {
+      font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+      line-height: 0.95;
+    }
+    .hero-members-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .hero-members-grid .member-card {
+      min-height: 100%;
+      padding: 1.25rem;
+    }
+    .hero-members-grid .member-avatar {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 1rem;
+    }
+    .hero-members-grid .member-name {
+      font-size: 1.55rem;
+    }
+    .hero-members-grid .member-origin {
+      margin-bottom: 0.75rem;
+    }
+    .hero-members-grid .member-bio {
+      margin-bottom: 1rem;
+    }
     .hero-video-label {
       margin-bottom: 0.75rem;
       color: rgba(226,226,240,0.62);
@@ -454,19 +495,24 @@
       .fragment { display: none; }
     }
 
+    @media (max-width: 980px) {
+      #hero { min-height: auto; padding: 6.5rem 0 3rem; }
+      .hero-content { width: min(100% - 3rem, 720px); grid-template-columns: 1fr; }
+      .hero-brand { align-items: center; text-align: center; }
+      .hero-copy { max-width: none; }
+      .hero-artists-header { align-items: flex-start; flex-direction: column; }
+    }
+
     @media (max-width: 768px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { gap: 0.85rem; flex-wrap: wrap; justify-content: flex-end; }
       .nav-links a { font-size: 0.64rem; letter-spacing: 0.14em; }
       .nav-logo span { display: none; }
       .nav-logo img { width: 38px; height: 38px; }
-      #hero { min-height: auto; padding: 6.5rem 0 3rem; }
-      .hero-content { width: min(100% - 3rem, 720px); grid-template-columns: 1fr; }
-      .hero-brand { align-items: center; text-align: center; }
       .logo-title { width: min(72vw, 300px); }
       .hero-iphone-video { width: min(62vw, 220px); }
-      .hero-copy { max-width: none; }
-      .hero-videos { grid-template-columns: 1fr; }
+      .hero-videos,
+      .hero-members-grid { grid-template-columns: 1fr; }
       .hero-videos .video-showcase:first-child { grid-column: auto; }
       .section-inner { padding: 4rem 1.5rem; }
       .bandcamp-drop { grid-template-columns: 1fr; gap: 0; }
@@ -485,7 +531,7 @@
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#music">Music</a></li>
-      <li><a href="#members">Members</a></li>
+      <li><a href="#members">Artists</a></li>
       <li><a href="#merch">Merch</a></li>
     </ul>
   </nav>
@@ -513,52 +559,47 @@
         <p class="hero-sub">16RAHEEM &nbsp;&bull;&nbsp; Wodiene &nbsp;&bull;&nbsp; Jsteezzy &nbsp;&bull;&nbsp; Freewave Ant</p>
         <p class="hero-copy">New frequencies from The 4th Kind, launched from Chicago into the outer orbit.</p>
       </div>
-      <div class="hero-videos">
-        <article class="video-showcase raheem">
-          <div class="video-frame">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/uOozsMoSK88?mute=1&playsinline=1&rel=0&modestbranding=1"
-              title="16RAHEEM - Losin Me"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-            </iframe>
+      <div id="members" class="hero-artists">
+        <div class="hero-artists-header">
+          <div>
+            <p class="section-label">The Group</p>
+            <h2 class="section-title">Artists</h2>
           </div>
-          <div class="video-meta">
-            <span class="video-title">Losin Me</span>
-            <span>16RAHEEM</span>
+        </div>
+        <div class="members-grid hero-members-grid">
+          <div class="member-card">
+            <div class="member-avatar"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
+            <a href="16raheem.html" class="member-name-link"><div class="member-name">16RAHEEM</div></a>
+            <div class="member-origin">Chicago, IL</div>
+            <p class="member-bio">Founder of The 4th Kind. SOUL TRAPPED. PURPLE HEART. 1of1. Established 2016.</p>
+            <a href="https://instagram.com/16raheemx" target="_blank" class="member-link" rel="noopener noreferrer">@16raheemx</a>
+            <a href="16raheem.html" class="member-profile-link">View Profile &#8594;</a>
           </div>
-        </article>
-        <article class="video-showcase wodiene">
-          <div class="video-frame">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/3Q0Y_0XSUMg?mute=1&playsinline=1&rel=0&modestbranding=1"
-              title="Wodiene - age is pain"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-            </iframe>
+          <div class="member-card">
+            <div class="member-avatar"><img src="images/wodiene/wodiene.jpg" alt="Wodiene"></div>
+            <a href="wodiene.html" class="member-name-link"><div class="member-name">Wodiene</div></a>
+            <div class="member-origin">Chicago, IL</div>
+            <p class="member-bio">Creating to leave it all behind.</p>
+            <a href="https://instagram.com/wodiene" target="_blank" class="member-link" rel="noopener noreferrer">@wodiene</a>
+            <a href="wodiene.html" class="member-profile-link">View Profile &#8594;</a>
           </div>
-          <div class="video-meta">
-            <span class="video-title">Age Is Pain</span>
-            <span>Wodiene</span>
+          <div class="member-card">
+            <div class="member-avatar"><img src="images/jsteezzy/jsteezzy.jpg" alt="Jsteezzy"></div>
+            <a href="jsteezzy.html" class="member-name-link"><div class="member-name">Jsteezzy</div></a>
+            <div class="member-origin">Chicago, IL</div>
+            <p class="member-bio">Chicago born, South Side raised. Host of Respect the Mic &amp; artist behind the album <em>Who Knows</em>.</p>
+            <a href="https://instagram.com/jsteez4k" target="_blank" class="member-link" rel="noopener noreferrer">@jsteez4k</a>
+            <a href="jsteezzy.html" class="member-profile-link">View Profile &#8594;</a>
           </div>
-        </article>
-        <article class="video-showcase jsteezzy">
-          <div class="video-frame">
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/Bb1gmTO3094?mute=1&playsinline=1&rel=0&modestbranding=1"
-              title="Jsteezzy - Screen Doors"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen>
-            </iframe>
+          <div class="member-card">
+            <div class="member-avatar"><img src="images/freewaveant/freewaveant.jpg" alt="Freewave Ant"></div>
+            <a href="freewaveant.html" class="member-name-link"><div class="member-name">Freewave Ant</div></a>
+            <div class="member-origin">San Francisco, CA</div>
+            <p class="member-bio">Any wave not acted upon by any external force except for the initial force that created it.</p>
+            <a href="https://instagram.com/freewavant" target="_blank" class="member-link" rel="noopener noreferrer">@freewavant</a>
+            <a href="freewaveant.html" class="member-profile-link">View Profile &#8594;</a>
           </div>
-          <div class="video-meta">
-            <span class="video-title">Screen Doors</span>
-            <span>Jsteezzy</span>
-          </div>
-        </article>
+        </div>
       </div>
     </div>
   </section>
@@ -642,48 +683,6 @@
             <a class="track-link" href="https://open.spotify.com/search/Freewave%20Ant%20Designer" target="_blank" rel="noopener noreferrer">Spotify</a>
             <a class="track-link" href="https://www.youtube.com/results?search_query=Freewave+Ant+Designer" target="_blank" rel="noopener noreferrer">YouTube</a>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="members" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 72% 40%, rgba(42,16,76,0.34) 0%, rgba(14,6,24,0.08) 56%, transparent 72%);"></div>
-    <div class="section-inner">
-      <p class="section-label reveal">The Group</p>
-      <h2 class="section-title reveal">Members</h2>
-      <div class="members-grid reveal-grid">
-        <div class="member-card">
-          <div class="member-avatar"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
-          <a href="16raheem.html" class="member-name-link"><div class="member-name">16RAHEEM</div></a>
-          <div class="member-origin">Chicago, IL</div>
-          <p class="member-bio">Founder of The 4th Kind. SOUL TRAPPED. PURPLE HEART. 1of1. Established 2016.</p>
-          <a href="https://instagram.com/16raheemx" target="_blank" class="member-link">@16raheemx</a>
-          <a href="16raheem.html" class="member-profile-link">View Profile &#8594;</a>
-        </div>
-        <div class="member-card">
-          <div class="member-avatar"><img src="images/wodiene/wodiene.jpg" alt="Wodiene"></div>
-          <a href="wodiene.html" class="member-name-link"><div class="member-name">Wodiene</div></a>
-          <div class="member-origin">Chicago, IL</div>
-          <p class="member-bio">Creating to leave it all behind.</p>
-          <a href="https://instagram.com/wodiene" target="_blank" class="member-link">@wodiene</a>
-          <a href="wodiene.html" class="member-profile-link">View Profile &#8594;</a>
-        </div>
-        <div class="member-card">
-          <div class="member-avatar"><img src="images/jsteezzy/jsteezzy.jpg" alt="Jsteezzy"></div>
-          <a href="jsteezzy.html" class="member-name-link"><div class="member-name">Jsteezzy</div></a>
-          <div class="member-origin">Chicago, IL</div>
-          <p class="member-bio">Chicago born, South Side raised. Host of Respect the Mic &amp; artist behind the album <em>Who Knows</em>.</p>
-          <a href="https://instagram.com/jsteez4k" target="_blank" class="member-link">@jsteez4k</a>
-          <a href="jsteezzy.html" class="member-profile-link">View Profile &#8594;</a>
-        </div>
-        <div class="member-card">
-          <div class="member-avatar"><img src="images/freewaveant/freewaveant.jpg" alt="Freewave Ant"></div>
-          <a href="freewaveant.html" class="member-name-link"><div class="member-name">Freewave Ant</div></a>
-          <div class="member-origin">San Francisco, CA</div>
-          <p class="member-bio">Any wave not acted upon by any external force except for the initial force that created it.</p>
-          <a href="https://instagram.com/freewavant" target="_blank" class="member-link">@freewavant</a>
-          <a href="freewaveant.html" class="member-profile-link">View Profile &#8594;</a>
         </div>
       </div>
     </div>
