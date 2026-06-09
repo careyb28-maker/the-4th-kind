@@ -337,19 +337,143 @@
     .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.08em; margin-bottom: 3rem; }
 
     /* About */
-    .about-inner { max-width: 800px; }
-    .manifesto {
-      max-width: 860px;
-      padding: 2rem 2.1rem;
-      background: rgba(7,7,15,0.84);
-      border: 1px solid rgba(255,255,255,0.14);
-      border-left: 4px solid var(--accent);
-      box-shadow: 0 28px 70px rgba(0,0,0,0.3);
-      backdrop-filter: blur(12px);
+    .about-inner { max-width: 1180px; }
+    .manifesto-intro {
+      max-width: 720px;
+      margin-bottom: clamp(2rem, 5vw, 4rem);
     }
-    .manifesto-lead { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.4rem, 3vw, 2.2rem); letter-spacing: 0.06em; color: #ffffff; margin-bottom: 1.25rem; line-height: 1.3; }
-    .manifesto p { font-size: 1rem; color: rgba(248,247,255,0.88); line-height: 1.9; margin-bottom: 1rem; }
-    .manifesto p:last-child { margin-bottom: 0; }
+    .manifesto-intro .section-title {
+      margin-bottom: 0;
+    }
+    .manifesto-experience {
+      display: grid;
+      gap: clamp(1.25rem, 3vw, 2.2rem);
+    }
+    .manifesto-scene {
+      --scene-accent: rgba(167,139,250,0.72);
+      --scene-glow: rgba(118,72,214,0.22);
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(230px, 0.82fr) minmax(0, 1fr);
+      align-items: stretch;
+      min-height: clamp(420px, 62vh, 680px);
+      overflow: hidden;
+      background: rgba(7,7,15,0.72);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 34px 90px rgba(0,0,0,0.34);
+      isolation: isolate;
+    }
+    .manifesto-scene:nth-child(even) {
+      grid-template-columns: minmax(0, 1fr) minmax(230px, 0.82fr);
+    }
+    .manifesto-scene:nth-child(even) .manifesto-visual {
+      grid-column: 2;
+    }
+    .manifesto-scene:nth-child(even) .manifesto-copy {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .manifesto-scene::before {
+      content: '';
+      position: absolute;
+      inset: -22% -16%;
+      z-index: -1;
+      background:
+        radial-gradient(circle at var(--scene-x, 18%) var(--scene-y, 24%), var(--scene-glow), transparent 38%),
+        radial-gradient(circle at 78% 82%, rgba(255,255,255,0.06), transparent 26%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .manifesto-visual {
+      position: relative;
+      min-height: 100%;
+      overflow: hidden;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), transparent 42%),
+        rgba(255,255,255,0.04);
+    }
+    .manifesto-visual img {
+      width: 100%;
+      height: 100%;
+      min-height: 100%;
+      display: block;
+      object-fit: cover;
+      opacity: 0.72;
+      filter: saturate(0.88) contrast(1.08);
+      transform: scale(1.02);
+      transition: transform 0.8s ease, opacity 0.8s ease;
+    }
+    .manifesto-scene:hover .manifesto-visual img {
+      opacity: 0.86;
+      transform: scale(1.06);
+    }
+    .manifesto-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(7,7,15,0.08), rgba(7,7,15,0.68)),
+        radial-gradient(circle at 28% 24%, color-mix(in srgb, var(--scene-accent) 54%, transparent), transparent 32%);
+      pointer-events: none;
+    }
+    .manifesto-scene:nth-child(even) .manifesto-visual::after {
+      background:
+        linear-gradient(270deg, rgba(7,7,15,0.08), rgba(7,7,15,0.68)),
+        radial-gradient(circle at 68% 24%, color-mix(in srgb, var(--scene-accent) 48%, transparent), transparent 34%);
+    }
+    .manifesto-copy {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(1.4rem, 4vw, 3.8rem);
+    }
+    .manifesto-number {
+      width: fit-content;
+      margin-bottom: 1.1rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: color-mix(in srgb, var(--scene-accent) 74%, #fff 26%);
+    }
+    .manifesto-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 5.4rem);
+      line-height: 0.92;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.35rem;
+      color: var(--text);
+      text-shadow: 0 0 34px color-mix(in srgb, var(--scene-accent) 28%, transparent);
+    }
+    .manifesto-copy p {
+      max-width: 42rem;
+      font-size: clamp(0.98rem, 1.5vw, 1.16rem);
+      line-height: 1.95;
+      color: rgba(248,247,255,0.84);
+    }
+    .manifesto-cue {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-top: 1.6rem;
+      color: color-mix(in srgb, var(--scene-accent) 64%, #fff 36%);
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+    .manifesto-cue::before {
+      content: '';
+      width: 42px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+    .scene-origin { --scene-accent: rgba(139,92,246,0.76); --scene-glow: rgba(65,36,142,0.34); --scene-x: 24%; --scene-y: 18%; }
+    .scene-foundation { --scene-accent: rgba(125,92,255,0.72); --scene-glow: rgba(50,46,138,0.34); --scene-x: 72%; --scene-y: 16%; }
+    .scene-basement { --scene-accent: rgba(192,132,252,0.74); --scene-glow: rgba(89,37,131,0.34); --scene-x: 18%; --scene-y: 76%; }
+    .scene-freewave { --scene-accent: rgba(94,234,212,0.68); --scene-glow: rgba(20,100,118,0.26); --scene-x: 82%; --scene-y: 72%; }
+    .scene-orbit { --scene-accent: rgba(216,180,254,0.76); --scene-glow: rgba(126,34,206,0.34); --scene-x: 50%; --scene-y: 18%; }
+    .scene-alchemy { --scene-accent: rgba(248,113,113,0.66); --scene-glow: rgba(127,29,29,0.24); --scene-x: 62%; --scene-y: 70%; }
 
     /* Music */
     .music-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
@@ -501,6 +625,22 @@
       .hero-brand { align-items: center; text-align: center; }
       .hero-copy { max-width: none; }
       .hero-artists-header { align-items: flex-start; flex-direction: column; }
+      .manifesto-scene,
+      .manifesto-scene:nth-child(even) {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .manifesto-scene:nth-child(even) .manifesto-visual,
+      .manifesto-scene:nth-child(even) .manifesto-copy {
+        grid-column: auto;
+        grid-row: auto;
+      }
+      .manifesto-visual {
+        min-height: clamp(220px, 54vw, 360px);
+      }
+      .manifesto-copy {
+        padding: clamp(1.4rem, 6vw, 2.4rem);
+      }
     }
 
     @media (max-width: 768px) {
@@ -625,15 +765,77 @@
   <section id="about" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(68,24,108,0.52) 0%, rgba(22,8,36,0.1) 52%, transparent 72%);"></div>
     <div class="section-inner about-inner">
-      <p class="section-label reveal">The Message</p>
-      <h2 class="section-title reveal">What We Stand For</h2>
-      <div class="manifesto reveal">
-        <p>The 4th Kind is an independent Hip-Hop recording collective &amp; label based in Chicago, Illinois. Though the seeds were originally planted in Oak Park, Illinois, the group&#8217;s message, presence and impact reaches to both coasts of the US and transcends the nation as they grow worldwide.</p>
-        <p>Founded by 16RAHEEM in 2016&#8211;17, the group consisted of key members Wodiene &amp; Spacey. Starting out with SoundCloud mixtapes, DIY Music Videos &amp; Cover arts - the group has always carried a passion to express authenticity with a competitive flame driving them to reach the peak of high quality Hip-Hop music.</p>
-        <p>Inspired heavily by the sound and poetry of their city, 16, Wodiene &amp; Jsteezzy had released countless tracks from 2021&#8211;2022. Each track feeling like a hidden gem, carefully crafted by young enthusiastic poets in the basement, with a deep desire to stamp themselves as generational talents in rap.</p>
-        <p>Since 2023, the collective includes longtime associate Freewave Ant, who has made his own wave while fitting into the frame of The 4th Kind seamlessly. His ascension has been an actualization of a seed planted back in days freestyling &amp; hanging with the group in school. He began his journey as an artist on the shoulders of the crew &amp; its momentum, as he and 16 dropped their collaborative album &#8216;2144&#8217; in 2024.</p>
-        <p>The name &#8216;The 4th Kind&#8217; takes inspiration from the 70&#8217;s film <em>Close Encounters of The Third Kind</em>, and the rap duo <em>The Third Kind</em> formed by Capital Steez in the early 2010s. To 16RAHEEM, Pro Era represented another group of teenage rhymers with the same hunger to express individualism. With the name &#8216;The 4th Kind&#8217;, the Chicago collective takes another creative step distancing themselves even further from contemporaries &amp; peers, and catapulting their sonic realm of endeavors to an outer space domain. Spacey synths, jazzy samples &amp; psychedelic-otherworldly ambience are the conveyance for this gritty grassroots Hip-Hop movement, as they make their own wave through an ever-changing world of music.</p>
-        <p>With deep reflective themes of love, paranoia, hustle, dreams, pain, sacrifice, faith &amp; betrayal, the introspection &amp; raw vulnerability is what sets this group apart from the common themes found in mainstream rap lyrics today. The group understands one central idea: art is meaningless if it does not manifest as a form of cathartic alchemy for the artist, or if it does not provoke the thought or tug at the heart strings of the listener. As they spread their movement through music, The 4K hopes to make the world a better place, and to open the eyes and ears of individuals who select their voices as the soundtracks to their lives.</p>
+      <div class="manifesto-intro">
+        <p class="section-label reveal">The Message</p>
+        <h2 class="section-title reveal">What We Stand For</h2>
+      </div>
+      <div class="manifesto-experience">
+        <article class="manifesto-scene scene-origin reveal">
+          <div class="manifesto-visual">
+            <img src="images/group/web/lake-overlook.jpg" alt="The 4th Kind overlooking a lake">
+          </div>
+          <div class="manifesto-copy">
+            <span class="manifesto-number">Transmission 01</span>
+            <h3 class="manifesto-heading">From Chicago Outward</h3>
+            <p>The 4th Kind is an independent Hip-Hop recording collective &amp; label based in Chicago, Illinois. Though the seeds were originally planted in Oak Park, Illinois, the group&#8217;s message, presence and impact reaches to both coasts of the US and transcends the nation as they grow worldwide.</p>
+            <span class="manifesto-cue">Roots to reach</span>
+          </div>
+        </article>
+        <article class="manifesto-scene scene-foundation reveal">
+          <div class="manifesto-visual">
+            <img src="images/group/web/studio-portrait.jpg" alt="The 4th Kind studio portrait">
+          </div>
+          <div class="manifesto-copy">
+            <span class="manifesto-number">Transmission 02</span>
+            <h3 class="manifesto-heading">Built By Hand</h3>
+            <p>Founded by 16RAHEEM in 2016&#8211;17, the group consisted of key members Wodiene &amp; Spacey. Starting out with SoundCloud mixtapes, DIY Music Videos &amp; Cover arts - the group has always carried a passion to express authenticity with a competitive flame driving them to reach the peak of high quality Hip-Hop music.</p>
+            <span class="manifesto-cue">DIY signal</span>
+          </div>
+        </article>
+        <article class="manifesto-scene scene-basement reveal">
+          <div class="manifesto-visual">
+            <img src="images/group/web/group-night.jpg" alt="The 4th Kind group at night">
+          </div>
+          <div class="manifesto-copy">
+            <span class="manifesto-number">Transmission 03</span>
+            <h3 class="manifesto-heading">Basement Gems</h3>
+            <p>Inspired heavily by the sound and poetry of their city, 16, Wodiene &amp; Jsteezzy had released countless tracks from 2021&#8211;2022. Each track feeling like a hidden gem, carefully crafted by young enthusiastic poets in the basement, with a deep desire to stamp themselves as generational talents in rap.</p>
+            <span class="manifesto-cue">Pressure into poetry</span>
+          </div>
+        </article>
+        <article class="manifesto-scene scene-freewave reveal">
+          <div class="manifesto-visual">
+            <img src="images/group/web/duo-portrait.jpg" alt="Two members of The 4th Kind portrait">
+          </div>
+          <div class="manifesto-copy">
+            <span class="manifesto-number">Transmission 04</span>
+            <h3 class="manifesto-heading">The Wave Joins</h3>
+            <p>Since 2023, the collective includes longtime associate Freewave Ant, who has made his own wave while fitting into the frame of The 4th Kind seamlessly. His ascension has been an actualization of a seed planted back in days freestyling &amp; hanging with the group in school. He began his journey as an artist on the shoulders of the crew &amp; its momentum, as he and 16 dropped their collaborative album &#8216;2144&#8217; in 2024.</p>
+            <span class="manifesto-cue">Momentum shared</span>
+          </div>
+        </article>
+        <article class="manifesto-scene scene-orbit reveal">
+          <div class="manifesto-visual">
+            <img src="images/group/web/highway-night.jpg" alt="The 4th Kind beside highway lights at night">
+          </div>
+          <div class="manifesto-copy">
+            <span class="manifesto-number">Transmission 05</span>
+            <h3 class="manifesto-heading">Outer Space Domain</h3>
+            <p>The name &#8216;The 4th Kind&#8217; takes inspiration from the 70&#8217;s film <em>Close Encounters of The Third Kind</em>, and the rap duo <em>The Third Kind</em> formed by Capital Steez in the early 2010s. To 16RAHEEM, Pro Era represented another group of teenage rhymers with the same hunger to express individualism. With the name &#8216;The 4th Kind&#8217;, the Chicago collective takes another creative step distancing themselves even further from contemporaries &amp; peers, and catapulting their sonic realm of endeavors to an outer space domain. Spacey synths, jazzy samples &amp; psychedelic-otherworldly ambience are the conveyance for this gritty grassroots Hip-Hop movement, as they make their own wave through an ever-changing world of music.</p>
+            <span class="manifesto-cue">Another encounter</span>
+          </div>
+        </article>
+        <article class="manifesto-scene scene-alchemy reveal">
+          <div class="manifesto-visual">
+            <img src="images/group/web/group-portrait.jpg" alt="The 4th Kind group portrait">
+          </div>
+          <div class="manifesto-copy">
+            <span class="manifesto-number">Transmission 06</span>
+            <h3 class="manifesto-heading">Cathartic Alchemy</h3>
+            <p>With deep reflective themes of love, paranoia, hustle, dreams, pain, sacrifice, faith &amp; betrayal, the introspection &amp; raw vulnerability is what sets this group apart from the common themes found in mainstream rap lyrics today. The group understands one central idea: art is meaningless if it does not manifest as a form of cathartic alchemy for the artist, or if it does not provoke the thought or tug at the heart strings of the listener. As they spread their movement through music, The 4K hopes to make the world a better place, and to open the eyes and ears of individuals who select their voices as the soundtracks to their lives.</p>
+            <span class="manifesto-cue">Feeling into form</span>
+          </div>
+        </article>
       </div>
     </div>
   </section>
