@@ -6,6 +6,8 @@
   <title>The 4th Kind</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js" defer></script>
+  <script src="cosmos-gl.js" defer></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -53,12 +55,12 @@
       opacity: 0;
       transition: opacity 0.8s ease;
       background:
-        radial-gradient(circle at 22% 18%, rgba(233,213,255,calc(0.9 * var(--star-opacity))) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 76% 28%, rgba(196,181,253,calc(0.72 * var(--star-opacity))) 0 1px, transparent 1.8px),
-        radial-gradient(circle at 38% 72%, rgba(196,114,244,calc(0.48 * var(--star-opacity))) 0 1px, transparent 1.7px),
-        radial-gradient(circle at 64% 86%, rgba(162,118,236,calc(0.44 * var(--star-opacity))) 0 1px, transparent 1.6px),
-        radial-gradient(ellipse at 50% 48%, rgba(126,34,206,calc(0.32 * var(--starfield-strength))) 0%, rgba(91,33,182,calc(0.14 * var(--starfield-strength))) 28%, transparent 64%);
-      background-size: 180px 180px, 240px 240px, 210px 210px, 290px 290px, 100% 100%;
+        radial-gradient(circle at 22% 18%, rgba(233,213,255,0.28) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 76% 28%, rgba(196,181,253,0.22) 0 1px, transparent 1.8px),
+        radial-gradient(circle at 38% 72%, rgba(196,114,244,0.18) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 64% 86%, rgba(162,118,236,0.16) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 52% 60%, rgba(167,139,250,0.20) 0 1px, transparent 1.4px);
+      background-size: 180px 180px, 240px 240px, 210px 210px, 290px 290px, 120px 120px;
     }
     body.atmosphere-ready #atmosphere {
       opacity: 1;
@@ -86,11 +88,12 @@
       top: 56%;
       width: clamp(300px, 46vw, 680px);
       aspect-ratio: 1;
-      border: 1px solid rgba(167,139,250,0.1);
+      border: 1px solid rgba(167,139,250,0.38);
       border-radius: 50%;
       box-shadow:
-        0 0 0 4vw rgba(167,139,250,0.018),
-        inset 0 0 48px rgba(93,53,179,0.04);
+        0 0 0 4vw rgba(167,139,250,0.05),
+        0 0 28px 4px rgba(167,139,250,0.18),
+        inset 0 0 48px rgba(93,53,179,0.12);
       opacity: var(--ring-opacity);
       transform: translate3d(-50%, -50%, 0) rotate(-12deg) scaleY(0.42);
       animation: galaxyTilt 34s linear infinite;
@@ -562,6 +565,46 @@
       100% { transform: translate3d(-50%, -50%, 0) rotate(344deg) scaleY(0.42); }
     }
 
+    /* ─── Audio Player ─── */
+    .player-wrap { margin-top: 2.8rem; }
+    .player-sublabel { font-size: 0.62rem; letter-spacing: 0.42em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.1rem; }
+    .site-player { border: 1px solid var(--border); overflow: hidden; }
+    .sp-now-playing { display: flex; align-items: center; gap: 1.2rem; padding: 1.2rem 1.4rem; border-bottom: 1px solid var(--border); min-height: 82px; }
+    .sp-art { width: 52px; height: 52px; border-radius: 5px; object-fit: cover; flex-shrink: 0; background: var(--bg3); }
+    .sp-info { flex: 1; min-width: 0; }
+    .sp-title { font-size: 0.92rem; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 0.15rem; }
+    .sp-artist { font-size: 0.66rem; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; }
+    .sp-badge { font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(167,139,250,0.55); border: 1px solid rgba(167,139,250,0.18); padding: 0.2rem 0.5rem; flex-shrink: 0; white-space: nowrap; }
+    .sp-progress-wrap { padding: 0.9rem 1.4rem 0; }
+    .sp-bar-track { height: 2px; background: rgba(167,139,250,0.12); cursor: pointer; position: relative; border-radius: 2px; }
+    .sp-bar-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0%; pointer-events: none; transition: width 0.1s linear; }
+    .sp-times { display: flex; justify-content: space-between; font-size: 0.6rem; color: var(--muted); padding: 0.3rem 0 0.8rem; font-variant-numeric: tabular-nums; }
+    .sp-controls { display: flex; align-items: center; gap: 0.6rem; padding: 0 1.4rem 1.2rem; }
+    .sp-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 0.5rem 0.9rem; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; font-family: inherit; transition: border-color 0.2s, color 0.2s; }
+    .sp-btn:hover { border-color: rgba(167,139,250,0.4); color: var(--text); }
+    .sp-btn.sp-play { color: var(--accent); border-color: rgba(167,139,250,0.3); }
+    .sp-btn.sp-play.playing { background: rgba(167,139,250,0.1); }
+    .sp-vol { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; }
+    .sp-vol input[type=range] { -webkit-appearance: none; appearance: none; width: 68px; height: 2px; background: rgba(167,139,250,0.18); outline: none; cursor: pointer; }
+    .sp-vol input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+    .sp-track-list { border-top: 1px solid var(--border); }
+    .sp-track-row { display: flex; align-items: center; gap: 0.9rem; padding: 0.72rem 1.4rem; border-bottom: 1px solid rgba(167,139,250,0.055); cursor: pointer; transition: background 0.2s; }
+    .sp-track-row:last-child { border-bottom: 0; }
+    .sp-track-row:hover { background: rgba(167,139,250,0.06); }
+    .sp-track-row.active { background: rgba(167,139,250,0.1); }
+    .sp-row-num { font-size: 0.62rem; color: var(--muted); width: 18px; text-align: right; flex-shrink: 0; }
+    .sp-track-row.active .sp-row-num { color: var(--accent); }
+    .sp-row-art { width: 34px; height: 34px; border-radius: 4px; object-fit: cover; flex-shrink: 0; background: var(--bg3); }
+    .sp-row-info { flex: 1; min-width: 0; }
+    .sp-row-title { font-size: 0.78rem; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sp-track-row.active .sp-row-title { color: var(--accent); }
+    .sp-row-meta { font-size: 0.62rem; color: var(--muted); margin-top: 0.08rem; }
+    .sp-row-dur { font-size: 0.62rem; color: var(--muted); flex-shrink: 0; font-variant-numeric: tabular-nums; min-width: 2.8em; text-align: right; }
+    .sp-no-preview { padding: 0.6rem 1.4rem 1rem; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.16em; text-transform: uppercase; }
+
+    /* ─── Video Section ─── */
+    .video-feature-inner { max-width: 1200px; }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero-title, .hero-title::before, .hero-title::after, #atmosphere::before, #atmosphere::after { animation: none; }
@@ -617,6 +660,7 @@
     <a href="#hero" class="nav-logo"><span>The 4th Kind</span></a>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
+      <li><a href="#videos">Videos</a></li>
       <li><a href="#music">Music</a></li>
       <li><a href="#members">Artists</a></li>
       <li><a href="#merch">Merch</a></li>
@@ -760,6 +804,61 @@
     </div>
   </section>
 
+  <section id="videos" class="depth-section">
+    <div class="depth-bg" style="background:radial-gradient(ellipse at 55% 50%, rgba(54,20,92,0.48) 0%, rgba(18,8,30,0.1) 54%, transparent 72%);"></div>
+    <div class="section-inner video-feature-inner">
+      <p class="section-label reveal">Watch</p>
+      <h2 class="section-title reveal">Videos</h2>
+      <div class="video-showcase-grid">
+        <div class="video-showcase raheem reveal">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/uOozsMoSK88?rel=0&modestbranding=1"
+              title="16RAHEEM — Courtesy of The 4th Kind"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="video-meta">
+            <span>16RAHEEM</span>
+            <span class="video-title">Courtesy of The 4th Kind</span>
+          </div>
+        </div>
+        <div class="video-showcase wodiene reveal">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/3Q0Y_0XSUMg?rel=0&modestbranding=1"
+              title="Wodiene — Courtesy of The 4th Kind"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="video-meta">
+            <span>Wodiene</span>
+            <span class="video-title">Courtesy of The 4th Kind</span>
+          </div>
+        </div>
+        <div class="video-showcase jsteezzy reveal">
+          <div class="video-frame">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/Bb1gmTO3094?rel=0&modestbranding=1"
+              title="Jsteezzy — Courtesy of The 4th Kind"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <div class="video-meta">
+            <span>Jsteezzy</span>
+            <span class="video-title">Courtesy of The 4th Kind</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="photos" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(18,8,36,0.16) 0%, rgba(6,3,12,0.04) 60%, transparent 74%);"></div>
     <div class="section-inner">
@@ -784,45 +883,69 @@
       <p class="section-label reveal">Discography</p>
       <h2 class="section-title reveal">Music</h2>
       <div class="music-grid reveal-grid">
-        <div class="track-card">
+        <div class="track-card" data-sp-idx="0">
           <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d9/02/02/d9020241-cd97-b21d-006b-720cc491f1d0/artwork.jpg/600x600bf-60.jpg" alt="Against the World cover art"></div>
           <div class="track-title">On My Own</div>
           <div class="track-meta">16RAHEEM &mdash; Handpicked by Spacey</div>
           <div class="track-links">
             <a class="track-link" href="https://music.apple.com/us/album/on-my-own/1688552488?i=1688552498" target="_blank" rel="noopener noreferrer">Apple Music</a>
             <a class="track-link" href="https://open.spotify.com/search/16RAHEEM%20On%20My%20Own" target="_blank" rel="noopener noreferrer">Spotify</a>
-            <a class="track-link" href="https://www.youtube.com/results?search_query=16RAHEEM+On+My+Own" target="_blank" rel="noopener noreferrer">YouTube</a>
           </div>
         </div>
-        <div class="track-card">
+        <div class="track-card" data-sp-idx="1">
           <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/43/8d/dd/438dddc6-8b87-21cf-7c80-c891bd543851/artwork.jpg/600x600bf-60.jpg" alt="Love Is War, Vol. 1 cover art"></div>
           <div class="track-title">Muddy</div>
           <div class="track-meta">Wodiene &mdash; Handpicked by Spacey</div>
           <div class="track-links">
             <a class="track-link" href="https://music.apple.com/us/album/muddy/1834980295?i=1834980300" target="_blank" rel="noopener noreferrer">Apple Music</a>
             <a class="track-link" href="https://open.spotify.com/search/Wodiene%20Muddy" target="_blank" rel="noopener noreferrer">Spotify</a>
-            <a class="track-link" href="https://www.youtube.com/results?search_query=Wodiene+Muddy" target="_blank" rel="noopener noreferrer">YouTube</a>
           </div>
         </div>
-        <div class="track-card">
+        <div class="track-card" data-sp-idx="2">
           <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/b2/22/18/b2221810-f9b7-fec6-8f10-3e1989df60d1/artwork.jpg/600x600bf-60.jpg" alt="The Senior Mixtape cover art"></div>
           <div class="track-title">Backroads &amp; Backwoods</div>
           <div class="track-meta">Jsteezzy &mdash; Handpicked by Spacey</div>
           <div class="track-links">
             <a class="track-link" href="https://music.apple.com/us/album/backroads-backwoods/1645222719?i=1645223207" target="_blank" rel="noopener noreferrer">Apple Music</a>
             <a class="track-link" href="https://open.spotify.com/search/Jsteezzy%20Backroads%20%26%20Backwoods" target="_blank" rel="noopener noreferrer">Spotify</a>
-            <a class="track-link" href="https://www.youtube.com/results?search_query=Jsteezzy+Backroads+and+Backwoods" target="_blank" rel="noopener noreferrer">YouTube</a>
           </div>
         </div>
-        <div class="track-card">
+        <div class="track-card" data-sp-idx="3">
           <div class="track-thumb"><img src="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/43/f0/2c/43f02c23-ee62-662e-1164-8181d8d4087c/artwork.jpg/600x600bf-60.jpg" alt="WAV cover art"></div>
           <div class="track-title">Designer</div>
           <div class="track-meta">Freewave Ant &mdash; Handpicked by Spacey</div>
           <div class="track-links">
             <a class="track-link" href="https://music.apple.com/us/album/designer/1876860372?i=1876860390" target="_blank" rel="noopener noreferrer">Apple Music</a>
             <a class="track-link" href="https://open.spotify.com/search/Freewave%20Ant%20Designer" target="_blank" rel="noopener noreferrer">Spotify</a>
-            <a class="track-link" href="https://www.youtube.com/results?search_query=Freewave+Ant+Designer" target="_blank" rel="noopener noreferrer">YouTube</a>
           </div>
+        </div>
+      </div>
+
+      <!-- ─── In-page audio player ─── -->
+      <div class="player-wrap reveal">
+        <p class="player-sublabel">Preview</p>
+        <div class="site-player" id="sitePlayer">
+          <div class="sp-now-playing">
+            <img class="sp-art" id="spArt" src="" alt="">
+            <div class="sp-info">
+              <div class="sp-title" id="spTitle">Select a track below</div>
+              <div class="sp-artist" id="spArtist">&mdash;</div>
+            </div>
+            <span class="sp-badge">30s Preview</span>
+          </div>
+          <div class="sp-progress-wrap">
+            <div class="sp-bar-track" id="spBarTrack">
+              <div class="sp-bar-fill" id="spBarFill"></div>
+            </div>
+            <div class="sp-times"><span id="spCurrent">0:00</span><span id="spDuration">0:00</span></div>
+          </div>
+          <div class="sp-controls">
+            <button class="sp-btn" onclick="spPrev()">&#8249;&#8249; Prev</button>
+            <button class="sp-btn sp-play" id="spPlayBtn" onclick="spToggle()">&#9654; Play</button>
+            <button class="sp-btn" onclick="spNext()">Next &#8250;&#8250;</button>
+            <div class="sp-vol">Vol<input type="range" min="0" max="1" step="0.05" value="0.8" oninput="spAudio.volume=+this.value"></div>
+          </div>
+          <div class="sp-track-list" id="spTrackList"></div>
         </div>
       </div>
     </div>
@@ -892,7 +1015,12 @@
       requestAnimationFrame(updateScrollDepth);
     }
 
-    if (!reducedMotion) {
+    // WebGL (cosmos-gl.js) handles particles when available — CSS fragments are the fallback
+    const hasWebGL = (function() {
+      try { return !!(document.createElement('canvas').getContext('webgl')); } catch(e) { return false; }
+    })();
+
+    if (!reducedMotion && !hasWebGL) {
       for (let i = 0; i < 72; i++) {
         const el = document.createElement('div');
         const size = 1.4 + Math.random() * 4.8;
@@ -945,6 +1073,118 @@
     }, { passive: true });
     window.addEventListener('scroll', queueDepthUpdate, { passive: true });
     updateScrollDepth();
+
+    // ─── Audio Player ───
+    const SP_TRACKS = [
+      { title: 'On My Own',          artist: '16RAHEEM',     art: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d9/02/02/d9020241-cd97-b21d-006b-720cc491f1d0/artwork.jpg/600x600bf-60.jpg', itunesId: '1688552498', appleUrl: 'https://music.apple.com/us/album/on-my-own/1688552488?i=1688552498' },
+      { title: 'Muddy',              artist: 'Wodiene',      art: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/43/8d/dd/438dddc6-8b87-21cf-7c80-c891bd543851/artwork.jpg/600x600bf-60.jpg', itunesId: '1834980300', appleUrl: 'https://music.apple.com/us/album/muddy/1834980295?i=1834980300' },
+      { title: 'Backroads & Backwoods', artist: 'Jsteezzy', art: 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/b2/22/18/b2221810-f9b7-fec6-8f10-3e1989df60d1/artwork.jpg/600x600bf-60.jpg', itunesId: '1645223207', appleUrl: 'https://music.apple.com/us/album/backroads-backwoods/1645222719?i=1645223207' },
+      { title: 'Designer',           artist: 'Freewave Ant', art: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/43/f0/2c/43f02c23-ee62-662e-1164-8181d8d4087c/artwork.jpg/600x600bf-60.jpg', itunesId: '1876860390', appleUrl: 'https://music.apple.com/us/album/designer/1876860372?i=1876860390' },
+    ];
+
+    const spAudio    = new Audio();
+    spAudio.volume   = 0.8;
+    let spIdx        = -1;
+    let spPlaying    = false;
+
+    const spArtEl    = document.getElementById('spArt');
+    const spTitleEl  = document.getElementById('spTitle');
+    const spArtistEl = document.getElementById('spArtist');
+    const spPlayBtn  = document.getElementById('spPlayBtn');
+    const spBarFill  = document.getElementById('spBarFill');
+    const spBarTrack = document.getElementById('spBarTrack');
+    const spCurrent  = document.getElementById('spCurrent');
+    const spDuration = document.getElementById('spDuration');
+    const spTrackList= document.getElementById('spTrackList');
+
+    function spFmt(s) { if (!s || isNaN(s)) return '0:00'; return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`; }
+
+    function spBuildList() {
+      spTrackList.innerHTML = '';
+      SP_TRACKS.forEach((t, i) => {
+        const row = document.createElement('div');
+        row.className = 'sp-track-row'; row.id = `sp-row-${i}`;
+        row.innerHTML = `<span class="sp-row-num">${String(i+1).padStart(2,'0')}</span><img class="sp-row-art" src="${t.art}" alt=""><div class="sp-row-info"><div class="sp-row-title">${t.title}</div><div class="sp-row-meta">${t.artist}</div></div><span class="sp-row-dur" id="sp-dur-${i}">--:--</span>`;
+        row.addEventListener('click', () => spLoad(i, true));
+        spTrackList.appendChild(row);
+      });
+    }
+
+    function spLoad(idx, autoplay = false) {
+      if (spIdx >= 0) document.getElementById(`sp-row-${spIdx}`)?.classList.remove('active');
+      // also remove active from track cards
+      document.querySelectorAll('.track-card').forEach(c => c.style.outline = '');
+      spIdx = idx;
+      const t = SP_TRACKS[idx];
+      spArtEl.src      = t.art;
+      spTitleEl.textContent  = t.title;
+      spArtistEl.textContent = t.artist;
+      spBarFill.style.width  = '0%';
+      spCurrent.textContent  = '0:00';
+      spDuration.textContent = '--:--';
+      document.getElementById(`sp-row-${idx}`)?.classList.add('active');
+      const card = document.querySelector(`.track-card[data-sp-idx="${idx}"]`);
+      if (card) card.style.outline = '1px solid rgba(167,139,250,0.4)';
+      if (t.previewUrl) {
+        spAudio.src = t.previewUrl;
+        spAudio.load();
+        if (autoplay) spAudio.play().then(() => { spPlaying = true; spUpdateBtn(); }).catch(() => {});
+        else { spPlaying = false; spUpdateBtn(); }
+      } else {
+        spAudio.src = ''; spPlaying = false; spUpdateBtn();
+        spDuration.textContent = '—';
+      }
+    }
+
+    function spToggle() {
+      if (spIdx < 0) { spLoad(0, true); return; }
+      if (!SP_TRACKS[spIdx].previewUrl) { window.open(SP_TRACKS[spIdx].appleUrl, '_blank', 'noopener'); return; }
+      if (spPlaying) { spAudio.pause(); spPlaying = false; }
+      else { spAudio.play().catch(() => {}); spPlaying = true; }
+      spUpdateBtn();
+    }
+    function spPrev() { spLoad(spIdx <= 0 ? SP_TRACKS.length - 1 : spIdx - 1, spPlaying); }
+    function spNext() { spLoad((spIdx + 1) % SP_TRACKS.length, spPlaying); }
+    function spUpdateBtn() { spPlayBtn.textContent = spPlaying ? '&#9646;&#9646; Pause' : '&#9654; Play'; spPlayBtn.innerHTML = spPlaying ? '&#9646;&#9646; Pause' : '&#9654; Play'; spPlayBtn.classList.toggle('playing', spPlaying); }
+
+    spAudio.addEventListener('timeupdate', () => {
+      if (!spAudio.duration) return;
+      spBarFill.style.width = (spAudio.currentTime / spAudio.duration * 100) + '%';
+      spCurrent.textContent = spFmt(spAudio.currentTime);
+    });
+    spAudio.addEventListener('loadedmetadata', () => {
+      spDuration.textContent = spFmt(spAudio.duration);
+      if (spIdx >= 0) document.getElementById(`sp-dur-${spIdx}`).textContent = spFmt(spAudio.duration);
+    });
+    spAudio.addEventListener('ended', spNext);
+    spBarTrack.addEventListener('click', (e) => {
+      if (!spAudio.duration) return;
+      const rect = spBarTrack.getBoundingClientRect();
+      spAudio.currentTime = ((e.clientX - rect.left) / rect.width) * spAudio.duration;
+    });
+
+    // Wire track cards to player
+    document.querySelectorAll('.track-card[data-sp-idx]').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        spLoad(+card.dataset.spIdx, true);
+      });
+      card.style.cursor = 'pointer';
+    });
+
+    // Fetch 30-second preview URLs from iTunes API
+    spBuildList();
+    const ids = SP_TRACKS.map(t => t.itunesId).join(',');
+    fetch(`https://itunes.apple.com/lookup?id=${ids}`)
+      .then(r => r.json())
+      .then(data => {
+        data.results.forEach(item => {
+          const track = SP_TRACKS.find(t => t.itunesId === String(item.trackId));
+          if (track && item.previewUrl) track.previewUrl = item.previewUrl;
+        });
+        spBuildList();
+      })
+      .catch(() => {});
 
     // Reveal
     const revealObs = new IntersectionObserver((entries) => {
