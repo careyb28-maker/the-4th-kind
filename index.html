@@ -1576,6 +1576,362 @@
       }
       .chapter-nav { right: 0.8rem; }
     }
+
+    /* ── Mobile polish pass ── */
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 126px;
+      }
+
+      #cursor-glow,
+      #exhibit-progress {
+        display: none;
+      }
+
+      #intro-logo {
+        width: min(76vw, 360px);
+        height: min(76vw, 360px);
+      }
+      #intro-cta {
+        margin-top: 1.6rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.34em;
+      }
+
+      nav {
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: auto;
+        padding: 0.85rem 1rem;
+      }
+      .nav-logo {
+        max-width: calc(100vw - 5rem);
+        font-size: 0.95rem;
+        letter-spacing: 0.12em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .nav-links a {
+        padding: 0.82rem 1rem;
+      }
+
+      #hero {
+        min-height: auto;
+        padding: 5.6rem 0 2.5rem;
+        overflow: visible;
+      }
+      .hero-content {
+        width: calc(100% - 2rem);
+        gap: 2.2rem;
+      }
+      .hero-eyebrow {
+        margin-bottom: 0.65rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.34em;
+      }
+      .hero-title {
+        font-size: clamp(3.4rem, 17vw, 4.9rem);
+        line-height: 0.9;
+        margin-bottom: 0.55rem;
+      }
+      .hero-video-label {
+        font-size: 0.58rem;
+        letter-spacing: 0.28em;
+      }
+      .hero-iphone-video {
+        width: min(56vw, 190px);
+      }
+      .iphone-device {
+        border-radius: 30px;
+        padding: 8px;
+        transform: none;
+      }
+      .iphone-device::before {
+        top: 12px;
+        height: 16px;
+      }
+      .iphone-device::after,
+      .iphone-display {
+        border-radius: 24px;
+      }
+      .hero-sub {
+        max-width: 20rem;
+        margin: 1.15rem auto 0.85rem;
+        font-size: 0.64rem;
+        letter-spacing: 0.18em;
+        line-height: 1.8;
+      }
+      .hero-copy {
+        margin: 0 auto;
+        max-width: 22rem;
+        font-size: 0.9rem;
+        line-height: 1.7;
+      }
+      .hero-brand::before,
+      .hero-brand::after {
+        display: none;
+      }
+      .hero-artists-header {
+        margin-bottom: 0.85rem;
+      }
+      .hero-artists-header .section-title {
+        font-size: clamp(2rem, 12vw, 3rem);
+      }
+      .hero-members-grid {
+        gap: 0.75rem;
+      }
+      .hero-members-grid .member-card,
+      .member-card {
+        padding: 1rem;
+      }
+      .hero-members-grid .member-avatar,
+      .member-avatar {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 0.75rem;
+      }
+      .member-name {
+        font-size: 1.55rem;
+      }
+      .member-origin,
+      .member-coords,
+      .member-link,
+      .member-profile-link {
+        font-size: 0.58rem;
+        letter-spacing: 0.14em;
+      }
+      .member-bio {
+        font-size: 0.78rem;
+        line-height: 1.65;
+        margin-bottom: 0.85rem;
+      }
+
+      .depth-section {
+        min-height: auto;
+        overflow: visible;
+      }
+      .section-inner {
+        padding: 3.5rem 1rem;
+      }
+      .section-title {
+        margin-bottom: 1.6rem;
+        font-size: clamp(2.2rem, 13vw, 3.4rem);
+        line-height: 0.95;
+      }
+      .exhibit-id,
+      .section-label {
+        max-width: 100%;
+        letter-spacing: 0.24em;
+      }
+
+      #about .section-inner {
+        height: 100svh;
+      }
+      .manifesto-chapter {
+        align-items: flex-start;
+      }
+      .chapter-bg {
+        background-size: cover;
+        background-position: center;
+      }
+      .chapter-overlay {
+        background:
+          linear-gradient(to bottom, rgba(2,2,10,0.78) 0%, rgba(2,2,10,0.38) 34%, rgba(2,2,10,0.88) 78%, rgba(2,2,10,0.96) 100%);
+      }
+      .chapter-section-label {
+        top: 6.4rem;
+        left: 1rem;
+        right: 3rem;
+      }
+      .chapter-section-label .exhibit-id {
+        font-size: 0.48rem;
+        letter-spacing: 0.22em;
+      }
+      .chapter-section-label .section-label {
+        font-size: 0.5rem;
+        letter-spacing: 0.24em;
+      }
+      .chapter-content {
+        width: 100%;
+        max-width: none;
+        max-height: calc(100svh - 14rem);
+        margin: 0;
+        padding: 10.1rem 1rem 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .chapter-meta {
+        gap: 0.75rem;
+        margin-bottom: 0.55rem;
+        flex-wrap: wrap;
+      }
+      .chapter-num,
+      .chapter-cue {
+        font-size: 0.48rem;
+        letter-spacing: 0.18em;
+      }
+      .chapter-cue {
+        padding-left: 0.75rem;
+      }
+      .chapter-heading {
+        font-size: clamp(2.35rem, 13vw, 3.45rem);
+        margin-bottom: 0.65rem;
+      }
+      .chapter-body {
+        max-width: none;
+        font-size: 0.86rem;
+        line-height: 1.62;
+      }
+      .chapter-nav {
+        right: 0.55rem;
+        top: auto;
+        bottom: 8.2rem;
+        transform: none;
+        gap: 0.56rem;
+      }
+      #chapterBar {
+        bottom: 126px;
+      }
+
+      .video-showcase-grid,
+      .music-grid,
+      .photos-grid {
+        gap: 0.85rem;
+      }
+      .photos-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .track-card {
+        padding: 1rem;
+      }
+      .track-links {
+        gap: 0.45rem;
+      }
+      .track-link,
+      .bandcamp-action {
+        width: 100%;
+        padding: 0.75rem;
+      }
+      .bandcamp-copy {
+        padding: 1.1rem;
+      }
+      .bandcamp-kicker {
+        font-size: 0.56rem;
+        letter-spacing: 0.18em;
+      }
+      .bandcamp-title {
+        font-size: clamp(2.45rem, 16vw, 4rem);
+      }
+      .bandcamp-badge {
+        padding: 1rem;
+        gap: 1rem;
+      }
+
+      #photo-lightbox {
+        padding: 1rem;
+      }
+      #lb-img-wrap {
+        max-width: 100%;
+        max-height: 76vh;
+      }
+      #lb-prev,
+      #lb-next {
+        width: 38px;
+        height: 52px;
+      }
+      #lb-prev { left: 0.5rem; }
+      #lb-next { right: 0.5rem; }
+
+      #sp-bar {
+        max-height: 48svh;
+      }
+      .sp-bar-main {
+        grid-template-columns: 38px minmax(0, 1fr) auto;
+        gap: 0.6rem;
+        padding: 0.55rem 0.75rem 0.45rem;
+      }
+      #sp-bar .sp-art {
+        width: 38px !important;
+        height: 38px !important;
+      }
+      #sp-bar .sp-title {
+        font-size: 0.9rem !important;
+      }
+      #sp-bar .sp-artist {
+        font-size: 0.48rem !important;
+        letter-spacing: 0.16em !important;
+      }
+      .sp-bar-controls {
+        gap: 0.25rem;
+      }
+      .sp-bar-controls .sp-btn {
+        min-width: 34px;
+        padding: 0.42rem 0.48rem !important;
+        font-size: 0.64rem !important;
+      }
+      #viz-canvas,
+      .sp-bar-right {
+        display: none !important;
+      }
+      .sp-bar-foot {
+        display: block;
+        padding: 0 0.75rem 0.55rem;
+      }
+      .sp-progress-row {
+        width: 100%;
+        gap: 0.42rem;
+        font-size: 0.48rem;
+      }
+      .sp-bar-foot .sp-bar-track {
+        width: auto;
+        flex: 1;
+      }
+      .sp-bar-foot .sp-tabs {
+        margin-top: 0.45rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
+      .sp-bar-foot .sp-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .sp-bar-foot .sp-tab {
+        flex: 0 0 auto;
+        padding: 0.3rem 0.55rem;
+        font-size: 0.48rem;
+        letter-spacing: 0.12em;
+        white-space: nowrap;
+      }
+
+      .site-credit-badge {
+        display: none;
+      }
+      footer {
+        padding-bottom: 9rem;
+        font-size: 0.56rem;
+        letter-spacing: 0.16em;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .photos-grid {
+        grid-template-columns: 1fr;
+      }
+      .chapter-content {
+        max-height: calc(100svh - 13rem);
+        padding-top: 9.2rem;
+      }
+      .chapter-section-label {
+        top: 5.8rem;
+      }
+      .chapter-cue {
+        display: none;
+      }
+      .chapter-nav {
+        bottom: 7.8rem;
+      }
+    }
   </style>
   <link rel="stylesheet" href="site-bubbles.css">
 </head>
