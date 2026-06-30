@@ -605,6 +605,238 @@
     /* ─── Video Section ─── */
     .video-feature-inner { max-width: 1200px; }
 
+    /* ─────────────────────────────────────────────────
+       MUSEUM / EXHIBIT AESTHETIC
+       ───────────────────────────────────────────────── */
+
+    /* Scan line sweeping down each section */
+    .depth-section::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; top: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(167,139,250,0) 8%,
+        rgba(167,139,250,0.55) 30%,
+        rgba(255,255,255,0.18) 50%,
+        rgba(167,139,250,0.55) 70%,
+        rgba(167,139,250,0) 92%,
+        transparent 100%);
+      pointer-events: none;
+      z-index: 4;
+      animation: scanSweep 14s linear infinite;
+      animation-delay: var(--scan-delay, 0s);
+    }
+    @keyframes scanSweep {
+      0%   { top: -1px;  opacity: 0; }
+      4%   { opacity: 0.85; }
+      96%  { opacity: 0.85; }
+      100% { top: 100%; opacity: 0; }
+    }
+    #members { --scan-delay: 0s; }
+    #about   { --scan-delay: 3.5s; }
+    #videos  { --scan-delay: 6s; }
+    #photos  { --scan-delay: 1.5s; }
+    #music   { --scan-delay: 9s; }
+    #merch   { --scan-delay: 5s; }
+
+    /* Exhibit ID labels */
+    .exhibit-id {
+      display: block;
+      font-size: 0.56rem;
+      letter-spacing: 0.46em;
+      color: rgba(167,139,250,0.38);
+      text-transform: uppercase;
+      font-family: 'Raleway', sans-serif;
+      margin-bottom: 0.65rem;
+      padding-left: 0.85rem;
+      border-left: 1px solid rgba(167,139,250,0.28);
+      line-height: 1.2;
+    }
+
+    /* Dot-grid substrate on about + members */
+    #about .section-inner,
+    #members .section-inner {
+      background-image: radial-gradient(circle, rgba(167,139,250,0.08) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    /* Track card holographic shimmer wipe */
+    .track-card {
+      position: relative;
+      overflow: hidden;
+    }
+    .track-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      left: -100%;
+      width: 55%;
+      background: linear-gradient(
+        108deg,
+        transparent 0%,
+        rgba(167,139,250,0.05) 38%,
+        rgba(255,255,255,0.05) 50%,
+        rgba(167,139,250,0.05) 62%,
+        transparent 100%
+      );
+      transition: left 0.65s ease;
+      pointer-events: none;
+    }
+    .track-card:hover::after { left: 160%; }
+
+    /* Member card holographic top-left gloss */
+    .member-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(148deg, rgba(167,139,250,0.08) 0%, transparent 44%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .member-card:hover::after { opacity: 1; }
+
+    /* Enhanced avatar glow ring */
+    .member-avatar {
+      box-shadow: 0 0 0 1px rgba(167,139,250,0.18), 0 0 18px rgba(167,139,250,0.08);
+      transition: box-shadow 0.4s;
+    }
+    .member-card:hover .member-avatar {
+      box-shadow: 0 0 0 1px rgba(167,139,250,0.5), 0 0 28px rgba(167,139,250,0.22);
+    }
+
+    /* Member coordinate data */
+    .member-coords {
+      font-size: 0.56rem;
+      letter-spacing: 0.18em;
+      color: rgba(167,139,250,0.3);
+      font-family: 'Courier New', monospace;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    /* Photo grid — specimen case hover */
+    .photo-item { position: relative; }
+    .photo-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      pointer-events: none;
+    }
+    .photo-item:hover::after {
+      border-color: rgba(167,139,250,0.38);
+      box-shadow: inset 0 0 18px rgba(167,139,250,0.06), 0 0 22px rgba(167,139,250,0.12);
+    }
+
+    /* Video exhibit ID labels */
+    .video-meta::before {
+      content: attr(data-exhibit);
+      display: block;
+      font-size: 0.52rem;
+      letter-spacing: 0.38em;
+      color: rgba(167,139,250,0.32);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Manifesto scene — display lighting on hover */
+    .manifesto-scene:hover .manifesto-visual img {
+      filter: brightness(1.06) contrast(1.04);
+      box-shadow: 0 0 40px rgba(167,139,250,0.16);
+    }
+
+    /* Section title — exhibit underline rule */
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 2.2rem;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin-top: 0.55rem;
+      opacity: 0.45;
+    }
+
+    /* ── Intro Screen ── */
+    #intro-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #02020a;
+      cursor: pointer;
+      transition: opacity 2.2s ease;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #intro-screen.exit {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #intro-logo {
+      width: clamp(360px, 58vw, 720px);
+      height: clamp(360px, 58vw, 720px);
+      border-radius: 50%;
+      object-fit: contain;
+      padding: 14%;
+      background:
+        radial-gradient(circle at 30% 26%, rgba(255,255,255,0.55) 0 8%, rgba(255,255,255,0.1) 12%, transparent 28%),
+        radial-gradient(circle at 50% 50%, rgba(90,40,180,0.35) 0%, rgba(5,3,18,0.9) 62%, transparent 100%);
+      border: 1px solid rgba(167,139,250,0.28);
+      box-shadow:
+        inset 0 0 40px rgba(0,0,0,0.5),
+        0 0 60px rgba(167,139,250,0.35),
+        0 0 130px rgba(110,56,204,0.18);
+      animation: introBreath 3.5s ease-in-out infinite;
+    }
+    #intro-cta {
+      margin-top: 2.8rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.52em;
+      color: rgba(167,139,250,0.65);
+      text-transform: uppercase;
+      animation: introCTAPulse 2.2s ease-in-out infinite;
+      transition: opacity 0.2s;
+    }
+    #intro-screen.triggered #intro-cta { opacity: 0; }
+    #intro-screen.triggered #intro-logo {
+      animation: logoBurst 2.8s ease-out forwards;
+    }
+    @keyframes introBreath {
+      0%, 100% {
+        box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 0 60px rgba(167,139,250,0.35), 0 0 130px rgba(110,56,204,0.18);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: inset 0 0 40px rgba(0,0,0,0.5), 0 0 90px rgba(167,139,250,0.55), 0 0 180px rgba(110,56,204,0.3);
+        transform: scale(1.04);
+      }
+    }
+    @keyframes introCTAPulse {
+      0%, 100% { opacity: 0.35; }
+      50%       { opacity: 1; }
+    }
+    @keyframes logoBurst {
+      0%   { transform: scale(1);    opacity: 1; filter: brightness(1) saturate(1); }
+      25%  { transform: scale(1.08); opacity: 1; filter: brightness(3.5) saturate(2); }
+      60%  { transform: scale(1.18); opacity: 0.7; filter: brightness(2) blur(2px); }
+      100% { transform: scale(1.4);  opacity: 0; filter: brightness(0) blur(12px); }
+    }
+    @keyframes ringExpand {
+      0%   { transform: translate(-50%,-50%) scale(1); opacity: 0.85; }
+      100% { transform: translate(-50%,-50%) scale(8); opacity: 0; }
+    }
+    @keyframes introParticleFly {
+      0%   { opacity: 1; transform: translate(-50%,-50%) translate(0px,0px) scale(1); }
+      100% { opacity: 0; transform: translate(-50%,-50%) translate(var(--tx),var(--ty)) scale(0.2); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .hero-title, .hero-title::before, .hero-title::after, #atmosphere::before, #atmosphere::after { animation: none; }
@@ -635,11 +867,67 @@
       }
     }
 
+    /* ── Hamburger button (hidden on desktop) ── */
+    #nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.45rem 0.3rem;
+      z-index: 10001;
+      flex-shrink: 0;
+    }
+    #nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: rgba(226,220,255,0.75);
+      border-radius: 1px;
+      transition: transform 0.28s ease, opacity 0.2s ease;
+    }
+    #navbar.nav-open #nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #navbar.nav-open #nav-hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #navbar.nav-open #nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { gap: 0.85rem; flex-wrap: wrap; justify-content: flex-end; }
-      .nav-links a { font-size: 0.64rem; letter-spacing: 0.14em; }
+      nav { padding: 1rem 1.5rem; position: relative; }
       .nav-logo { font-size: 1rem; }
+      #nav-hamburger { display: flex; }
+
+      /* Nav links become a slide-down drawer */
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: rgba(6,2,14,0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(167,139,250,0.12);
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
+        list-style: none;
+        z-index: 9997;
+      }
+      #navbar.nav-open .nav-links {
+        max-height: 360px;
+        padding: 0.4rem 0 0.8rem;
+      }
+      .nav-links li { border-bottom: 1px solid rgba(167,139,250,0.06); }
+      .nav-links li:last-child { border-bottom: none; }
+      .nav-links a {
+        display: block;
+        padding: 0.95rem 1.5rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+      }
+
       .hero-iphone-video { width: min(62vw, 220px); }
       .hero-videos,
       .hero-members-grid { grid-template-columns: 1fr; }
@@ -650,14 +938,659 @@
       .video-showcase-grid { grid-template-columns: 1fr; gap: 1.5rem; }
       footer { padding: 2rem 1.5rem; }
     }
+
+    /* ── Hologram projector beam under hero logo ── */
+    .hero-brand { position: relative; }
+    .hero-brand::after {
+      content: '';
+      position: absolute;
+      bottom: -6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 6rem;
+      background: linear-gradient(to bottom, rgba(167,139,250,0.6), transparent);
+      filter: blur(1px);
+      pointer-events: none;
+    }
+    .hero-brand::before {
+      content: '';
+      position: absolute;
+      bottom: -6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(60px, 12vw, 160px);
+      height: 6rem;
+      background: linear-gradient(to bottom,
+        rgba(167,139,250,0.08) 0%,
+        rgba(167,139,250,0.03) 60%,
+        transparent 100%);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+      pointer-events: none;
+    }
+
+    /* ── Cursor glow ── */
+    #cursor-glow {
+      position: fixed;
+      top: 0; left: 0;
+      width: 340px; height: 340px;
+      margin: -170px 0 0 -170px;
+      background: radial-gradient(circle, rgba(167,139,250,0.07) 0%, transparent 68%);
+      pointer-events: none;
+      z-index: 9998;
+      transition: opacity 0.4s;
+      opacity: 0;
+      will-change: transform;
+    }
+    body:hover #cursor-glow { opacity: 1; }
+
+    /* ── Exhibit tour progress bar ── */
+    #exhibit-progress {
+      position: fixed;
+      right: 1.4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 38vh;
+      width: 2px;
+      background: rgba(167,139,250,0.1);
+      z-index: 200;
+      border-radius: 2px;
+    }
+    #exhibit-fill {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 0%;
+      background: linear-gradient(to bottom, rgba(167,139,250,0.8), rgba(124,58,237,0.4));
+      border-radius: 2px;
+      transition: height 0.15s ease;
+      box-shadow: 0 0 8px rgba(167,139,250,0.4);
+    }
+    #exhibit-label {
+      position: absolute;
+      bottom: -1.6rem;
+      left: 50%;
+      transform: translateX(-50%) rotate(90deg);
+      transform-origin: center;
+      font-size: 0.46rem;
+      letter-spacing: 0.38em;
+      color: rgba(167,139,250,0.35);
+      text-transform: uppercase;
+      white-space: nowrap;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    /* ── Section warp flash ── */
+    #warp-flash {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0;
+      background: radial-gradient(ellipse at center, rgba(167,139,250,0.12) 0%, transparent 70%);
+      mix-blend-mode: screen;
+    }
+    #warp-flash.flash { animation: warpFlash 0.55s ease-out forwards; }
+    @keyframes warpFlash {
+      0%   { opacity: 0; filter: blur(0px); }
+      15%  { opacity: 1; filter: blur(2px) saturate(2); }
+      100% { opacity: 0; filter: blur(0px); }
+    }
+
+    /* ── Audio visualizer ── */
+    #viz-canvas {
+      display: block;
+      width: 100%;
+      height: 64px;
+      margin-top: 1rem;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    #viz-canvas.active { opacity: 1; }
+
+    /* ── Star map ── */
+    #star-map-wrap {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+    }
+    #star-map { display: block; width: 100%; height: 100%; }
+
+    /* ── 1. 3D Member Card Tilt ── */
+    .member-card {
+      transition: transform 0.08s ease, border-color 0.3s;
+      will-change: transform;
+      transform-style: preserve-3d;
+    }
+
+    /* ── 2. Hero Glitch ── */
+    @keyframes heroGlitchSlice {
+      0%,100% { clip-path: none; transform: none; }
+      8%  { clip-path: inset(0 0 91% 0); transform: translate(-4px,0); }
+      10% { clip-path: inset(87% 0 0 0); transform: translate(4px,0); }
+      12% { clip-path: none; transform: none; }
+      15% { clip-path: inset(42% 0 48% 0); transform: translate(-2px,0); }
+      17% { clip-path: none; transform: none; }
+    }
+    @keyframes heroGlitchCh {
+      0%,100% { opacity: 0.16; transform: translate3d(0.025em,0,0); filter: none; }
+      8%  { opacity: 0.9; transform: translate3d(7px,-2px,0); filter: hue-rotate(90deg); }
+      10% { opacity: 0.7; transform: translate3d(-5px,2px,0); filter: hue-rotate(200deg); }
+      12% { opacity: 0.16; transform: translate3d(0.025em,0,0); filter: none; }
+    }
+    .hero-title.glitching { animation: heroGlitchSlice 0.32s steps(1) forwards !important; }
+    .hero-title.glitching::before { animation: heroGlitchCh 0.32s steps(1) forwards !important; }
+    .hero-title.glitching::after  { animation: heroGlitchCh 0.32s steps(1) reverse forwards !important; }
+
+    /* ── 4. Photo Lightbox ── */
+    #photo-lightbox {
+      position: fixed; inset: 0; z-index: 8000;
+      background: rgba(2,2,10,0.96);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.38s ease;
+    }
+    #photo-lightbox.open { opacity: 1; pointer-events: auto; }
+    #lb-img-wrap {
+      max-width: 90vw; max-height: 85vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #lb-img {
+      max-width: 90vw; max-height: 85vh; object-fit: contain;
+      border: 1px solid rgba(167,139,250,0.14);
+      box-shadow: 0 0 80px rgba(167,139,250,0.08);
+    }
+    #lb-close {
+      position: absolute; top: 1.4rem; right: 2rem;
+      font-size: 2.2rem; line-height: 1; color: rgba(226,226,240,0.55);
+      background: none; border: none; cursor: pointer;
+      transition: color 0.2s, transform 0.2s;
+      font-family: inherit;
+    }
+    #lb-close:hover { color: #fff; transform: rotate(90deg); }
+    #lb-prev, #lb-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-size: 2.6rem; color: rgba(226,226,240,0.4);
+      background: none; border: none; cursor: pointer;
+      padding: 1rem 1.4rem; transition: color 0.2s;
+      font-family: inherit;
+    }
+    #lb-prev { left: 0.5rem; }
+    #lb-next { right: 0.5rem; }
+    #lb-prev:hover, #lb-next:hover { color: rgba(167,139,250,0.9); }
+    #lb-caption {
+      position: absolute; bottom: 1.8rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.6rem; letter-spacing: 0.34em; color: rgba(167,139,250,0.4);
+      text-transform: uppercase; white-space: nowrap;
+      font-family: 'Raleway', sans-serif;
+    }
+    .photo-item { cursor: zoom-in; }
+
+    /* ── 5. Custom Player Skin ── */
+    .site-player {
+      border: 1px solid rgba(167,139,250,0.16) !important;
+      background: linear-gradient(135deg, rgba(12,6,24,0.96) 0%, rgba(22,10,44,0.92) 100%);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2px;
+      overflow: hidden;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.55), inset 0 1px 0 rgba(167,139,250,0.07);
+    }
+    .sp-now-playing {
+      display: grid !important;
+      grid-template-columns: 72px 1fr auto !important;
+      align-items: center !important;
+      gap: 1.4rem !important;
+      padding: 1.4rem 1.6rem !important;
+      border-bottom: 1px solid rgba(167,139,250,0.08) !important;
+      min-height: unset !important;
+      background: rgba(167,139,250,0.02);
+    }
+    .sp-art {
+      width: 72px !important; height: 72px !important;
+      border-radius: 3px !important;
+      box-shadow: 0 0 20px rgba(167,139,250,0.22), 0 4px 16px rgba(0,0,0,0.5);
+      animation: none;
+      transition: box-shadow 0.4s;
+      position: relative;
+    }
+    .sp-art.spinning {
+      animation: spArtSpin 3.2s linear infinite;
+    }
+    @keyframes spArtSpin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    .sp-info { min-width: 0; }
+    .sp-title {
+      font-family: 'Bebas Neue', sans-serif !important;
+      font-size: 1.22rem !important;
+      letter-spacing: 0.06em !important;
+      color: #fff !important;
+      line-height: 1.2 !important;
+      margin-bottom: 0.28rem !important;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .sp-artist {
+      font-size: 0.6rem !important;
+      color: rgba(167,139,250,0.55) !important;
+      letter-spacing: 0.28em !important;
+    }
+    .sp-badge {
+      font-size: 0.5rem !important;
+      letter-spacing: 0.3em !important;
+      color: rgba(167,139,250,0.4) !important;
+      border: 1px solid rgba(167,139,250,0.2) !important;
+      padding: 0.3rem 0.7rem !important;
+      text-transform: uppercase;
+      white-space: nowrap;
+      font-family: 'Raleway', sans-serif;
+    }
+    .sp-progress-wrap { padding: 0.9rem 1.6rem 0.5rem; background: rgba(167,139,250,0.015); }
+    .sp-bar-track {
+      height: 3px !important;
+      background: rgba(167,139,250,0.1) !important;
+      border-radius: 3px !important;
+    }
+    .sp-bar-fill {
+      background: linear-gradient(to right, rgba(124,58,237,0.9), rgba(167,139,250,0.75)) !important;
+      box-shadow: 0 0 8px rgba(167,139,250,0.4);
+      border-radius: 3px !important;
+      height: 100% !important;
+    }
+    .sp-times { margin-top: 0.5rem; font-size: 0.58rem; color: rgba(167,139,250,0.4); letter-spacing: 0.16em; display: flex; justify-content: space-between; }
+    .sp-controls {
+      padding: 0.8rem 1.6rem 1rem !important;
+      gap: 0.5rem !important;
+      background: rgba(2,2,10,0.2);
+      border-top: 1px solid rgba(167,139,250,0.06);
+    }
+    .sp-btn {
+      border-radius: 2px !important;
+      font-size: 0.6rem !important;
+      padding: 0.55rem 1rem !important;
+      letter-spacing: 0.18em !important;
+    }
+    .sp-btn.sp-play {
+      background: rgba(124,58,237,0.18) !important;
+      border-color: rgba(124,58,237,0.4) !important;
+      color: rgba(167,139,250,0.9) !important;
+      box-shadow: 0 0 16px rgba(124,58,237,0.15);
+    }
+    .sp-btn.sp-play:hover {
+      background: rgba(124,58,237,0.3) !important;
+      box-shadow: 0 0 24px rgba(124,58,237,0.28);
+    }
+    .sp-btn.sp-play.playing {
+      background: rgba(124,58,237,0.28) !important;
+      box-shadow: 0 0 20px rgba(124,58,237,0.3), inset 0 0 12px rgba(167,139,250,0.08);
+    }
+    .sp-track-list { border-top: 1px solid rgba(167,139,250,0.07) !important; }
+    .sp-track-row {
+      padding: 0.68rem 1.6rem !important;
+      border-bottom-color: rgba(167,139,250,0.04) !important;
+    }
+    .sp-track-row:hover { background: rgba(167,139,250,0.05) !important; }
+    .sp-track-row.active { background: rgba(124,58,237,0.1) !important; }
+    #viz-canvas {
+      display: block;
+      width: 100%;
+      height: 44px;
+      margin-top: 0;
+    }
+    .sp-tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(167,139,250,0.1);
+    }
+    .sp-tab {
+      flex: 1;
+      padding: 0.72rem 0.4rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-family: 'Raleway', sans-serif;
+      background: none;
+      border: none;
+      color: rgba(167,139,250,0.38);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .sp-tab:hover { color: rgba(167,139,250,0.7); }
+    .sp-tab.active {
+      color: rgba(167,139,250,0.95);
+      border-bottom-color: rgba(167,139,250,0.6);
+    }
+
+    /* ── Fixed Bottom Player Bar ── */
+    body { padding-bottom: 98px; }
+
+    #sp-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 9999;
+      background: linear-gradient(180deg, rgba(8,3,18,0.97) 0%, rgba(12,5,24,0.99) 100%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid rgba(167,139,250,0.18);
+      box-shadow: 0 -4px 40px rgba(0,0,0,0.7), 0 -1px 0 rgba(167,139,250,0.06);
+      transform: translateY(100%);
+      transition: transform 0.55s cubic-bezier(0.22,1,0.36,1);
+    }
+    #sp-bar.visible { transform: translateY(0); }
+    #sp-bar.minimized { transform: translateY(calc(100% - 6px)); }
+    #sp-bar.minimized .sp-bar-main,
+    #sp-bar.minimized .sp-bar-foot { opacity: 0; pointer-events: none; }
+
+    .sp-bar-main {
+      display: grid;
+      grid-template-columns: 44px minmax(0,1fr) auto 1fr auto;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.6rem 1.4rem;
+      transition: opacity 0.2s;
+    }
+    #sp-bar .sp-art {
+      width: 44px !important; height: 44px !important;
+      border-radius: 3px;
+      object-fit: cover;
+      box-shadow: 0 0 14px rgba(167,139,250,0.2);
+      flex-shrink: 0;
+    }
+    #sp-bar .sp-info { min-width: 0; }
+    #sp-bar .sp-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+    #sp-bar .sp-artist {
+      font-size: 0.55rem;
+      color: rgba(167,139,250,0.5);
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+    }
+    .sp-bar-controls { display: flex; gap: 0.4rem; flex-shrink: 0; }
+    .sp-bar-controls .sp-btn {
+      background: none !important;
+      border: 1px solid rgba(167,139,250,0.15) !important;
+      color: rgba(167,139,250,0.7) !important;
+      font-size: 0.72rem !important;
+      padding: 0.38rem 0.65rem !important;
+      border-radius: 2px !important;
+      cursor: pointer;
+      transition: all 0.18s;
+      letter-spacing: 0.05em !important;
+    }
+    .sp-bar-controls .sp-btn:hover { color: #fff !important; border-color: rgba(167,139,250,0.45) !important; }
+    .sp-bar-controls .sp-play {
+      background: rgba(124,58,237,0.18) !important;
+      border-color: rgba(124,58,237,0.4) !important;
+      color: rgba(167,139,250,0.9) !important;
+    }
+    .sp-bar-controls .sp-play.playing { background: rgba(124,58,237,0.3) !important; }
+    #viz-canvas { border-radius: 2px; }
+    .sp-bar-right { display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+    .sp-icon-btn {
+      background: none; border: none;
+      font-size: 1rem; cursor: pointer;
+      color: rgba(167,139,250,0.55);
+      padding: 0.2rem 0.3rem;
+      transition: color 0.18s;
+      line-height: 1;
+    }
+    .sp-icon-btn:hover { color: rgba(167,139,250,0.95); }
+    #spVolSlider {
+      width: 70px;
+      accent-color: rgba(124,58,237,0.9);
+      cursor: pointer;
+    }
+
+    .sp-bar-foot {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 1.4rem 0.45rem;
+      transition: opacity 0.2s;
+    }
+    .sp-progress-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
+      font-size: 0.52rem;
+      color: rgba(167,139,250,0.35);
+      letter-spacing: 0.1em;
+    }
+    .sp-bar-foot .sp-bar-track {
+      width: 120px;
+      height: 3px;
+      background: rgba(167,139,250,0.1);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .sp-bar-foot .sp-bar-fill {
+      height: 100%;
+      background: linear-gradient(to right, rgba(124,58,237,0.9), rgba(167,139,250,0.75));
+      border-radius: 3px;
+      box-shadow: 0 0 6px rgba(167,139,250,0.3);
+    }
+    .sp-bar-foot .sp-tabs {
+      display: flex;
+      border-bottom: none;
+      gap: 0;
+      flex: 1;
+    }
+    .sp-bar-foot .sp-tab {
+      padding: 0.3rem 0.55rem;
+      font-size: 0.52rem;
+      border-bottom: 1px solid transparent;
+      margin-bottom: 0;
+    }
+
+
+    /* ── Manifesto Chapter Experience ── */
+    #about {
+      height: 700vh;
+      min-height: unset;
+      display: block;
+      overflow: visible;
+    }
+    #about::after { display: none; }
+    #about .depth-bg { display: none; }
+    #about .section-inner {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      max-width: 100%;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+      background-image: none !important;
+    }
+    .manifesto-chapter {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.85s ease;
+      background:
+        radial-gradient(ellipse at 18% 45%, rgba(68,24,108,0.52) 0%, transparent 52%),
+        radial-gradient(ellipse at 82% 55%, rgba(38,14,72,0.44) 0%, transparent 48%),
+        radial-gradient(ellipse at 50% 5%,  rgba(24,10,50,0.4)  0%, transparent 42%),
+        radial-gradient(ellipse at 50% 95%, rgba(20,8,44,0.36)  0%, transparent 40%),
+        #02020a;
+    }
+    .manifesto-chapter.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .chapter-bg {
+      position: absolute;
+      inset: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: transparent;
+      filter: brightness(0.92) saturate(0.88);
+      transition: filter 1.5s ease;
+      z-index: 1;
+    }
+    .manifesto-chapter.active .chapter-bg {
+      filter: brightness(1.0) saturate(0.96);
+    }
+    .chapter-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(to top, rgba(2,2,10,0.88) 0%, rgba(2,2,10,0.6) 18%, rgba(2,2,10,0.18) 34%, transparent 50%);
+      pointer-events: none;
+    }
+    .chapter-content {
+      position: relative;
+      z-index: 3;
+      max-width: 880px;
+      margin-left: clamp(2rem, 7vw, 7rem);
+      padding-bottom: clamp(2.5rem, 7vh, 5rem);
+      transform: translateY(30px);
+      opacity: 0;
+      transition: transform 0.95s cubic-bezier(0.22,0.61,0.36,1) 0.28s,
+                  opacity 0.95s ease 0.28s;
+    }
+    .manifesto-chapter.active .chapter-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .chapter-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      margin-bottom: 0.8rem;
+    }
+    .chapter-num {
+      font-size: 0.55rem;
+      letter-spacing: 0.46em;
+      color: rgba(167,139,250,0.5);
+      text-transform: uppercase;
+      font-family: 'Raleway', sans-serif;
+    }
+    .chapter-cue {
+      font-size: 0.55rem;
+      letter-spacing: 0.28em;
+      color: rgba(167,139,250,0.34);
+      text-transform: uppercase;
+      font-family: 'Raleway', sans-serif;
+      border-left: 1px solid rgba(167,139,250,0.22);
+      padding-left: 1.4rem;
+      font-style: italic;
+    }
+    .chapter-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+      letter-spacing: 0.03em;
+      line-height: 0.94;
+      color: #ffffff;
+      margin-bottom: 0.9rem;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.7), 0 0 80px rgba(167,139,250,0.15);
+    }
+    .chapter-body {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: rgba(232,232,244,0.82);
+      max-width: 640px;
+      font-weight: 300;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.75);
+    }
+    .chapter-nav {
+      position: absolute;
+      right: 2.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0.72rem;
+      z-index: 10;
+      /* neutralize the global <nav> glass-pill styling from site-bubbles.css */
+      width: auto;
+      left: auto;
+      padding: 0;
+      margin: 0;
+      background: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
+    .chapter-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(167,139,250,0.2);
+      border: 1px solid rgba(167,139,250,0.28);
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .chapter-dot.active {
+      background: rgba(167,139,250,0.9);
+      transform: scale(1.6);
+      box-shadow: 0 0 8px rgba(167,139,250,0.5);
+    }
+    .chapter-dot:hover:not(.active) { background: rgba(167,139,250,0.5); }
+    #chapterBar {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(to right, rgba(167,139,250,0.75), rgba(124,58,237,0.35));
+      z-index: 10;
+    }
+    .chapter-section-label {
+      position: absolute;
+      top: 1.8rem;
+      left: clamp(2rem, 10vw, 10rem);
+      z-index: 10;
+    }
+    .chapter-section-label .exhibit-id { margin-bottom: 0.2rem; }
+    .chapter-section-label .section-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.38em;
+      color: rgba(167,139,250,0.38);
+      text-transform: uppercase;
+    }
+    @media (max-width: 768px) {
+      #about { height: 800vh; }
+      .chapter-content { max-width: calc(100% - 4rem); margin-left: 2rem; }
+      .chapter-nav { right: 0.8rem; }
+    }
   </style>
   <link rel="stylesheet" href="site-bubbles.css">
 </head>
 <body>
+  <div id="intro-screen" role="button" aria-label="Click to enter The 4th Kind">
+    <img id="intro-logo" src="images/logo/the-4th-kind-logo-v2.jpg" alt="The 4th Kind">
+    <p id="intro-cta">Click to Enter</p>
+  </div>
+
   <div id="atmosphere" aria-hidden="true"></div>
+  <div id="cursor-glow"></div>
+  <div id="warp-flash"></div>
+  <div id="exhibit-progress"><div id="exhibit-fill"></div><span id="exhibit-label">Exhibit Tour</span></div>
 
   <nav id="navbar">
     <a href="#hero" class="nav-logo"><span>The 4th Kind</span></a>
+    <button id="nav-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#videos">Videos</a></li>
@@ -690,15 +1623,20 @@
       <div id="members" class="hero-artists">
         <div class="hero-artists-header">
           <div>
+            <span class="exhibit-id">Exhibit — 001 / Chicago, IL</span>
             <p class="section-label">The Group</p>
             <h2 class="section-title">Artists</h2>
           </div>
+        </div>
+        <div id="star-map-wrap" aria-hidden="true">
+          <canvas id="star-map"></canvas>
         </div>
         <div class="members-grid hero-members-grid">
           <div class="member-card">
             <div class="member-avatar"><img src="images/16raheem/16raheem.jpg" alt="16RAHEEM"></div>
             <a href="16raheem.html" class="member-name-link"><div class="member-name">16RAHEEM</div></a>
             <div class="member-origin">Chicago, IL</div>
+            <div class="member-coords">41.8827° N — 87.6233° W</div>
             <p class="member-bio">Founder of The 4th Kind. SOUL TRAPPED. PURPLE HEART. 1of1. Established 2016.</p>
             <a href="https://instagram.com/16raheemx" target="_blank" class="member-link" rel="noopener noreferrer">@16raheemx</a>
             <a href="16raheem.html" class="member-profile-link">View Profile &#8594;</a>
@@ -707,6 +1645,7 @@
             <div class="member-avatar"><img src="images/wodiene/wodiene.jpg" alt="Wodiene"></div>
             <a href="wodiene.html" class="member-name-link"><div class="member-name">Wodiene</div></a>
             <div class="member-origin">Chicago, IL</div>
+            <div class="member-coords">41.8827° N — 87.6233° W</div>
             <p class="member-bio">Creating to leave it all behind.</p>
             <a href="https://instagram.com/wodiene" target="_blank" class="member-link" rel="noopener noreferrer">@wodiene</a>
             <a href="wodiene.html" class="member-profile-link">View Profile &#8594;</a>
@@ -715,6 +1654,7 @@
             <div class="member-avatar"><img src="images/jsteezzy/jsteezzy.jpg" alt="Jsteezzy"></div>
             <a href="jsteezzy.html" class="member-name-link"><div class="member-name">Jsteezzy</div></a>
             <div class="member-origin">Chicago, IL</div>
+            <div class="member-coords">41.8827° N — 87.6233° W</div>
             <p class="member-bio">Chicago born, South Side raised. Host of Respect the Mic &amp; artist behind the album <em>Who Knows</em>.</p>
             <a href="https://instagram.com/jsteez4k" target="_blank" class="member-link" rel="noopener noreferrer">@jsteez4k</a>
             <a href="jsteezzy.html" class="member-profile-link">View Profile &#8594;</a>
@@ -723,6 +1663,7 @@
             <div class="member-avatar"><img src="images/freewaveant/freewaveant.jpg" alt="Freewave Ant"></div>
             <a href="freewaveant.html" class="member-name-link"><div class="member-name">Freewave Ant</div></a>
             <div class="member-origin">San Francisco, CA</div>
+            <div class="member-coords">37.7749° N — 122.4194° W</div>
             <p class="member-bio">Any wave not acted upon by any external force except for the initial force that created it.</p>
             <a href="https://instagram.com/freewavant" target="_blank" class="member-link" rel="noopener noreferrer">@freewavant</a>
             <a href="freewaveant.html" class="member-profile-link">View Profile &#8594;</a>
@@ -733,80 +1674,109 @@
   </section>
 
   <section id="about" class="depth-section">
-    <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 50%, rgba(68,24,108,0.52) 0%, rgba(22,8,36,0.1) 52%, transparent 72%);"></div>
+    <div class="depth-bg"></div>
     <div class="section-inner about-inner">
-      <div class="manifesto-intro">
-        <p class="section-label reveal">The Message</p>
-        <h2 class="section-title reveal">What We Stand For</h2>
+
+      <div class="chapter-section-label">
+        <span class="exhibit-id">Exhibit — 002 / Origin &amp; Mission</span>
+        <p class="section-label">The Message</p>
       </div>
-      <div class="manifesto-experience">
-        <article class="manifesto-scene scene-origin reveal">
-          <div class="manifesto-visual">
-            <img src="images/group/web/lake-overlook.jpg" alt="The 4th Kind overlooking a lake">
+
+      <div class="manifesto-chapter" data-chapter="0">
+        <div class="chapter-bg" style="background-image:url('images/group/web/lake-overlook.jpg')"></div>
+        <div class="chapter-overlay"></div>
+        <div class="chapter-content">
+          <div class="chapter-meta">
+            <span class="chapter-num">01 / 06</span>
+            <span class="chapter-cue">Roots to reach</span>
           </div>
-          <div class="manifesto-copy">
-            <h3 class="manifesto-heading">From Chicago Outward</h3>
-            <p>The 4th Kind is an independent Hip-Hop recording collective &amp; label based in Chicago, Illinois. Though the seeds were originally planted in Oak Park, Illinois, the group&#8217;s message, presence and impact reaches to both coasts of the US and transcends the nation as they grow worldwide.</p>
-            <span class="manifesto-cue">Roots to reach</span>
-          </div>
-        </article>
-        <article class="manifesto-scene scene-foundation reveal">
-          <div class="manifesto-visual">
-            <img src="images/group/web/studio-portrait.jpg" alt="The 4th Kind studio portrait">
-          </div>
-          <div class="manifesto-copy">
-            <h3 class="manifesto-heading">Built By Hand</h3>
-            <p>Founded by 16RAHEEM in 2016&#8211;17, the group consisted of key members Wodiene &amp; Spacey. Starting out with SoundCloud mixtapes, DIY Music Videos &amp; Cover arts - the group has always carried a passion to express authenticity with a competitive flame driving them to reach the peak of high quality Hip-Hop music.</p>
-            <span class="manifesto-cue">DIY signal</span>
-          </div>
-        </article>
-        <article class="manifesto-scene scene-basement reveal">
-          <div class="manifesto-visual">
-            <img src="images/group/web/group-night.jpg" alt="The 4th Kind group at night">
-          </div>
-          <div class="manifesto-copy">
-            <h3 class="manifesto-heading">Basement Gems</h3>
-            <p>Inspired heavily by the sound and poetry of their city, 16, Wodiene &amp; Jsteezzy had released countless tracks from 2021&#8211;2022. Each track feeling like a hidden gem, carefully crafted by young enthusiastic poets in the basement, with a deep desire to stamp themselves as generational talents in rap.</p>
-            <span class="manifesto-cue">Pressure into poetry</span>
-          </div>
-        </article>
-        <article class="manifesto-scene scene-freewave reveal">
-          <div class="manifesto-visual">
-            <img src="images/group/web/duo-portrait.jpg" alt="Two members of The 4th Kind portrait">
-          </div>
-          <div class="manifesto-copy">
-            <h3 class="manifesto-heading">The Wave Joins</h3>
-            <p>Since 2023, the collective includes longtime associate Freewave Ant, who has made his own wave while fitting into the frame of The 4th Kind seamlessly. His ascension has been an actualization of a seed planted back in days freestyling &amp; hanging with the group in school. He began his journey as an artist on the shoulders of the crew &amp; its momentum, as he and 16 dropped their collaborative album &#8216;2144&#8217; in 2024.</p>
-            <span class="manifesto-cue">Momentum shared</span>
-          </div>
-        </article>
-        <article class="manifesto-scene scene-orbit reveal">
-          <div class="manifesto-visual">
-            <img src="images/group/web/highway-night.jpg" alt="The 4th Kind beside highway lights at night">
-          </div>
-          <div class="manifesto-copy">
-            <h3 class="manifesto-heading">Outer Space Domain</h3>
-            <p>The name &#8216;The 4th Kind&#8217; takes inspiration from the 70&#8217;s film <em>Close Encounters of The Third Kind</em>, and the rap duo <em>The Third Kind</em> formed by Capital Steez in the early 2010s. To 16RAHEEM, Pro Era represented another group of teenage rhymers with the same hunger to express individualism. With the name &#8216;The 4th Kind&#8217;, the Chicago collective takes another creative step distancing themselves even further from contemporaries &amp; peers, and catapulting their sonic realm of endeavors to an outer space domain. Spacey synths, jazzy samples &amp; psychedelic-otherworldly ambience are the conveyance for this gritty grassroots Hip-Hop movement, as they make their own wave through an ever-changing world of music.</p>
-            <span class="manifesto-cue">Another encounter</span>
-          </div>
-        </article>
-        <article class="manifesto-scene scene-alchemy reveal">
-          <div class="manifesto-visual">
-            <img src="images/group/web/group-portrait.jpg" alt="The 4th Kind group portrait">
-          </div>
-          <div class="manifesto-copy">
-            <h3 class="manifesto-heading">Cathartic Alchemy</h3>
-            <p>With deep reflective themes of love, paranoia, hustle, dreams, pain, sacrifice, faith &amp; betrayal, the introspection &amp; raw vulnerability is what sets this group apart from the common themes found in mainstream rap lyrics today. The group understands one central idea: art is meaningless if it does not manifest as a form of cathartic alchemy for the artist, or if it does not provoke the thought or tug at the heart strings of the listener. As they spread their movement through music, The 4K hopes to make the world a better place, and to open the eyes and ears of individuals who select their voices as the soundtracks to their lives.</p>
-            <span class="manifesto-cue">Feeling into form</span>
-          </div>
-        </article>
+          <h3 class="chapter-heading">From Chicago Outward</h3>
+          <p class="chapter-body">The 4th Kind is an independent Hip-Hop recording collective &amp; label based in Chicago, Illinois. Though the seeds were originally planted in Oak Park, Illinois, the group&#8217;s message, presence and impact reaches to both coasts of the US and transcends the nation as they grow worldwide.</p>
+        </div>
       </div>
+
+      <div class="manifesto-chapter" data-chapter="1">
+        <div class="chapter-bg" style="background-image:url('images/group/web/studio-portrait.jpg')"></div>
+        <div class="chapter-overlay"></div>
+        <div class="chapter-content">
+          <div class="chapter-meta">
+            <span class="chapter-num">02 / 06</span>
+            <span class="chapter-cue">DIY signal</span>
+          </div>
+          <h3 class="chapter-heading">Built By Hand</h3>
+          <p class="chapter-body">Founded by 16RAHEEM in 2016&#8211;17, the group consisted of key members Wodiene &amp; Spacey. Starting out with SoundCloud mixtapes, DIY Music Videos &amp; Cover arts — the group has always carried a passion to express authenticity with a competitive flame driving them to reach the peak of high quality Hip-Hop music.</p>
+        </div>
+      </div>
+
+      <div class="manifesto-chapter" data-chapter="2">
+        <div class="chapter-bg" style="background-image:url('images/group/web/group-night.jpg')"></div>
+        <div class="chapter-overlay"></div>
+        <div class="chapter-content">
+          <div class="chapter-meta">
+            <span class="chapter-num">03 / 06</span>
+            <span class="chapter-cue">Pressure into poetry</span>
+          </div>
+          <h3 class="chapter-heading">Basement Gems</h3>
+          <p class="chapter-body">Inspired heavily by the sound and poetry of their city, 16, Wodiene &amp; Jsteezzy released countless tracks from 2021&#8211;2022. Each track feeling like a hidden gem, carefully crafted by young enthusiastic poets in the basement, with a deep desire to stamp themselves as generational talents in rap.</p>
+        </div>
+      </div>
+
+      <div class="manifesto-chapter" data-chapter="3">
+        <div class="chapter-bg" style="background-image:url('images/group/web/duo-portrait.jpg')"></div>
+        <div class="chapter-overlay"></div>
+        <div class="chapter-content">
+          <div class="chapter-meta">
+            <span class="chapter-num">04 / 06</span>
+            <span class="chapter-cue">Momentum shared</span>
+          </div>
+          <h3 class="chapter-heading">The Wave Joins</h3>
+          <p class="chapter-body">Since 2023, the collective includes longtime associate Freewave Ant, who has made his own wave while fitting into the frame of The 4th Kind seamlessly. His ascension was an actualization of a seed planted back in days freestyling with the group in school — and he and 16 dropped their collaborative album &#8216;2144&#8217; in 2024.</p>
+        </div>
+      </div>
+
+      <div class="manifesto-chapter" data-chapter="4">
+        <div class="chapter-bg" style="background-image:url('images/group/web/highway-night.jpg')"></div>
+        <div class="chapter-overlay"></div>
+        <div class="chapter-content">
+          <div class="chapter-meta">
+            <span class="chapter-num">05 / 06</span>
+            <span class="chapter-cue">Another encounter</span>
+          </div>
+          <h3 class="chapter-heading">Outer Space Domain</h3>
+          <p class="chapter-body">&#8216;The 4th Kind&#8217; takes inspiration from the 70&#8217;s film <em>Close Encounters of The Third Kind</em> and the duo <em>The Third Kind</em> formed by Capital Steez. The Chicago collective catapults their sonic realm into an outer space domain — spacey synths, jazzy samples &amp; psychedelic ambience as the conveyance for a gritty grassroots Hip-Hop movement.</p>
+        </div>
+      </div>
+
+      <div class="manifesto-chapter" data-chapter="5">
+        <div class="chapter-bg" style="background-image:url('images/group/web/group-portrait.jpg')"></div>
+        <div class="chapter-overlay"></div>
+        <div class="chapter-content">
+          <div class="chapter-meta">
+            <span class="chapter-num">06 / 06</span>
+            <span class="chapter-cue">Feeling into form</span>
+          </div>
+          <h3 class="chapter-heading">Cathartic Alchemy</h3>
+          <p class="chapter-body">With deep reflective themes of love, paranoia, hustle, dreams, pain, sacrifice, faith &amp; betrayal — the introspection &amp; raw vulnerability is what sets this group apart. The group understands one central idea: art is meaningless if it does not manifest as cathartic alchemy for the artist, or if it does not provoke the thought or tug at the heart strings of the listener.</p>
+        </div>
+      </div>
+
+
+      <nav class="chapter-nav" aria-label="Chapter navigation">
+        <button class="chapter-dot active" data-target="0" aria-label="Chapter 1"></button>
+        <button class="chapter-dot" data-target="1" aria-label="Chapter 2"></button>
+        <button class="chapter-dot" data-target="2" aria-label="Chapter 3"></button>
+        <button class="chapter-dot" data-target="3" aria-label="Chapter 4"></button>
+        <button class="chapter-dot" data-target="4" aria-label="Chapter 5"></button>
+        <button class="chapter-dot" data-target="5" aria-label="Chapter 6"></button>
+      </nav>
+      <div id="chapterBar"></div>
     </div>
   </section>
 
   <section id="videos" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 55% 50%, rgba(54,20,92,0.48) 0%, rgba(18,8,30,0.1) 54%, transparent 72%);"></div>
     <div class="section-inner video-feature-inner">
+      <span class="exhibit-id">Exhibit — 003 / Audio-Visual Archive</span>
       <p class="section-label reveal">Watch</p>
       <h2 class="section-title reveal">Videos</h2>
       <div class="video-showcase-grid">
@@ -820,7 +1790,7 @@
               allowfullscreen
             ></iframe>
           </div>
-          <div class="video-meta">
+          <div class="video-meta" data-exhibit="REC — 001">
             <span>16RAHEEM</span>
             <span class="video-title">Courtesy of The 4th Kind</span>
           </div>
@@ -835,7 +1805,7 @@
               allowfullscreen
             ></iframe>
           </div>
-          <div class="video-meta">
+          <div class="video-meta" data-exhibit="REC — 002">
             <span>Wodiene</span>
             <span class="video-title">Courtesy of The 4th Kind</span>
           </div>
@@ -850,7 +1820,7 @@
               allowfullscreen
             ></iframe>
           </div>
-          <div class="video-meta">
+          <div class="video-meta" data-exhibit="REC — 003">
             <span>Jsteezzy</span>
             <span class="video-title">Courtesy of The 4th Kind</span>
           </div>
@@ -862,6 +1832,7 @@
   <section id="photos" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 20% 50%, rgba(18,8,36,0.16) 0%, rgba(6,3,12,0.04) 60%, transparent 74%);"></div>
     <div class="section-inner">
+      <span class="exhibit-id">Exhibit — 004 / Photographic Record</span>
       <p class="section-label reveal">Gallery</p>
       <h2 class="section-title reveal">Photos</h2>
       <div class="photos-grid reveal-grid">
@@ -880,6 +1851,7 @@
   <section id="music" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 30% 60%, rgba(54,20,92,0.44) 0%, rgba(18,8,30,0.1) 54%, transparent 72%);"></div>
     <div class="section-inner">
+      <span class="exhibit-id">Exhibit — 005 / Sonic Specimens</span>
       <p class="section-label reveal">Discography</p>
       <h2 class="section-title reveal">Music</h2>
       <div class="music-grid reveal-grid">
@@ -921,39 +1893,14 @@
         </div>
       </div>
 
-      <!-- ─── In-page audio player ─── -->
-      <div class="player-wrap reveal">
-        <p class="player-sublabel">Preview</p>
-        <div class="site-player" id="sitePlayer">
-          <div class="sp-now-playing">
-            <img class="sp-art" id="spArt" src="" alt="">
-            <div class="sp-info">
-              <div class="sp-title" id="spTitle">Select a track below</div>
-              <div class="sp-artist" id="spArtist">&mdash;</div>
-            </div>
-            <span class="sp-badge">30s Preview</span>
-          </div>
-          <div class="sp-progress-wrap">
-            <div class="sp-bar-track" id="spBarTrack">
-              <div class="sp-bar-fill" id="spBarFill"></div>
-            </div>
-            <div class="sp-times"><span id="spCurrent">0:00</span><span id="spDuration">0:00</span></div>
-          </div>
-          <div class="sp-controls">
-            <button class="sp-btn" onclick="spPrev()">&#8249;&#8249; Prev</button>
-            <button class="sp-btn sp-play" id="spPlayBtn" onclick="spToggle()">&#9654; Play</button>
-            <button class="sp-btn" onclick="spNext()">Next &#8250;&#8250;</button>
-            <div class="sp-vol">Vol<input type="range" min="0" max="1" step="0.05" value="0.8" oninput="spAudio.volume=+this.value"></div>
-          </div>
-          <div class="sp-track-list" id="spTrackList"></div>
-        </div>
-      </div>
+      <!-- player lives in the fixed bar now -->
     </div>
   </section>
 
   <section id="merch" class="depth-section">
     <div class="depth-bg" style="background:radial-gradient(ellipse at 50% 70%, rgba(28,10,54,0.24) 0%, rgba(10,4,18,0.06) 58%, transparent 72%);"></div>
     <div class="section-inner">
+      <span class="exhibit-id">Exhibit — 006 / Artifact Collection</span>
       <p class="section-label reveal">Store</p>
       <h2 class="section-title reveal">16RAHEEM Merch</h2>
       <a class="bandcamp-drop reveal" href="https://16raheem.bandcamp.com/album/purple-vision-s-deluxe-edition" target="_blank" rel="noopener noreferrer">
@@ -975,13 +1922,104 @@
   <footer>&copy; 2026 Spacey &mdash; The 4th Kind &mdash; Chicago, IL &mdash; Site by &copy; Carey Belcher Jr.</footer>
 
   <script>
-    window.addEventListener('load', () => {
-      window.setTimeout(() => document.body.classList.add('atmosphere-ready'), 220);
-    }, { once: true });
+    // Intro sequence — atmosphere-ready fires when intro exits
+    (function () {
+      const intro = document.getElementById('intro-screen');
+      document.body.style.overflow = 'hidden';
+
+      function spawnRings() {
+        const logo = document.getElementById('intro-logo');
+        const r = logo.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const sz = r.width;
+        [0, 700, 1400].forEach(function (delay, i) {
+          const ring = document.createElement('div');
+          ring.style.cssText =
+            'position:fixed;left:' + cx + 'px;top:' + cy + 'px;' +
+            'width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;' +
+            'border:' + (2 - i * 0.5) + 'px solid rgba(167,139,250,' + (0.9 - i * 0.25) + ');' +
+            'transform:translate(-50%,-50%) scale(1);pointer-events:none;z-index:10000;' +
+            'animation:ringExpand ' + (3.2 + i * 0.4) + 's ' + delay + 'ms ease-out forwards;';
+          document.body.appendChild(ring);
+          setTimeout(function () { ring.remove(); }, 5200 + delay);
+        });
+      }
+
+      function spawnParticles() {
+        const logo = document.getElementById('intro-logo');
+        const r = logo.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        for (let i = 0; i < 52; i++) {
+          const p = document.createElement('div');
+          const angle = (i / 52) * Math.PI * 2 + (Math.random() - 0.5) * 0.6;
+          const dist = 80 + Math.random() * 280;
+          const size = 2 + Math.random() * 5;
+          const delay = Math.floor(Math.random() * 180);
+          const hue = 255 + Math.floor(Math.random() * 45);
+          p.style.cssText =
+            'position:fixed;left:' + cx + 'px;top:' + cy + 'px;' +
+            'width:' + size + 'px;height:' + size + 'px;border-radius:50%;' +
+            'background:hsl(' + hue + ',88%,76%);' +
+            'box-shadow:0 0 ' + (size * 2) + 'px hsl(' + hue + ',88%,76%);' +
+            'pointer-events:none;z-index:10000;' +
+            '--tx:' + (Math.cos(angle) * dist).toFixed(1) + 'px;' +
+            '--ty:' + (Math.sin(angle) * dist).toFixed(1) + 'px;' +
+            'animation:introParticleFly 2.2s ' + delay + 'ms ease-out forwards;';
+          document.body.appendChild(p);
+          setTimeout(function () { p.remove(); }, 3200 + delay);
+        }
+      }
+
+      intro.addEventListener('click', function () {
+        intro.classList.add('triggered');
+        spawnRings();
+        spawnParticles();
+        setTimeout(function () {
+          intro.classList.add('exit');
+          document.body.style.overflow = '';
+          document.body.classList.add('atmosphere-ready');
+        }, 2000);
+        setTimeout(function () { intro.remove(); }, 4500);
+      }, { once: true });
+    })();
 
     // Nav
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+
+    // Mobile hamburger menu
+    (function() {
+      var hamburger = document.getElementById('nav-hamburger');
+      if (!hamburger) return;
+
+      function closeMenu() {
+        navbar.classList.remove('nav-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      }
+
+      hamburger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var isOpen = navbar.classList.toggle('nav-open');
+        hamburger.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Close when any nav link is clicked
+      navbar.querySelectorAll('.nav-links a').forEach(function(a) {
+        a.addEventListener('click', closeMenu);
+      });
+
+      // Close when clicking anywhere outside the navbar
+      document.addEventListener('click', function(e) {
+        if (!navbar.contains(e.target)) closeMenu();
+      });
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
 
     // Atmosphere
     const atmos = document.getElementById('atmosphere');
@@ -1074,117 +2112,231 @@
     window.addEventListener('scroll', queueDepthUpdate, { passive: true });
     updateScrollDepth();
 
-    // ─── Audio Player ───
-    const SP_TRACKS = [
-      { title: 'On My Own',          artist: '16RAHEEM',     art: 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/d9/02/02/d9020241-cd97-b21d-006b-720cc491f1d0/artwork.jpg/600x600bf-60.jpg', itunesId: '1688552498', appleUrl: 'https://music.apple.com/us/album/on-my-own/1688552488?i=1688552498' },
-      { title: 'Muddy',              artist: 'Wodiene',      art: 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/43/8d/dd/438dddc6-8b87-21cf-7c80-c891bd543851/artwork.jpg/600x600bf-60.jpg', itunesId: '1834980300', appleUrl: 'https://music.apple.com/us/album/muddy/1834980295?i=1834980300' },
-      { title: 'Backroads & Backwoods', artist: 'Jsteezzy', art: 'https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/b2/22/18/b2221810-f9b7-fec6-8f10-3e1989df60d1/artwork.jpg/600x600bf-60.jpg', itunesId: '1645223207', appleUrl: 'https://music.apple.com/us/album/backroads-backwoods/1645222719?i=1645223207' },
-      { title: 'Designer',           artist: 'Freewave Ant', art: 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/43/f0/2c/43f02c23-ee62-662e-1164-8181d8d4087c/artwork.jpg/600x600bf-60.jpg', itunesId: '1876860390', appleUrl: 'https://music.apple.com/us/album/designer/1876860372?i=1876860390' },
+    // ─── SoundCloud Widget Player ───
+    // All 4 iframes pre-load in parallel — tab switches are instant once ready
+    var SC_BASE = 'https://w.soundcloud.com/player/?auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&url=';
+    var SC_WIDGETS = [null, null, null, null];
+    var SC_READY  = [false, false, false, false];
+    var scActiveIdx = 0;
+    var scWidget = null; // always points to the active widget
+    var scReady = false, scPlaying = false, scTimer = null;
+    var scWaveform = null, scRelPos = 0;
+    var scMuted = false, scVolume = 80;
+    var scIntroComplete = false; // nothing plays until intro is clicked
+
+    function scMakeWidget(idx) {
+      var iframe = document.getElementById('sc-player-' + idx);
+      if (!iframe || typeof SC === 'undefined') return;
+      var w = SC.Widget(iframe);
+      SC_WIDGETS[idx] = w;
+
+      w.bind(SC.Widget.Events.READY, function() {
+        SC_READY[idx] = true;
+        if (idx !== scActiveIdx) return;
+        scWidget = w;
+        scReady = true;
+        w.setVolume(scMuted ? 0 : scVolume);
+        if (!scIntroComplete) return;
+        w.play(); w.getCurrentSound(function(s) { if (s) scUpdateUI(s); });
+      });
+
+      w.bind(SC.Widget.Events.PLAY, function() {
+        if (idx !== scActiveIdx) { w.pause(); return; }
+        scPlaying = true; scUpdateBtn(); scStartTimer();
+        w.getCurrentSound(function(s) { if (s) scUpdateUI(s); });
+      });
+      w.bind(SC.Widget.Events.PAUSE, function() {
+        if (idx !== scActiveIdx) return;
+        scPlaying = false; scUpdateBtn(); scStopTimer();
+      });
+      w.bind(SC.Widget.Events.PLAY_PROGRESS, function(data) {
+        if (idx !== scActiveIdx) return;
+        scRelPos = data.relativePosition || 0;
+      });
+      w.bind(SC.Widget.Events.FINISH, function() {
+        if (idx !== scActiveIdx) return;
+        scWaveform = null; scRelPos = 0;
+        w.next();
+      });
+    }
+
+    function scSwitchTo(idx, autoplay) {
+      if (scWidget && scPlaying) scWidget.pause();
+      scStopTimer(); scPlaying = false; scWaveform = null; scRelPos = 0;
+      scUpdateBtn();
+      scActiveIdx = idx;
+      scWidget = SC_WIDGETS[idx];
+      scReady = SC_READY[idx];
+      if (!scWidget || !SC_READY[idx]) return; // READY fires and calls play when ready
+      scWidget.setVolume(scMuted ? 0 : scVolume);
+      if (autoplay) scWidget.play();
+      else scWidget.getCurrentSound(function(s) { if (s) scUpdateUI(s); });
+    }
+
+    function scResetUI(label) {
+      document.getElementById('spTitle').textContent = 'Loading...';
+      document.getElementById('spArtist').textContent = label || '';
+      var art = document.getElementById('spArt');
+      art.removeAttribute('src');
+      art.style.visibility = 'hidden';
+      document.getElementById('spBarFill').style.width = '0%';
+      document.getElementById('spCurrent').textContent = '0:00';
+      document.getElementById('spDuration').textContent = '0:00';
+    }
+
+    var SC_URLS = [
+      'https://soundcloud.com/16raheem',
+      'https://soundcloud.com/wodiene',
+      'https://soundcloud.com/user-594012416',
+      'https://soundcloud.com/freewaveguider'
     ];
 
-    const spAudio    = new Audio();
-    spAudio.volume   = 0.8;
-    let spIdx        = -1;
-    let spPlaying    = false;
-
-    const spArtEl    = document.getElementById('spArt');
-    const spTitleEl  = document.getElementById('spTitle');
-    const spArtistEl = document.getElementById('spArtist');
-    const spPlayBtn  = document.getElementById('spPlayBtn');
-    const spBarFill  = document.getElementById('spBarFill');
-    const spBarTrack = document.getElementById('spBarTrack');
-    const spCurrent  = document.getElementById('spCurrent');
-    const spDuration = document.getElementById('spDuration');
-    const spTrackList= document.getElementById('spTrackList');
-
-    function spFmt(s) { if (!s || isNaN(s)) return '0:00'; return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`; }
-
-    function spBuildList() {
-      spTrackList.innerHTML = '';
-      SP_TRACKS.forEach((t, i) => {
-        const row = document.createElement('div');
-        row.className = 'sp-track-row'; row.id = `sp-row-${i}`;
-        row.innerHTML = `<span class="sp-row-num">${String(i+1).padStart(2,'0')}</span><img class="sp-row-art" src="${t.art}" alt=""><div class="sp-row-info"><div class="sp-row-title">${t.title}</div><div class="sp-row-meta">${t.artist}</div></div><span class="sp-row-dur" id="sp-dur-${i}">--:--</span>`;
-        row.addEventListener('click', () => spLoad(i, true));
-        spTrackList.appendChild(row);
-      });
+    function scCreateIframe(idx) {
+      if (document.getElementById('sc-player-' + idx)) return; // already exists
+      var el = document.createElement('iframe');
+      el.id = 'sc-player-' + idx;
+      el.src = SC_BASE + encodeURIComponent(SC_URLS[idx]);
+      el.style.cssText = 'position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:0;';
+      el.allow = 'autoplay';
+      document.body.appendChild(el);
     }
 
-    function spLoad(idx, autoplay = false) {
-      if (spIdx >= 0) document.getElementById(`sp-row-${spIdx}`)?.classList.remove('active');
-      // also remove active from track cards
-      document.querySelectorAll('.track-card').forEach(c => c.style.outline = '');
-      spIdx = idx;
-      const t = SP_TRACKS[idx];
-      spArtEl.src      = t.art;
-      spTitleEl.textContent  = t.title;
-      spArtistEl.textContent = t.artist;
-      spBarFill.style.width  = '0%';
-      spCurrent.textContent  = '0:00';
-      spDuration.textContent = '--:--';
-      document.getElementById(`sp-row-${idx}`)?.classList.add('active');
-      const card = document.querySelector(`.track-card[data-sp-idx="${idx}"]`);
-      if (card) card.style.outline = '1px solid rgba(167,139,250,0.4)';
-      if (t.previewUrl) {
-        spAudio.src = t.previewUrl;
-        spAudio.load();
-        if (autoplay) spAudio.play().then(() => { spPlaying = true; spUpdateBtn(); }).catch(() => {});
-        else { spPlaying = false; spUpdateBtn(); }
-      } else {
-        spAudio.src = ''; spPlaying = false; spUpdateBtn();
-        spDuration.textContent = '—';
-      }
-    }
+    window.addEventListener('load', function() {
+      // Start only iframe 0 — it gets full bandwidth immediately
+      scMakeWidget(0);
+      scWidget = SC_WIDGETS[0];
 
-    function spToggle() {
-      if (spIdx < 0) { spLoad(0, true); return; }
-      if (!SP_TRACKS[spIdx].previewUrl) { window.open(SP_TRACKS[spIdx].appleUrl, '_blank', 'noopener'); return; }
-      if (spPlaying) { spAudio.pause(); spPlaying = false; }
-      else { spAudio.play().catch(() => {}); spPlaying = true; }
-      spUpdateBtn();
-    }
-    function spPrev() { spLoad(spIdx <= 0 ? SP_TRACKS.length - 1 : spIdx - 1, spPlaying); }
-    function spNext() { spLoad((spIdx + 1) % SP_TRACKS.length, spPlaying); }
-    function spUpdateBtn() { spPlayBtn.textContent = spPlaying ? '&#9646;&#9646; Pause' : '&#9654; Play'; spPlayBtn.innerHTML = spPlaying ? '&#9646;&#9646; Pause' : '&#9654; Play'; spPlayBtn.classList.toggle('playing', spPlaying); }
+      // Stagger the rest so they don't compete with the initial load
+      setTimeout(function() { scCreateIframe(1); scMakeWidget(1); }, 800);
+      setTimeout(function() { scCreateIframe(2); scMakeWidget(2); }, 1600);
+      setTimeout(function() { scCreateIframe(3); scMakeWidget(3); }, 2400);
 
-    spAudio.addEventListener('timeupdate', () => {
-      if (!spAudio.duration) return;
-      spBarFill.style.width = (spAudio.currentTime / spAudio.duration * 100) + '%';
-      spCurrent.textContent = spFmt(spAudio.currentTime);
-    });
-    spAudio.addEventListener('loadedmetadata', () => {
-      spDuration.textContent = spFmt(spAudio.duration);
-      if (spIdx >= 0) document.getElementById(`sp-dur-${spIdx}`).textContent = spFmt(spAudio.duration);
-    });
-    spAudio.addEventListener('ended', spNext);
-    spBarTrack.addEventListener('click', (e) => {
-      if (!spAudio.duration) return;
-      const rect = spBarTrack.getBoundingClientRect();
-      spAudio.currentTime = ((e.clientX - rect.left) / rect.width) * spAudio.duration;
-    });
+      document.querySelectorAll('.sp-tab').forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          document.querySelectorAll('.sp-tab').forEach(function(t) { t.classList.remove('active'); });
+          tab.classList.add('active');
 
-    // Wire track cards to player
-    document.querySelectorAll('.track-card[data-sp-idx]').forEach(card => {
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('a')) return;
-        spLoad(+card.dataset.spIdx, true);
-      });
-      card.style.cursor = 'pointer';
-    });
-
-    // Fetch 30-second preview URLs from iTunes API
-    spBuildList();
-    const ids = SP_TRACKS.map(t => t.itunesId).join(',');
-    fetch(`https://itunes.apple.com/lookup?id=${ids}`)
-      .then(r => r.json())
-      .then(data => {
-        data.results.forEach(item => {
-          const track = SP_TRACKS.find(t => t.itunesId === String(item.trackId));
-          if (track && item.previewUrl) track.previewUrl = item.previewUrl;
+          var idx = +tab.dataset.idx;
+          scResetUI(tab.textContent.trim());
+          scSwitchTo(idx, true);
         });
-        spBuildList();
-      })
-      .catch(() => {});
+      });
+
+      // Mute toggle
+      document.getElementById('spMuteBtn').addEventListener('click', function() {
+        scMuted = !scMuted;
+        if (scWidget) scWidget.setVolume(scMuted ? 0 : scVolume);
+        this.innerHTML = scMuted ? '&#128264;' : '&#128266;';
+      });
+
+      // Minimize toggle
+      document.getElementById('spMinBtn').addEventListener('click', function() {
+        var bar = document.getElementById('sp-bar');
+        var minimized = bar.classList.toggle('minimized');
+        this.innerHTML = minimized ? '&#9650;' : '&#9660;';
+      });
+
+      // Intro click → show player bar + start playback on the first artist
+      var introEl = document.getElementById('intro-screen');
+      function onIntroClick() {
+        scIntroComplete = true;
+        document.getElementById('sp-bar').classList.add('visible');
+        document.getElementById('spMuteBtn').innerHTML = '&#128266;';
+        if (scReady && scWidget) { scWidget.play(); scWidget.getCurrentSound(function(s) { if (s) scUpdateUI(s); }); }
+      }
+      if (introEl) {
+        introEl.addEventListener('click', onIntroClick, { once: true });
+      } else {
+        // No intro (direct page load / refresh past intro) — show immediately
+        setTimeout(onIntroClick, 500);
+      }
+    });
+
+    function scFmt(ms) {
+      var s = Math.floor((ms || 0) / 1000);
+      return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    }
+
+    function scUpdateUI(sound) {
+      var titleEl = document.getElementById('spTitle');
+      var artistEl = document.getElementById('spArtist');
+      var artEl = document.getElementById('spArt');
+      if (titleEl && sound.title) titleEl.textContent = sound.title;
+      if (artistEl) artistEl.textContent = (sound.user && sound.user.username) ? sound.user.username : 'The 4th Kind';
+      if (artEl && sound.artwork_url) {
+        artEl.src = sound.artwork_url.replace('-large', '-t300x300');
+        artEl.style.visibility = '';
+      }
+      scFetchWaveform(sound.waveform_url);
+    }
+
+    function scFetchWaveform(url) {
+      scWaveform = null; scRelPos = 0;
+      if (!url) return;
+      fetch(url)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data || !data.samples || !data.samples.length) return;
+          var max = 0;
+          for (var i = 0; i < data.samples.length; i++) { if (data.samples[i] > max) max = data.samples[i]; }
+          if (max === 0) return;
+          scWaveform = data.samples.map(function(v) { return v / max; });
+        })
+        .catch(function() {});
+    }
+
+    function scUpdateBtn() {
+      var btn = document.getElementById('spPlayBtn');
+      if (!btn) return;
+      btn.innerHTML = scPlaying ? '&#9646;&#9646; Pause' : '&#9654; Play';
+      btn.classList.toggle('playing', scPlaying);
+    }
+
+    function scStartTimer() {
+      scStopTimer();
+      scTimer = setInterval(function() {
+        if (!scWidget) return;
+        scWidget.getPosition(function(pos) {
+          scWidget.getDuration(function(dur) {
+            var fill = document.getElementById('spBarFill');
+            var curEl = document.getElementById('spCurrent');
+            var durEl = document.getElementById('spDuration');
+            if (fill && dur) fill.style.width = (pos / dur * 100).toFixed(1) + '%';
+            if (curEl) curEl.textContent = scFmt(pos);
+            if (durEl) durEl.textContent = scFmt(dur);
+          });
+        });
+      }, 500);
+    }
+
+    function scStopTimer() { if (scTimer) { clearInterval(scTimer); scTimer = null; } }
+
+    // Control listeners deferred until DOM is ready (sp-bar is after this script tag)
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('spPlayBtn').addEventListener('click', function() {
+        if (!scReady) return;
+        if (scPlaying) scWidget.pause();
+        else scWidget.play();
+      });
+      document.getElementById('spPrevBtn').addEventListener('click', function() {
+        if (!scReady) return;
+        scWidget.prev();
+      });
+      document.getElementById('spNextBtn').addEventListener('click', function() {
+        if (!scReady) return;
+        scWidget.next();
+      });
+      document.getElementById('spVolSlider').addEventListener('input', function() {
+        scVolume = +this.value;
+        if (!scMuted && scReady) scWidget.setVolume(scVolume);
+      });
+      document.getElementById('spBarTrack').addEventListener('click', function(e) {
+        if (!scReady) return;
+        var rect = this.getBoundingClientRect();
+        var pct = (e.clientX - rect.left) / rect.width;
+        scWidget.getDuration(function(dur) { scWidget.seekTo(pct * dur); });
+      });
+    });
 
     // Reveal
     const revealObs = new IntersectionObserver((entries) => {
@@ -1197,6 +2349,392 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
     document.querySelectorAll('.reveal, .reveal-grid').forEach(el => revealObs.observe(el));
+
+    // ══════════════════════════════════════════════
+    // TEXT SCRAMBLE DECODE
+    // ══════════════════════════════════════════════
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789—·∙';
+    function scrambleDecode(el, finalText, duration) {
+      let start = null;
+      const len = finalText.length;
+      function step(ts) {
+        if (!start) start = ts;
+        const progress = Math.min(1, (ts - start) / duration);
+        let out = '';
+        for (let i = 0; i < len; i++) {
+          if (i < Math.floor(progress * len)) {
+            out += finalText[i];
+          } else if (finalText[i] === ' ') {
+            out += ' ';
+          } else {
+            out += CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
+        }
+        el.textContent = out;
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = finalText;
+      }
+      requestAnimationFrame(step);
+    }
+
+    const scrambleObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const original = el.dataset.scrambleTarget || el.textContent;
+        el.dataset.scrambleTarget = original;
+        scrambleDecode(el, original, 1100);
+        scrambleObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.exhibit-id, .section-label').forEach(el => {
+      el.dataset.scrambleTarget = el.textContent;
+      scrambleObs.observe(el);
+    });
+
+    // ══════════════════════════════════════════════
+    // CURSOR GLOW
+    // ══════════════════════════════════════════════
+    (function() {
+      const glow = document.getElementById('cursor-glow');
+      if (!glow) return;
+      let cx = -999, cy = -999, glowX = -999, glowY = -999;
+      window.addEventListener('mousemove', function(e) { cx = e.clientX; cy = e.clientY; }, { passive: true });
+      function animGlow() {
+        glowX += (cx - glowX) * 0.09;
+        glowY += (cy - glowY) * 0.09;
+        glow.style.transform = 'translate(' + glowX + 'px,' + glowY + 'px)';
+        requestAnimationFrame(animGlow);
+      }
+      requestAnimationFrame(animGlow);
+    })();
+
+    // ══════════════════════════════════════════════
+    // EXHIBIT PROGRESS BAR
+    // ══════════════════════════════════════════════
+    (function() {
+      const fill = document.getElementById('exhibit-fill');
+      if (!fill) return;
+      function updateProgress() {
+        const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
+        fill.style.height = Math.min(100, (window.scrollY / max) * 100).toFixed(1) + '%';
+      }
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    })();
+
+    // ══════════════════════════════════════════════
+    // SECTION WARP FLASH
+    // ══════════════════════════════════════════════
+    (function() {
+      const flash = document.getElementById('warp-flash');
+      if (!flash) return;
+      const sections = Array.from(document.querySelectorAll('.depth-section'));
+      let lastSection = null, cooldown = false;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting || e.target === lastSection || cooldown) return;
+          lastSection = e.target;
+          cooldown = true;
+          flash.classList.remove('flash');
+          void flash.offsetWidth;
+          flash.classList.add('flash');
+          setTimeout(function() { flash.classList.remove('flash'); cooldown = false; }, 600);
+        });
+      }, { threshold: 0.4 });
+      sections.forEach(s => obs.observe(s));
+    })();
+
+    // ══════════════════════════════════════════════
+    // AUDIO VISUALIZER — real SoundCloud waveform data
+    // ══════════════════════════════════════════════
+    (function() {
+      var canvas = document.getElementById('viz-canvas');
+      if (!canvas) return;
+      var ctx2d = canvas.getContext('2d');
+      var BARS = 40;
+      var smoothed = new Float32Array(BARS);
+      var phases = new Float32Array(BARS);
+      for (var i = 0; i < BARS; i++) phases[i] = i * 0.38 + Math.random();
+
+      function draw() {
+        requestAnimationFrame(draw);
+        var W = canvas.width, H = canvas.height;
+        ctx2d.clearRect(0, 0, W, H);
+        var barW = W / BARS;
+        var half = Math.floor(BARS / 2);
+
+        for (var i = 0; i < BARS; i++) {
+          var target;
+          if (scWaveform && scWaveform.length && scPlaying) {
+            // Real waveform: show a window of samples around current position
+            var N = scWaveform.length;
+            var centerIdx = Math.floor(scRelPos * N);
+            var idx = Math.max(0, Math.min(N - 1, centerIdx - half + i));
+            target = scWaveform[idx];
+          } else if (scPlaying) {
+            // Fallback while waveform loads
+            phases[i] += 0.028;
+            target = Math.max(0.05, (Math.sin(phases[i]) * 0.4 + Math.sin(phases[i] * 0.41) * 0.25 + 0.4));
+          } else {
+            // Decay to silence when paused
+            target = 0;
+          }
+
+          smoothed[i] += (target - smoothed[i]) * (scPlaying ? 0.22 : 0.08);
+          var v = smoothed[i];
+          if (v < 0.005) continue;
+
+          var barH = Math.max(2, v * H * 0.9);
+          var dist = Math.abs(i - half) / half;
+          var alpha = (0.45 + v * 0.55) * (1 - dist * 0.35);
+          var hue = 256 + v * 42;
+          ctx2d.fillStyle = 'hsla(' + hue.toFixed(0) + ',78%,' + (46 + v * 32).toFixed(0) + '%,' + alpha.toFixed(3) + ')';
+          ctx2d.fillRect(i * barW + 1, H - barH, barW - 2, barH);
+        }
+      }
+
+      canvas.classList.add('active');
+      draw();
+    })();
+
+    // ══════════════════════════════════════════════
+    // STAR MAP CONSTELLATION
+    // ══════════════════════════════════════════════
+    (function() {
+      const canvas = document.getElementById('star-map');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const members = [
+        { name: '16RAHEEM',     x: 0.22, y: 0.38 },
+        { name: 'Wodiene',      x: 0.48, y: 0.62 },
+        { name: 'Jsteezzy',     x: 0.72, y: 0.28 },
+        { name: 'Freewave Ant', x: 0.58, y: 0.74 }
+      ];
+      const connections = [[0,1],[1,2],[2,3],[3,0],[0,2]];
+
+      function resize() {
+        canvas.width  = canvas.offsetWidth  * (window.devicePixelRatio || 1);
+        canvas.height = canvas.offsetHeight * (window.devicePixelRatio || 1);
+        ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+      }
+
+      function draw(t) {
+        const W = canvas.offsetWidth, H = canvas.offsetHeight;
+        ctx.clearRect(0, 0, W, H);
+        ctx.strokeStyle = 'rgba(167,139,250,0.18)';
+        ctx.lineWidth = 1;
+        connections.forEach(function(c) {
+          const a = members[c[0]], b = members[c[1]];
+          ctx.beginPath();
+          ctx.moveTo(a.x * W, a.y * H);
+          ctx.lineTo(b.x * W, b.y * H);
+          ctx.stroke();
+        });
+        members.forEach(function(m, i) {
+          const px = m.x * W, py = m.y * H;
+          const pulse = 0.7 + 0.3 * Math.sin(t * 0.001 + i * 1.4);
+          const grad = ctx.createRadialGradient(px, py, 0, px, py, 14 * pulse);
+          grad.addColorStop(0, 'rgba(167,139,250,0.5)');
+          grad.addColorStop(1, 'rgba(167,139,250,0)');
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(px, py, 14 * pulse, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = 'rgba(220,210,255,0.92)';
+          ctx.beginPath();
+          ctx.arc(px, py, 3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = 'rgba(167,139,250,0.55)';
+          ctx.font = '500 9px Raleway, sans-serif';
+          ctx.textAlign = px < W * 0.5 ? 'left' : 'right';
+          ctx.fillText(m.name.toUpperCase(), px < W * 0.5 ? px + 12 : px - 12, py + 4);
+        });
+      }
+
+      function animate(t) { draw(t); requestAnimationFrame(animate); }
+      window.addEventListener('resize', function() { resize(); draw(0); }, { passive: true });
+      resize();
+      requestAnimationFrame(animate);
+    })();
+
+    // ══════════════════════════════════════════════
+    // CHAPTER SCROLL EXPERIENCE
+    // ══════════════════════════════════════════════
+    (function() {
+      const section = document.getElementById('about');
+      if (!section) return;
+      const chapters = section.querySelectorAll('.manifesto-chapter');
+      const dots = section.querySelectorAll('.chapter-dot');
+      const bar = document.getElementById('chapterBar');
+      const N = chapters.length;
+      let current = -1;
+
+      function showChapter(i) {
+        if (i === current) return;
+        current = i;
+        chapters.forEach(function(c, idx) { c.classList.toggle('active', idx === i); });
+        dots.forEach(function(d, idx) { d.classList.toggle('active', idx === i); });
+      }
+
+      function update() {
+        const rect = section.getBoundingClientRect();
+        const scrolled = -rect.top;
+        const total = section.offsetHeight - window.innerHeight;
+        if (scrolled < 0 || scrolled > total + window.innerHeight) return;
+        const pct = Math.max(0, Math.min(1, scrolled / total));
+        const idx = Math.min(N - 1, Math.floor(pct * N));
+        if (bar) bar.style.width = (pct * 100).toFixed(1) + '%';
+        showChapter(idx);
+      }
+
+      dots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+          const target = parseInt(dot.dataset.target);
+          const total = section.offsetHeight - window.innerHeight;
+          window.scrollTo({ top: section.offsetTop + (target / N) * total + 1, behavior: 'smooth' });
+        });
+      });
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
   </script>
+
+  <iframe id="sc-player-0" src="https://w.soundcloud.com/player/?auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&url=https%3A//soundcloud.com/16raheem" style="position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:0;" allow="autoplay"></iframe>
+  <script src="https://w.soundcloud.com/player/api.js"></script>
+
+  <!-- Photo Lightbox -->
+  <div id="photo-lightbox" aria-hidden="true" role="dialog" aria-modal="true">
+    <button id="lb-close" aria-label="Close">&times;</button>
+    <button id="lb-prev" aria-label="Previous">&#8249;</button>
+    <button id="lb-next" aria-label="Next">&#8250;</button>
+    <div id="lb-img-wrap"><img id="lb-img" src="" alt=""></div>
+    <p id="lb-caption"></p>
+  </div>
+
+  <script>
+    // ══════════════════════════════════════════════
+    // 1. 3D CARD TILT
+    // ══════════════════════════════════════════════
+    document.querySelectorAll('.member-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(720px) rotateY(' + (x * 14) + 'deg) rotateX(' + (-y * 10) + 'deg) scale(1.025)';
+        var av = card.querySelector('.member-avatar');
+        if (av) av.style.boxShadow = '0 0 ' + (20 + Math.abs(x) * 22) + 'px rgba(167,139,250,' + (0.28 + Math.abs(x) * 0.36) + ')';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = '';
+        var av = card.querySelector('.member-avatar');
+        if (av) av.style.boxShadow = '';
+      });
+    });
+
+    // ══════════════════════════════════════════════
+    // 2. HERO GLITCH
+    // ══════════════════════════════════════════════
+    (function() {
+      var title = document.querySelector('.hero-title');
+      if (!title) return;
+      function glitch() {
+        title.classList.add('glitching');
+        setTimeout(function() { title.classList.remove('glitching'); }, 340);
+        setTimeout(glitch, 4200 + Math.random() * 5800);
+      }
+      setTimeout(glitch, 3500 + Math.random() * 2000);
+    })();
+
+    // autoplay handled directly in READY event handler
+
+    // ══════════════════════════════════════════════
+    // 4. PHOTO LIGHTBOX
+    // ══════════════════════════════════════════════
+    (function() {
+      var photos = Array.from(document.querySelectorAll('.photo-item img'));
+      var lb = document.getElementById('photo-lightbox');
+      var lbImg = document.getElementById('lb-img');
+      var lbCap = document.getElementById('lb-caption');
+      var cur = 0;
+      function open(i) {
+        cur = i;
+        lbImg.src = photos[i].src;
+        lbImg.alt = photos[i].alt;
+        lbCap.textContent = photos[i].alt;
+        lb.classList.add('open');
+        lb.removeAttribute('aria-hidden');
+        document.body.style.overflow = 'hidden';
+      }
+      function close() {
+        lb.classList.remove('open');
+        lb.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      photos.forEach(function(img, i) {
+        img.parentElement.addEventListener('click', function() { open(i); });
+      });
+      document.getElementById('lb-close').addEventListener('click', close);
+      document.getElementById('lb-prev').addEventListener('click', function() { open((cur - 1 + photos.length) % photos.length); });
+      document.getElementById('lb-next').addEventListener('click', function() { open((cur + 1) % photos.length); });
+      lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+      document.addEventListener('keydown', function(e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft')  open((cur - 1 + photos.length) % photos.length);
+        if (e.key === 'ArrowRight') open((cur + 1) % photos.length);
+      });
+    })();
+
+    // ══════════════════════════════════════════════
+    // 5. SPINNING ART WHEN PLAYING
+    // ══════════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', function() {
+      var art = document.getElementById('spArt');
+      var playBtn = document.getElementById('spPlayBtn');
+      if (!art || !playBtn) return;
+      new MutationObserver(function() {
+        art.classList.toggle('spinning', scPlaying);
+      }).observe(playBtn, { attributes: true, attributeFilter: ['class'] });
+    });
+  </script>
+
+  <!-- ─── Fixed bottom music bar ─── -->
+  <div id="sp-bar">
+    <div class="sp-bar-main">
+      <img class="sp-art" id="spArt" src="" alt="The 4th Kind">
+      <div class="sp-info">
+        <div class="sp-title" id="spTitle">The 4th Kind</div>
+        <div class="sp-artist" id="spArtist">Loading…</div>
+      </div>
+      <div class="sp-bar-controls">
+        <button class="sp-btn" id="spPrevBtn">&#10216;&#10216;</button>
+        <button class="sp-btn sp-play" id="spPlayBtn">&#9654;</button>
+        <button class="sp-btn" id="spNextBtn">&#10217;&#10217;</button>
+      </div>
+      <canvas id="viz-canvas" width="600" height="44" aria-hidden="true"></canvas>
+      <div class="sp-bar-right">
+        <button id="spMuteBtn" class="sp-icon-btn" title="Unmute">&#128264;</button>
+        <input type="range" min="0" max="100" step="5" value="80" id="spVolSlider">
+        <button id="spMinBtn" class="sp-icon-btn" title="Minimize">&#9660;</button>
+      </div>
+    </div>
+    <div class="sp-bar-foot">
+      <div class="sp-progress-row">
+        <span id="spCurrent">0:00</span>
+        <div class="sp-bar-track" id="spBarTrack"><div class="sp-bar-fill" id="spBarFill"></div></div>
+        <span id="spDuration">0:00</span>
+      </div>
+      <div class="sp-tabs">
+        <button class="sp-tab active" data-idx="0">16RAHEEM</button>
+        <button class="sp-tab" data-idx="1">Wodiene</button>
+        <button class="sp-tab" data-idx="2">Jsteezzy</button>
+        <button class="sp-tab" data-idx="3">Freewave Ant</button>
+      </div>
+    </div>
+  </div>
+
+
 </body>
 </html>

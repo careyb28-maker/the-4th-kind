@@ -371,6 +371,99 @@
   scene.add(haloMesh);
 
   // ─────────────────────────────────────────────────
+  // WIREFRAME ARTIFACTS  (desktop only)
+  // Holographic scientific models — museum exhibit feel
+  // ─────────────────────────────────────────────────
+
+  var artifacts = [];
+
+  if (!isMobile) {
+    // Geodesic crystal — upper right
+    var icoGeo   = new THREE.IcosahedronGeometry(0.72, 2);
+    var icoEdges = new THREE.EdgesGeometry(icoGeo);
+    var icoMat   = new THREE.LineBasicMaterial({ color: 0xa78bfa, transparent: true, opacity: 0.22 });
+    var icoMesh  = new THREE.LineSegments(icoEdges, icoMat);
+    icoMesh.position.set(3.8, 1.6, -4.0);
+    scene.add(icoMesh);
+    artifacts.push({ mesh: icoMesh, rx: 0.0028, ry: 0.0042, rz: 0,     baseY: 1.6,  sf: 0.0005 });
+
+    // Octahedron — lower left
+    var octGeo   = new THREE.OctahedronGeometry(0.62);
+    var octEdges = new THREE.EdgesGeometry(octGeo);
+    var octMat   = new THREE.LineBasicMaterial({ color: 0xc084fc, transparent: true, opacity: 0.18 });
+    var octMesh  = new THREE.LineSegments(octEdges, octMat);
+    octMesh.position.set(-4.2, -1.2, -4.5);
+    scene.add(octMesh);
+    artifacts.push({ mesh: octMesh, rx: -0.0038, ry: 0.0024, rz: 0,    baseY: -1.2, sf: 0.0004 });
+
+    // Orbit torus — lower right
+    var torGeo   = new THREE.TorusGeometry(0.88, 0.016, 6, 60);
+    var torWire  = new THREE.WireframeGeometry(torGeo);
+    var torMat   = new THREE.LineBasicMaterial({ color: 0x7c3aed, transparent: true, opacity: 0.16 });
+    var torMesh  = new THREE.LineSegments(torWire, torMat);
+    torMesh.position.set(2.8, -2.4, -5.5);
+    torMesh.rotation.x = 0.5;
+    scene.add(torMesh);
+    artifacts.push({ mesh: torMesh, rx: 0,       ry: 0.005,  rz: 0.003, baseY: -2.4, sf: 0.0007 });
+
+    // Tetrahedron — top left background
+    var tetGeo   = new THREE.TetrahedronGeometry(0.52);
+    var tetEdges = new THREE.EdgesGeometry(tetGeo);
+    var tetMat   = new THREE.LineBasicMaterial({ color: 0x818cf8, transparent: true, opacity: 0.15 });
+    var tetMesh  = new THREE.LineSegments(tetEdges, tetMat);
+    tetMesh.position.set(-3.2, 2.8, -5.2);
+    scene.add(tetMesh);
+    artifacts.push({ mesh: tetMesh, rx: 0.005,   ry: -0.003, rz: 0.002, baseY: 2.8,  sf: 0.0003 });
+
+    // ── Vinyl record ──
+    var vinylVert = [
+      'varying vec2 vUv;',
+      'void main() {',
+      '  vUv = uv;',
+      '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
+      '}'
+    ].join('\n');
+
+    var vinylFrag = [
+      'uniform float uTime;',
+      'varying vec2 vUv;',
+      'void main() {',
+      '  vec2 uv = vUv - vec2(0.5);',
+      '  float r = length(uv);',
+      '  if (r > 0.49) discard;',
+      '  if (r < 0.022) discard;',
+      '  if (r < 0.105) {',
+      '    gl_FragColor = vec4(0.26, 0.09, 0.46, 0.90);',
+      '    return;',
+      '  }',
+      '  float groove = fract(r * 52.0);',
+      '  float grooveLine = smoothstep(0.0, 0.28, groove) * (1.0 - smoothstep(0.72, 1.0, groove));',
+      '  vec3 base = vec3(0.05, 0.03, 0.09);',
+      '  vec3 col = mix(base, vec3(0.12, 0.07, 0.20), grooveLine * 0.5);',
+      '  float angle = atan(uv.y, uv.x);',
+      '  float sheen = pow(max(0.0, sin(angle + uTime * 0.45)), 4.0) * 0.45 * (1.0 - r * 1.6);',
+      '  col += vec3(0.30, 0.06, 0.58) * sheen;',
+      '  gl_FragColor = vec4(col, 0.88);',
+      '}'
+    ].join('\n');
+
+    var vinylMat = new THREE.ShaderMaterial({
+      vertexShader: vinylVert,
+      fragmentShader: vinylFrag,
+      uniforms: { uTime: { value: 0 } },
+      transparent: true,
+      depthWrite: false,
+      side: THREE.DoubleSide
+    });
+
+    var vinyl = new THREE.Mesh(new THREE.CircleGeometry(1.2, 72), vinylMat);
+    vinyl.position.set(-3.0, 0.6, -4.2);
+    vinyl.rotation.x = 0.28;
+    vinyl.rotation.z = 0.12;
+    scene.add(vinyl);
+  }
+
+  // ─────────────────────────────────────────────────
   // EVENT LISTENERS
   // ─────────────────────────────────────────────────
 
@@ -417,6 +510,22 @@
     haloUniforms.uTime.value   = t;
     haloUniforms.uScroll.value = scrollY;
     haloUniforms.uMouse.value.set(mouseX, mouseY);
+
+    // Animate vinyl
+    if (vinyl) {
+      vinyl.rotation.y += 0.007;
+      vinylMat.uniforms.uTime.value = t;
+      vinyl.position.y = 0.6 - scrollY * 0.00055;
+    }
+
+    // Animate wireframe artifacts
+    for (var ai = 0; ai < artifacts.length; ai++) {
+      var a = artifacts[ai];
+      if (a.rx) a.mesh.rotation.x += a.rx;
+      if (a.ry) a.mesh.rotation.y += a.ry;
+      if (a.rz) a.mesh.rotation.z += a.rz;
+      a.mesh.position.y = a.baseY - scrollY * a.sf;
+    }
 
     renderer.render(scene, camera);
   }
