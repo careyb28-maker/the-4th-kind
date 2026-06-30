@@ -1461,7 +1461,7 @@
       z-index: 3;
       max-width: 880px;
       margin-left: clamp(2rem, 7vw, 7rem);
-      padding-bottom: clamp(2.5rem, 7vh, 5rem);
+      padding-bottom: clamp(8.5rem, 18vh, 12rem);
       transform: translateY(30px);
       opacity: 0;
       transition: transform 0.95s cubic-bezier(0.22,0.61,0.36,1) 0.28s,
@@ -1549,7 +1549,7 @@
     .chapter-dot:hover:not(.active) { background: rgba(167,139,250,0.5); }
     #chapterBar {
       position: absolute;
-      bottom: 0; left: 0;
+      bottom: 98px; left: 0;
       height: 2px; width: 0%;
       background: linear-gradient(to right, rgba(167,139,250,0.75), rgba(124,58,237,0.35));
       z-index: 10;
@@ -1569,7 +1569,11 @@
     }
     @media (max-width: 768px) {
       #about { height: 800vh; }
-      .chapter-content { max-width: calc(100% - 4rem); margin-left: 2rem; }
+      .chapter-content {
+        max-width: calc(100% - 4rem);
+        margin-left: 2rem;
+        padding-bottom: clamp(10rem, 25vh, 14rem);
+      }
       .chapter-nav { right: 0.8rem; }
     }
   </style>
